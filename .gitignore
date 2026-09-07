@@ -1,0 +1,7 @@
+# 수집 인증키는 절대 커밋하지 않는다
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/

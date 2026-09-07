@@ -13,6 +13,11 @@
     export DATA_GO_KR_KEY="발급받은 Decoding 인증키"
     python3 scripts/collect_datago.py --days 7
 
+네트워크 실측 (2026-09, 이 저장소 기준):
+  apis.data.go.kr 은 egress 허용목록에 넣어도 릴레이 터널이 자주 끊긴다 — 동일 요청 8회 중
+  3회만 원 서버에 도달했다(약 38%). 그래서 fetch() 가 지수 백오프로 6회까지 재시도한다.
+  로컬 PC에서 실행하면 이 문제가 없다.
+
 실행 위치 (중요):
   이 스크립트는 **사용자 로컬 PC에서 실행하는 것을 전제**로 한다. Claude Code 클라우드
   세션의 egress 정책에서는 apis.data.go.kr 터널이 간헐적으로만 열리고(성공/리셋이 뒤섞임)
@@ -105,7 +110,7 @@ def _http_get(full_url: str, timeout: int) -> str | None:
         return None
 
 
-def fetch(url: str, params: dict, timeout: int = 30, retries: int = 4) -> dict | None:
+def fetch(url: str, params: dict, timeout: int = 30, retries: int = 6) -> dict | None:
     full = f"{url}?{urllib.parse.urlencode(params, doseq=True)}"
     raw = None
     for attempt in range(1, retries + 1):

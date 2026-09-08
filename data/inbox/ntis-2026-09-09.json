@@ -1,0 +1,9 @@
+{
+  "source": "NTIS 국가R&D통합공고",
+  "collected_at": "2026-09-09",
+  "queried_years": [
+    "2026"
+  ],
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": []
+}

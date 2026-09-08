@@ -21,7 +21,8 @@
 | `data/policy_items.json` | 누적 DB. 정책·사업 항목 + **분석 4필드**를 append-only로 저장 |
 | `data/schema.md` | 스키마 및 작성 규칙 |
 | `data/inbox/` | 수집기가 만든 **검토 대기 후보** (분석 전) |
-| `scripts/collect_datago.py` | 공공데이터포털 API 수집기 (레이어 A) |
+| `.github/workflows/collect-ntis.yml` | 매일 07:00 KST 자동 수집 (GitHub Actions) |
+| `scripts/collect_ntis.py` | NTIS 국가R&D통합공고 수집기 |
 | `scripts/generate_dashboard.py` | DB → `artifact/dashboard.html` 생성기 |
 | `artifact/dashboard.html` | 생성된 대시보드 (Claude Artifact로 발행) |
 | `docs/POLICY_BRIEFING_PLAYBOOK.md` | 매일 자동 실행되는 세션이 따르는 절차 |
@@ -39,27 +40,43 @@
 `stage`는 정부 R&D의 실제 진행 순서라서 대시보드에서 파이프라인으로 표시됩니다.
 앞단 항목일수록 대응 시간이 길어 가치가 큽니다.
 
-## 수집 경로 — 그리고 무엇이 막혀 있는지
+## 수집 경로
 
-정부 데이터 소스는 접근성이 제각각입니다. 실제로 확인한 결과는 다음과 같습니다.
+수집과 분석을 분리했습니다. **수집은 토큰을 쓰지 않고, 분석만 씁니다.**
 
-| 소스 | 상태 |
-|---|---|
-| `apis.data.go.kr` (공공데이터포털 API 게이트웨이) | 인증키로 호출 가능. **클라우드 세션에서는 터널이 간헐적** — 로컬 실행 권장 |
-| NTIS 국가R&D통합공고 | 전 부처 R&D 공고 통합 창구. OpenAPI는 신청·승인 필요 |
-| IRIS (범부처통합연구지원시스템) | 공고 원문·RFP. 공개 OpenAPI 없음 |
-| SROME / KEIT | 산업부 R&D 공고. 공개 OpenAPI 없음 |
-| 빅카인즈 | OpenAPI가 **기관 업무협약 + 승인** 전제라 개인 자격으로는 사실상 어려움 |
-| 열린재정, KISTEP 예타 | 신규사업 예산·예타의 선행지표. API 없음 |
+| 단계 | 담당 | 시각 | 비용 |
+|---|---|---|---|
+| NTIS 국가R&D통합공고 수집 | GitHub Actions | 매일 07:00 KST | 토큰 0 (curl + 정규식) |
+| 정책·예타·계획 보완 수집 | Claude 세션의 WebSearch | 08:00 KST | 검색 몇 회 |
+| 분석 + 대시보드 갱신 | Claude 세션 | 08:00 KST | 신규 건수에 비례 |
 
-**Claude Code 클라우드 세션의 egress 정책에서는 `apis.data.go.kr`을 제외한 위 도메인이
-전부 403으로 차단됩니다.** 그래서 파이프라인을 세 층으로 나눴습니다.
+그래서 매일 돌려도 부담이 없습니다. 신규 공고가 없는 날은 Actions가 커밋조차 만들지
+않고, 그런 날 Claude가 할 일도 없습니다.
 
-- **레이어 A (API)** — `scripts/collect_datago.py`. 부처 보도자료 + 나라장터 용역공고.
-  **사용자 로컬 PC에서 실행**하는 것을 전제로 합니다.
-- **레이어 B (검색)** — 자동화 세션이 WebSearch로 NTIS·IRIS·SROME 공고, 예타 통과,
-  업무계획을 포착합니다. 차단 도메인을 우회하지 않으면서 커버하는 경로입니다.
-- **레이어 C (분석)** — Claude가 각 항목의 `analysis` 4필드를 작성합니다.
+수동으로 돌리고 싶으면 GitHub 저장소의 **Actions 탭 → NTIS 공고 수집 → Run workflow**
+를 누르면 됩니다.
+
+### NTIS를 어떻게 긁는가 (그리고 왜 이렇게 하는가)
+
+- NTIS 통합공고 검색은 **서버 렌더링**이라 HTML만 받아도 공고ID·제목·소관부처·접수기간이
+  전부 들어 있습니다. 상세 페이지를 열 필요가 없습니다.
+- 검색 결과는 **키워드당 10건 고정**이고 최신순이 아니라 **관련도순**입니다. `자율주행`으로
+  검색하면 2017년 공고가 상단에 나옵니다 (실측 0/10이 최신).
+- 해결책은 **질의에 연도를 붙이는 것**입니다. `2026 자율주행`은 10/10, `2026년도 자동차`는
+  8/8이 2026년 공고였습니다. 키워드 14개 × 어미 2종으로 질의를 펼칩니다.
+- 같은 사업의 `(재공고)`·`(수정공고)`·`(연장공고)`는 각각 다른 ID로 올라오므로 제목을
+  정규화해 접수기간이 가장 늦은 1건만 남깁니다.
+
+### 접근이 막히는 것들
+
+- **NTIS·IRIS·SROME는 curl로만 열립니다.** Python `requests`/`urllib`과 헤드리스
+  Chromium은 연결이 리셋됩니다 (특정 TLS 클라이언트만 받는 것으로 보임).
+- **WebFetch에는 환경의 egress 허용목록이 적용되지 않습니다.** 허용목록에 `*.go.kr`을
+  넣어도 WebFetch는 여전히 차단되므로, Claude 세션이 NTIS를 직접 읽을 수는 없습니다.
+  수집을 GitHub Actions에 맡긴 이유가 이것입니다.
+- 빅카인즈 OpenAPI는 기관 업무협약·승인이 전제라 개인 자격으로는 사실상 어렵습니다.
+- 나라장터·부처 보도자료 API는 검토했지만 채택하지 않았습니다 (용역 입찰 위주라 노이즈가
+  크고, 보도자료 API는 모빌리티 주무부처가 빠져 있음). 관련 코드는 git 히스토리에 있습니다.
 
 ## 수동 실행
 
@@ -67,35 +84,31 @@
 # 대시보드 재생성 (DB를 직접 편집한 뒤)
 python3 scripts/generate_dashboard.py
 
-# 공공데이터포털 수집 (로컬 PC 권장)
-export DATA_GO_KR_KEY='data.go.kr에서 발급받은 Decoding 인증키'
-python3 scripts/collect_datago.py --days 7
+# NTIS 수집을 직접 돌려보기
+python3 scripts/collect_ntis.py            # 올해 공고
+python3 scripts/collect_ntis.py --stdout   # 파일로 저장하지 않고 출력만
 ```
 
-수집기는 `data/inbox/YYYY-MM-DD.json`에 **후보만** 저장합니다. 분석은 판단이 필요하므로
-Claude 세션이 후보를 검토해 `data/policy_items.json`으로 승격시킵니다.
-
-### 인증키 준비
-
-1. https://www.data.go.kr 가입
-2. 필요한 API마다 **활용신청** (키는 API별로 활성화됩니다)
-   - 조달청_나라장터 입찰공고정보서비스 (`15129394`)
-   - 부처 보도자료 데이터셋 (예: 과학기술정보통신부_보도자료 `15074632`)
-3. 마이페이지에서 **Decoding** 인증키를 복사해 `DATA_GO_KR_KEY`로 전달
-
-인증키는 저장소에 커밋하지 않습니다 — 환경변수로만 넘깁니다.
-보도자료 API는 활용신청 후 상세 페이지에 표시되는 정확한 요청 URL을
-`scripts/collect_datago.py`의 `PRESS_SOURCES`에 채워 넣으면 활성화됩니다.
+수집기는 `data/inbox/ntis-YYYY-MM-DD.json`에 **후보만** 저장합니다. 분석은 판단이
+필요하므로 Claude 세션이 후보를 검토해 `data/policy_items.json`으로 승격시킵니다.
 
 ## 자동화 방식
 
-- Claude Code Remote의 **Routine**이 매일 08:00 KST에 전용 세션을 깨웁니다.
-- 그 세션이 `docs/POLICY_BRIEFING_PLAYBOOK.md` 절차대로 수집 → 분석 → DB 갱신 →
-  대시보드 재생성 → 재배포를 수행합니다.
-- 변경사항은 `data-sync/YYYY-MM-DD` 브랜치로 커밋된 뒤 PR을 통해 `main`으로 병합됩니다
-  (직접 푸시가 막혀 있어 PR을 병합 수단으로만 사용).
-- 자동화 세션은 **Bash를 호출하지 않습니다** — 승인 대기로 영구 정지되기 때문입니다.
-  따라서 위 두 스크립트는 사람이 로컬에서 실행할 때만 사용합니다.
+하루에 두 단계가 순서대로 돕니다.
+
+1. **07:00 KST — GitHub Actions**가 `scripts/collect_ntis.py`를 실행해 NTIS 신규 공고를
+   `data/inbox/`에 커밋합니다. 토큰을 쓰지 않습니다.
+2. **08:00 KST — Claude Routine**이 전용 세션을 깨워
+   `docs/POLICY_BRIEFING_PLAYBOOK.md` 절차대로 진행합니다: `data/inbox/`를 읽고,
+   WebSearch로 정책·예타를 보완하고, 분석 4필드를 채워 DB에 append하고, 대시보드를
+   갱신해 같은 아티팩트 URL로 재배포합니다.
+
+변경사항은 `data-sync/YYYY-MM-DD` 브랜치로 커밋된 뒤 PR을 통해 `main`으로 병합됩니다
+(직접 푸시가 막혀 있어 PR을 병합 수단으로만 사용).
+
+자동화 세션은 **Bash를 호출하지 않습니다** — 승인 대기로 영구 정지되기 때문입니다.
+수집 스크립트를 GitHub Actions에 맡긴 이유가 이것입니다. 사람이 로컬에서 직접
+돌리는 것은 물론 가능합니다.
 
 ## 연혁
 

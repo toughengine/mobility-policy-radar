@@ -1,0 +1,65 @@
+name: NTIS 공고 수집
+
+# 수집은 토큰을 쓰지 않는다 (curl + 정규식). 그래서 매일 돌려도 비용이 없다.
+# 토큰이 드는 것은 이후 Claude 세션이 하는 '분석'뿐이고, 그것은 신규 공고 건수에만 비례한다.
+#
+# 이 워크플로가 GitHub에서 도는 이유:
+#   * Claude 자동화 세션은 Bash를 쓸 수 없다 (승인 대기로 멈춘다).
+#   * WebFetch는 egress 허용목록이 적용되지 않아 NTIS가 차단된다.
+#   * 그래서 수집만 GitHub 러너에게 맡기고, Claude는 결과를 읽어 분석만 한다.
+
+on:
+  schedule:
+    # 매일 07:00 KST (= 전날 22:00 UTC). 08:00 KST 브리핑 세션보다 한 시간 앞선다.
+    - cron: "0 22 * * *"
+  workflow_dispatch:        # Actions 탭에서 수동 실행 ("지금 수집" 버튼 역할)
+
+permissions:
+  contents: write
+
+concurrency:
+  group: collect-ntis
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: NTIS 국가R&D통합공고 수집
+        id: collect
+        run: python scripts/collect_ntis.py | tee collect.log
+
+      - name: 신규 후보 수 확인
+        id: count
+        run: |
+          n=$(python -c 'import json,pathlib,sys; f=sorted(pathlib.Path("data/inbox").glob("ntis-*.json")); print(len(json.loads(f[-1].read_text(encoding="utf-8"))["candidates"]) if f else 0)')
+          echo "count=$n" >> "$GITHUB_OUTPUT"
+          echo "신규 후보 $n건"
+
+      - name: 결과 커밋
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/inbox
+          if git diff --staged --quiet; then
+            echo "변경 없음 — 커밋 생략 (신규 공고가 없는 날은 정상이다)"
+          else
+            git commit -m "NTIS 수집: $(date -u -d '+9 hours' +%Y-%m-%d) (신규 ${{ steps.count.outputs.count }}건)"
+            git push
+          fi
+
+      - name: 수집 로그 요약
+        if: always()
+        run: |
+          echo "### NTIS 수집 결과" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          tail -20 collect.log >> "$GITHUB_STEP_SUMMARY" 2>/dev/null || echo "(로그 없음)" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"

@@ -1,561 +1,472 @@
-<title>모빌리티 정책·사업 브리프</title>
+<title>모빌리티 브리프</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Noto+Serif+KR:wght@500;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --paper:#eef1f4;
-    --surface:#fbfcfd;
-    --surface-2:#f2f5f8;
-    --ink:#16202b;
-    --ink-2:#3d4c5a;
-    --muted:#6b7d8d;
-    --line:#d9e0e7;
-    --line-strong:#c2ccd6;
-    --accent:#1f6f7a;
-    --accent-soft:#1f6f7a1a;
-    --signal:#b5622f;
-    --signal-soft:#b5622f1a;
-    --good:#3f7d54;
-    --shadow:0 1px 2px rgba(22,32,43,.06), 0 8px 24px -16px rgba(22,32,43,.28);
-    --radius:10px;
+  :root {
+    --page: #eef1f3;
+    --surface: #ffffff;
+    --surface-2: #f6f8f9;
+    --ink: #0b0f14;
+    --ink-2: #4b5560;
+    --ink-3: #868d94;
+    --grid: #e1e6e9;
+    --border: rgba(11,15,20,0.10);
+    --accent: #2a78d6;
+    --accent-ink: #ffffff;
+    --warn: #b8790f;
+    --warn-bg: #fdf1dc;
+
+    --c1: #2a78d6; /* 자율주행 */
+    --c2: #d0591f; /* UAM */
+    --c3: #17976a; /* 전기차·배터리 */
+    --c4: #c2820a; /* 모빌리티 서비스 */
+    --c5: #c15c85; /* 정책·규제 */
+    --c6: #4a3aa7; /* 기타 */
   }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --paper:#0e151b;
-      --surface:#151e26;
-      --surface-2:#1b262f;
-      --ink:#e6edf3;
-      --ink-2:#b9c6d1;
-      --muted:#8698a6;
-      --line:#26333d;
-      --line-strong:#35454f;
-      --accent:#57b3bd;
-      --accent-soft:#57b3bd1f;
-      --signal:#dd9358;
-      --signal-soft:#dd93581f;
-      --good:#6cba86;
-      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --page: #0d1013;
+      --surface: #161a1e;
+      --surface-2: #1c2126;
+      --ink: #f3f5f6;
+      --ink-2: #c7cbd0;
+      --ink-3: #8b9299;
+      --grid: #262c31;
+      --border: rgba(255,255,255,0.10);
+      --accent: #3987e5;
+      --accent-ink: #ffffff;
+      --warn: #f0b23c;
+      --warn-bg: #3a2f11;
+
+      --c1: #3987e5;
+      --c2: #e07a3f;
+      --c3: #2bb684;
+      --c4: #dba22c;
+      --c5: #d9799e;
+      --c6: #9085e9;
     }
   }
-  :root[data-theme="dark"]{
-    --paper:#0e151b;
-    --surface:#151e26;
-    --surface-2:#1b262f;
-    --ink:#e6edf3;
-    --ink-2:#b9c6d1;
-    --muted:#8698a6;
-    --line:#26333d;
-    --line-strong:#35454f;
-    --accent:#57b3bd;
-    --accent-soft:#57b3bd1f;
-    --signal:#dd9358;
-    --signal-soft:#dd93581f;
-    --good:#6cba86;
-    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  :root[data-theme="dark"] {
+    --page: #0d1013;
+    --surface: #161a1e;
+    --surface-2: #1c2126;
+    --ink: #f3f5f6;
+    --ink-2: #c7cbd0;
+    --ink-3: #8b9299;
+    --grid: #262c31;
+    --border: rgba(255,255,255,0.10);
+    --accent: #3987e5;
+    --accent-ink: #ffffff;
+    --warn: #f0b23c;
+    --warn-bg: #3a2f11;
+
+    --c1: #3987e5;
+    --c2: #e07a3f;
+    --c3: #2bb684;
+    --c4: #dba22c;
+    --c5: #d9799e;
+    --c6: #9085e9;
   }
 
-  *{box-sizing:border-box}
-  body{
-    margin:0; background:var(--paper); color:var(--ink);
-    font-family:"IBM Plex Sans KR",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    font-weight:400; line-height:1.62; -webkit-font-smoothing:antialiased;
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--page);
+    color: var(--ink);
+    font-family: "IBM Plex Sans KR", "Noto Sans KR", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
   }
-  .wrap{max-width:1120px; margin:0 auto; padding:36px 24px 72px;}
-  h1,h2,h3{font-family:"Noto Serif KR",Georgia,serif; font-weight:700; margin:0; text-wrap:balance; letter-spacing:-.01em;}
-  .num{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums;}
+  .num { font-family: "IBM Plex Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  h1, h2, h3 { font-family: "Gothic A1", "IBM Plex Sans KR", sans-serif; text-wrap: balance; margin: 0; }
+  a { color: inherit; }
 
-  /* ---- masthead ---- */
-  .masthead{
-    display:flex; flex-wrap:wrap; gap:20px; align-items:flex-end; justify-content:space-between;
-    padding-bottom:20px; border-bottom:2px solid var(--ink); margin-bottom:8px;
-  }
-  .eyebrow{
-    font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent);
-    font-weight:600; margin-bottom:6px;
-  }
-  h1{font-size:31px; line-height:1.25;}
-  .tagline{color:var(--muted); font-size:13.5px; margin-top:7px; max-width:56ch;}
-  .masthead-meta{text-align:right; font-size:12.5px; color:var(--muted); line-height:1.85;}
-  .masthead-meta .big{color:var(--ink); font-size:15px;}
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 20px 80px; }
 
-  /* ---- deadline strip ---- */
-  .alert{
-    display:flex; gap:12px; align-items:baseline; flex-wrap:wrap;
-    margin:18px 0 0; padding:11px 15px;
-    background:var(--signal-soft); border-left:3px solid var(--signal); border-radius:0 6px 6px 0;
-    font-size:13px; color:var(--ink-2);
+  /* ---- Hero ---- */
+  .hero {
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 24px;
+    flex-wrap: wrap; padding-bottom: 22px; margin-bottom: 22px; border-bottom: 1px solid var(--border);
   }
-  .alert b{color:var(--signal); font-weight:600;}
-  .alert .a-item{color:var(--ink);}
+  .hero .eyebrow {
+    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+    font-weight: 700; margin-bottom: 8px;
+  }
+  .hero h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.01em; }
+  .hero p { color: var(--ink-2); margin-top: 6px; font-size: 14px; max-width: 46ch; }
+  .hero-meta { text-align: right; color: var(--ink-3); font-size: 12.5px; }
+  .hero-meta .updated { color: var(--ink-2); font-weight: 500; }
 
-  /* ---- stat tiles ---- */
-  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);
-    border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; margin:26px 0 30px;}
-  .stat{background:var(--surface); padding:16px 18px 15px;}
-  .stat .label{font-size:11px; letter-spacing:.06em; color:var(--muted); font-weight:500;}
-  .stat .value{font-size:27px; font-weight:500; margin-top:5px; line-height:1.15; color:var(--ink);}
-  .stat .value .unit{font-size:13px; color:var(--muted); margin-left:3px; font-family:"IBM Plex Sans KR",sans-serif;}
-  .stat .sub{font-size:11.5px; color:var(--muted); margin-top:3px;}
-  .stat.hi .value{color:var(--signal);}
+  /* ---- KPI strip ---- */
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 22px; }
+  .kpi {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .kpi .label { font-size: 12px; color: var(--ink-3); font-weight: 500; }
+  .kpi .value { font-size: 28px; font-weight: 600; margin-top: 6px; }
+  .kpi .value .unit { font-size: 13px; color: var(--ink-3); font-weight: 500; margin-left: 2px; }
+  .kpi .sub { font-size: 12px; color: var(--ink-3); margin-top: 4px; }
 
-  /* ---- pipeline ---- */
-  .pipeline{margin-bottom:30px;}
-  .sec-head{display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:12px; flex-wrap:wrap;}
-  .sec-head h2{font-size:16px;}
-  .sec-head .desc{font-size:12px; color:var(--muted);}
-  .stages{display:grid; grid-template-columns:repeat(4,1fr); gap:9px;}
-  .stage{
-    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
-    padding:14px 16px; position:relative; cursor:pointer; text-align:left; width:100%;
-    font-family:inherit; color:inherit; transition:border-color .15s, background .15s;
+  /* ---- Panels ---- */
+  .grid-2 { display: grid; grid-template-columns: 1.65fr 1fr; gap: 14px; margin-bottom: 14px; }
+  @media (max-width: 860px) { .grid-2 { grid-template-columns: 1fr; } }
+  .panel {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 18px 20px 20px;
   }
-  .stage:hover{border-color:var(--line-strong);}
-  .stage[aria-pressed="true"]{border-color:var(--accent); background:var(--accent-soft);}
-  .stage .st-i{font-size:10.5px; color:var(--muted); font-family:"IBM Plex Mono",monospace; letter-spacing:.08em;}
-  .stage .st-n{font-size:13.5px; font-weight:600; margin-top:3px; color:var(--ink);}
-  .stage .st-c{font-size:22px; font-weight:500; margin-top:5px; color:var(--accent);}
-  .stage .st-d{font-size:11px; color:var(--muted); margin-top:2px; line-height:1.5;}
-  .stage-track{height:3px; background:var(--line); border-radius:2px; margin-top:10px; overflow:hidden;}
-  .stage-track i{display:block; height:100%; background:var(--accent); border-radius:2px;}
+  .panel-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  .panel-head h2 { font-size: 15px; font-weight: 700; }
+  .panel-head .desc { font-size: 12px; color: var(--ink-3); margin-top: 2px; }
 
-  /* ---- panels ---- */
-  .grid-2{display:grid; grid-template-columns:1.5fr 1fr; gap:18px; margin-bottom:30px;}
-  .panel{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:18px 20px 16px;}
-  .chart-wrap{overflow-x:auto;}
-  svg.chart{width:100%; min-width:420px; height:212px; display:block; margin-top:6px;}
-  svg.chart text{font-family:"IBM Plex Mono",monospace; font-size:9.5px; fill:var(--muted);}
-  svg.chart .gridline{stroke:var(--line); stroke-width:1;}
-  .legend{display:flex; flex-wrap:wrap; gap:5px 14px; margin-top:10px; font-size:11px; color:var(--ink-2);}
-  .legend .it{display:inline-flex; align-items:center; gap:5px;}
-  .sw{width:9px; height:9px; border-radius:2px; display:inline-block; flex:none;}
-  .cat-rows{display:flex; flex-direction:column; gap:9px; margin-top:4px;}
-  .cat-row{display:grid; grid-template-columns:1fr auto; gap:3px 10px; font-size:12px;}
-  .cat-row .cn{color:var(--ink-2);}
-  .cat-row .cv{color:var(--muted); font-size:11.5px;}
-  .cat-bar{grid-column:1/-1; height:5px; background:var(--surface-2); border-radius:3px; overflow:hidden;}
-  .cat-bar i{display:block; height:100%; border-radius:3px;}
+  .seg { display: inline-flex; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 2px; gap: 2px; }
+  .seg button {
+    appearance: none; border: none; background: transparent; color: var(--ink-2);
+    font: inherit; font-size: 12.5px; font-weight: 500; padding: 5px 10px; border-radius: 6px; cursor: pointer;
+  }
+  .seg button.active { background: var(--surface); color: var(--ink); box-shadow: 0 1px 2px var(--border); font-weight: 700; }
+  .seg button:hover:not(.active) { color: var(--ink); }
 
-  /* ---- controls ---- */
-  .controls{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:14px 0 4px;}
-  .search{
-    flex:1 1 240px; min-width:200px; padding:9px 12px; font:inherit; font-size:13px;
-    background:var(--surface); color:var(--ink);
-    border:1px solid var(--line); border-radius:7px;
-  }
-  .search::placeholder{color:var(--muted);}
-  .search:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:transparent;}
-  .seg{display:inline-flex; background:var(--surface-2); border:1px solid var(--line); border-radius:7px; padding:2px; gap:2px;}
-  .seg button{
-    font:inherit; font-size:12px; padding:5px 11px; border:0; border-radius:5px;
-    background:transparent; color:var(--muted); cursor:pointer;
-  }
-  .seg button:hover{color:var(--ink);}
-  .seg button.on{background:var(--surface); color:var(--ink); font-weight:500; box-shadow:0 1px 2px rgba(22,32,43,.08);}
-  .chips{display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 2px;}
-  .chip{
-    font:inherit; font-size:11.5px; padding:4px 10px; border-radius:20px; cursor:pointer;
-    border:1px solid var(--line); background:var(--surface); color:var(--muted);
-    display:inline-flex; align-items:center; gap:6px;
-  }
-  .chip:hover{border-color:var(--line-strong); color:var(--ink-2);}
-  .chip.on{color:var(--ink); border-color:currentColor; font-weight:500;}
-  .chip .cc{font-family:"IBM Plex Mono",monospace; opacity:.65;}
-  .count-line{font-size:11.5px; color:var(--muted); margin:14px 0 8px; font-family:"IBM Plex Mono",monospace;}
+  /* ---- Trend chart ---- */
+  .chart-svg { width: 100%; height: 260px; display: block; overflow: visible; }
+  .bar-seg { cursor: pointer; }
+  .bar-seg:hover { filter: brightness(1.08); }
+  .axis-label { font-size: 10.5px; fill: var(--ink-3); font-family: "IBM Plex Mono", monospace; }
+  .gridline { stroke: var(--grid); stroke-width: 1; }
 
-  /* ---- item list ---- */
-  .items{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px;}
-  .item{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
-  .item.open{border-color:var(--line-strong); box-shadow:var(--shadow);}
-  .item-head{
-    width:100%; text-align:left; font:inherit; color:inherit; background:transparent;
-    border:0; cursor:pointer; padding:15px 18px; display:grid;
-    grid-template-columns:auto 1fr auto; gap:4px 14px; align-items:start;
-  }
-  .item-head:focus-visible{outline:2px solid var(--accent); outline-offset:-2px;}
-  .rail{width:3px; align-self:stretch; border-radius:2px; min-height:38px;}
-  .ihead-main{min-width:0;}
-  .meta-top{display:flex; flex-wrap:wrap; gap:7px; align-items:center; font-size:11px; margin-bottom:5px;}
-  .tag{padding:2px 7px; border-radius:4px; font-size:10.5px; font-weight:500; letter-spacing:.01em; white-space:nowrap;}
-  .tag.cat{background:var(--tagbg); color:var(--tagfg);}
-  .tag.type{background:var(--surface-2); color:var(--ink-2); border:1px solid var(--line);}
-  .date{font-family:"IBM Plex Mono",monospace; color:var(--muted); font-size:11px;}
-  .est{color:var(--muted); font-size:10px; border:1px solid var(--line); border-radius:3px; padding:0 4px;}
-  .item-title{font-size:14.5px; font-weight:500; line-height:1.5; color:var(--ink);}
-  .meta-bot{display:flex; flex-wrap:wrap; gap:4px 12px; font-size:11.5px; color:var(--muted); margin-top:6px;}
-  .meta-bot .k{color:var(--muted);}
-  .meta-bot .v{color:var(--ink-2); font-family:"IBM Plex Mono",monospace;}
-  .ddl{color:var(--signal); font-weight:500;}
-  .chev{color:var(--muted); font-size:11px; padding-top:2px; transition:transform .18s;}
-  .item.open .chev{transform:rotate(180deg);}
+  .legend { display: flex; flex-wrap: wrap; gap: 10px 16px; margin-top: 14px; font-size: 12px; color: var(--ink-2); }
+  .legend .item { display: inline-flex; align-items: center; gap: 6px; }
+  .legend .swatch { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
 
-  .body{display:none; padding:0 18px 18px 35px; border-top:1px solid var(--line); margin-top:-1px;}
-  .item.open .body{display:block;}
-  .summary{font-size:13.5px; color:var(--ink-2); line-height:1.75; padding:15px 0 4px; max-width:72ch;}
-  .analysis{display:grid; grid-template-columns:1fr 1fr; gap:14px 22px; margin-top:16px;
-    padding-top:16px; border-top:1px dashed var(--line);}
-  .af{min-width:0;}
-  .af .k{
-    font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent);
-    font-weight:600; display:flex; align-items:center; gap:6px; margin-bottom:5px;
+  .tooltip {
+    position: fixed; pointer-events: none; z-index: 50; background: var(--ink); color: var(--page);
+    font-size: 12px; padding: 8px 10px; border-radius: 8px; max-width: 240px; line-height: 1.5;
+    opacity: 0; transform: translateY(4px); transition: opacity .1s ease;
   }
-  .af .k::before{content:""; width:14px; height:1.5px; background:var(--accent); flex:none;}
-  .af .t{font-size:12.8px; line-height:1.72; color:var(--ink-2);}
-  .foot{display:flex; flex-wrap:wrap; gap:10px 16px; align-items:center; margin-top:16px;
-    padding-top:12px; border-top:1px solid var(--line); font-size:11.5px; color:var(--muted);}
-  .kw{display:flex; flex-wrap:wrap; gap:5px;}
-  .kw span{font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--muted);
-    background:var(--surface-2); border-radius:3px; padding:1px 6px;}
-  a.src{color:var(--accent); text-decoration:none; font-weight:500; margin-left:auto;}
-  a.src:hover{text-decoration:underline;}
-  a.src:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:3px;}
+  .tooltip.show { opacity: 1; }
+  .tooltip b { display: block; margin-bottom: 2px; }
+  .tooltip .row { display: flex; justify-content: space-between; gap: 10px; }
 
-  .empty{padding:36px; text-align:center; color:var(--muted); font-size:13px;
-    background:var(--surface); border:1px dashed var(--line); border-radius:var(--radius);}
-  .pagefoot{margin-top:34px; padding-top:16px; border-top:1px solid var(--line);
-    font-size:11.5px; color:var(--muted); line-height:1.85;}
-  .pagefoot code{font-family:"IBM Plex Mono",monospace; font-size:11px; background:var(--surface-2); padding:1px 5px; border-radius:3px;}
+  /* ---- Category bars ---- */
+  .cat-bars { display: flex; flex-direction: column; gap: 10px; }
+  .cat-bar-row { display: grid; grid-template-columns: 92px 1fr 34px; align-items: center; gap: 8px; font-size: 12.5px; }
+  .cat-bar-row .name { color: var(--ink-2); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cat-bar-track { background: var(--surface-2); border-radius: 5px; height: 10px; overflow: hidden; }
+  .cat-bar-fill { height: 100%; border-radius: 5px; }
+  .cat-bar-row .count { text-align: right; color: var(--ink-3); }
 
-  @media (max-width:860px){
-    .stats{grid-template-columns:repeat(2,1fr);}
-    .stages{grid-template-columns:repeat(2,1fr);}
-    .grid-2{grid-template-columns:1fr;}
-    .analysis{grid-template-columns:1fr;}
+  /* ---- List ---- */
+  .list-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px 8px; }
+  .list-controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+  .search {
+    flex: 1 1 220px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 9px 12px; font: inherit; font-size: 13px; color: var(--ink);
   }
-  @media (max-width:560px){
-    .wrap{padding:26px 16px 56px;}
-    h1{font-size:25px;}
-    .masthead-meta{text-align:left;}
-    .body{padding-left:18px;}
+  .search:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  .chip-row { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip {
+    appearance: none; border: 1px solid var(--border); background: var(--surface-2); color: var(--ink-2);
+    font: inherit; font-size: 12px; font-weight: 500; padding: 6px 11px; border-radius: 999px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px;
   }
-  @media (prefers-reduced-motion: reduce){
-    *{transition:none !important; animation:none !important;}
+  .chip .dot { width: 7px; height: 7px; border-radius: 50%; }
+  .chip.active { background: var(--ink); color: var(--page); border-color: var(--ink); }
+  .chip.active .dot { filter: none; }
+
+  .count-line { font-size: 12px; color: var(--ink-3); margin-bottom: 6px; }
+
+  .article-list { list-style: none; margin: 0; padding: 0; }
+  .article {
+    display: grid; grid-template-columns: 3px 1fr auto; gap: 14px; padding: 14px 0;
+    border-top: 1px solid var(--border);
   }
+  .article:first-child { border-top: none; }
+  .article .bar { border-radius: 2px; align-self: stretch; }
+  .article .title-row { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .article a.title { font-weight: 700; font-size: 14.5px; text-decoration: none; }
+  .article a.title:hover { text-decoration: underline; }
+  .article .summary { color: var(--ink-2); font-size: 13px; margin-top: 4px; max-width: 74ch; }
+  .article .meta { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; align-items: center; }
+  .tag {
+    font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px;
+    background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--border);
+  }
+  .tag.estimated { background: var(--warn-bg); color: var(--warn); border-color: transparent; }
+  .article .right { text-align: right; white-space: nowrap; }
+  .article .date { font-size: 12.5px; color: var(--ink-3); }
+  .article .source { font-size: 12px; color: var(--ink-3); margin-top: 3px; }
+
+  .empty-state { padding: 40px 0; text-align: center; color: var(--ink-3); font-size: 13.5px; }
+
+  footer { margin-top: 28px; text-align: center; color: var(--ink-3); font-size: 12px; }
 </style>
 
 <div class="wrap">
-  <header class="masthead">
+  <div class="hero">
     <div>
-      <div class="eyebrow">Korea Mobility Technology Policy Monitor</div>
-      <h1>모빌리티 정책·사업 브리프</h1>
-      <p class="tagline">자동차·모빌리티 기술정책과 정부 신규사업을 추적하고, 각 사업이 <em>왜 지금</em> 기획되었는지를 분석해 누적합니다.</p>
+      <div class="eyebrow">Mobility Trend Briefing</div>
+      <h1>모빌리티 브리프</h1>
+      <p>국내·글로벌 모빌리티 산업 뉴스를 매일 자동 수집해 누적하는 트렌드 데이터베이스입니다.</p>
     </div>
-    <div class="masthead-meta">
-      <div>마지막 갱신 · <span class="num"><!--GENERATED_AT_START-->2026-09-08 00:28 KST<!--GENERATED_AT_END--></span></div>
-      <div class="big">누적 <span class="num"><!--TOTAL_COUNT_START-->14<!--TOTAL_COUNT_END--></span>건</div>
-    </div>
-  </header>
-
-  <div id="alert-slot"></div>
-  <div class="stats" id="stats"></div>
-
-  <section class="pipeline">
-    <div class="sec-head">
-      <div>
-        <h2>정책에서 사업까지</h2>
-        <div class="desc">정부 R&amp;D는 구상 → 예타 → 공고 순으로 흐릅니다. 앞단을 볼수록 대응이 빨라집니다. 단계를 눌러 필터링하세요.</div>
-      </div>
-    </div>
-    <div class="stages" id="stages"></div>
-  </section>
-
-  <div class="grid-2">
-    <div class="panel">
-      <div class="sec-head"><div><h2>월별 수집 동향</h2><div class="desc">발표·공고일 기준, 분야별 누적</div></div></div>
-      <div class="chart-wrap"><svg class="chart" id="chart" viewBox="0 0 660 212" preserveAspectRatio="xMidYMid meet" role="img" aria-label="월별 분야별 항목 수 막대그래프"></svg></div>
-      <div class="legend" id="legend"></div>
-    </div>
-    <div class="panel">
-      <div class="sec-head"><div><h2>분야별 비중</h2><div class="desc">현재 필터 기준</div></div></div>
-      <div class="cat-rows" id="cat-rows"></div>
+    <div class="hero-meta">
+      <div class="updated">마지막 갱신 · <!--GENERATED_AT_START-->2026-09-08 10:19 KST<!--GENERATED_AT_END--></div>
+      <div>누적 기사 <span class="num"><!--TOTAL_COUNT_START-->15<!--TOTAL_COUNT_END--></span>건 · 매일 08:00 KST 자동 갱신</div>
     </div>
   </div>
 
-  <section>
-    <div class="sec-head">
-      <div><h2>분석 카드</h2><div class="desc">항목을 눌러 배경 분석을 펼칩니다</div></div>
-      <div class="seg" id="type-seg"></div>
-    </div>
-    <div class="controls">
-      <input class="search" id="q" type="text" placeholder="제목·요약·분석·키워드 검색…" aria-label="검색">
-    </div>
-    <div class="chips" id="chips"></div>
-    <div class="count-line" id="count"></div>
-    <ul class="items" id="list"></ul>
-    <div class="empty" id="empty" hidden>조건에 맞는 항목이 없습니다.</div>
-  </section>
+  <div class="kpis" id="kpis"></div>
 
-  <footer class="pagefoot">
-    데이터 <code>data/policy_items.json</code> · 분석 필드는 공개 자료를 근거로 한 해석이며 정부의 공식 입장이 아닙니다.
-    금액 단위는 억원입니다. 원문 링크로 반드시 교차 확인하세요.
-  </footer>
+  <div class="grid-2">
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>기간별 동향</h2>
+          <div class="desc">카테고리별 기사 건수 추이</div>
+        </div>
+        <div class="seg" id="bucket-seg">
+          <button data-bucket="month" class="active">월간</button>
+          <button data-bucket="quarter">분기별</button>
+          <button data-bucket="half">반기별</button>
+        </div>
+      </div>
+      <svg class="chart-svg" id="trend-chart" viewBox="0 0 640 260" preserveAspectRatio="none"></svg>
+      <div class="legend" id="trend-legend"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>카테고리 비중</h2>
+          <div class="desc">현재 필터 기준 전체 누적</div>
+        </div>
+      </div>
+      <div class="cat-bars" id="cat-bars"></div>
+    </div>
+  </div>
+
+  <div class="list-panel">
+    <div class="panel-head">
+      <div>
+        <h2>누적 리스트</h2>
+        <div class="desc">지금까지 수집된 모든 기사 (최근 수집순)</div>
+      </div>
+      <div class="seg" id="region-seg">
+        <button data-region="all" class="active">전체</button>
+        <button data-region="국내">국내</button>
+        <button data-region="글로벌">글로벌</button>
+      </div>
+    </div>
+    <div class="list-controls">
+      <input class="search" id="search" type="text" placeholder="제목·요약 키워드 검색…">
+      <div class="chip-row" id="cat-chips"></div>
+    </div>
+    <div class="count-line" id="count-line"></div>
+    <ul class="article-list" id="article-list"></ul>
+    <div class="empty-state" id="empty-state" style="display:none;">검색·필터 조건에 맞는 기사가 없습니다.</div>
+  </div>
+
+  <footer>모빌리티 브리프 · 매일 자동 수집·요약되는 개인용 트렌드 아카이브</footer>
 </div>
 
+<div class="tooltip" id="tooltip"></div>
+
 <script>
-const ITEMS = /*ITEMS_JSON_START*/[{"id":"2026-09-01-kuam-safety-demo-feasibility","date":"2026-09-01","date_estimated":false,"collected_at":"2026-09-07","title":"「K-UAM 안전운용체계 실증기술개발」 예비타당성조사 통과","type":"예타·예산","stage":"예타·예산확정","category":"UAM·미래항공","agency":"국토교통부","exec_agency":"기상청·울산광역시 공동","doc_no":null,"budget_total":848,"budget_note":"국비 578억 / 민간 176억 / 지방비 94억","period":"2027~2029","deadline":null,"url":"https://www.korea.kr/briefing/pressReleaseView.do?newsId=156776343","source":"정책브리핑","summary":"도심항공교통(UAM) 안전운용기술을 실제 운용환경에서 실증하는 사업이 국가연구개발사업 예비타당성조사를 최종 통과했다. 2027~2029년 3년간 총 848억원 규모로, 국토부가 안전운용 기술개발을 총괄하고 기상청이 기상관측·예측, 울산시가 실증환경 구축을 맡는다.","analysis":{"why_now":"2024~2026년 추진된 「K-UAM 안전운용체계 핵심기술개발」이 올해 종료된다. 핵심기술·시제품 단계에서 멈추면 2028년 초기 상용화 목표와 사이에 공백이 생기므로, 후속 실증사업의 예타를 선행 사업 종료 시점에 맞춰 통과시킨 것이다. 사업 기획의 타이밍이 상용화 로드맵의 역산에서 나왔다고 보는 편이 자연스럽다.","lineage":"「K-UAM 안전운용체계 핵심기술개발」(2024~2026)의 직접 후속사업. 상위로는 2028년 지역연계·관광·공항연계·공공의료 등 초기 UAM 서비스 상용화, 2032년 도심 진입이라는 정부 UAM 로드맵에 연결된다.","tech":"개별 기술 개발이 아니라 이미 개발된 요소기술을 실제 운용환경에서 연계·검증하는 통합 실증이 과제다. 특히 기상청이 별도 주체로 참여한 점은 UAM 안전운용의 병목이 기체 성능보다 저고도 기상 관측·예측 정확도에 있다는 판단을 시사한다. 도심이 아닌 울산을 실증지로 택한 것은 안전성 입증 전 단계에서 리스크를 관리하려는 선택으로 읽힌다.","implication":"예타 통과는 2027년 예산 반영과 세부과제 공고로 이어지므로, 참여를 염두에 둔다면 2026년 하반기~2027년 초 공고를 주시해야 한다. 국비 비중이 68%로 민간 부담이 상대적으로 낮은 편이라 컨소시엄 진입 문턱은 낮은 편이다."},"keywords":["UAM","예비타당성조사","실증","울산","기상관측"]},{"id":"2026-02-06-auto-industry-rnd-1st","date":"2026-02-06","date_estimated":false,"collected_at":"2026-09-07","title":"2026년도 자동차산업기술개발사업(1차) 신규지원 대상과제 공고","type":"신규사업공고","stage":"공고","category":"SDV·차량반도체","agency":"산업통상부","exec_agency":"한국산업기술기획평가원(KEIT)","doc_no":"산업통상부 공고 제2026-102호","budget_total":null,"budget_note":"산업부 2026년 자동차 분야 총투자 4,645억원의 일부","period":null,"deadline":null,"url":"https://srome.keit.re.kr/srome/biz/perform/opnnPrpsl/retrieveTaskAnncmInfoView.do?prgmId=XPG201040000&ancmId=I18835&bsnsYy=2026","source":"SROME (KEIT)","summary":"산업통상부가 2026년도 자동차산업기술개발사업 1차 신규지원 대상과제를 공고했다. 자율주행 기술고도화 및 공백 기술영역, SDV 구현을 위한 차세대 전장 부품·시스템 및 구독형 SW 플랫폼 기술, 운전자 편의·안전 및 수요기반 차량용 반도체 기술개발 등이 지원 대상이다.","analysis":{"why_now":"'공백 기술영역'이라는 표현이 핵심이다. 자율주행기술개발혁신사업(2021~2027)이 커버하지 못한 구간을 산업부가 별도 트랙으로 메우겠다는 뜻으로, 범부처 대형사업의 종료가 다가오면서 이후를 대비한 포트폴리오 재편이 시작된 신호로 볼 수 있다. SDV·구독형 SW가 전면에 나온 것은 완성차의 수익모델이 하드웨어 판매에서 소프트웨어 구독으로 이동하는 산업 변화를 정책이 뒤늦게 따라잡는 국면이다.","lineage":"산업부 자동차산업기술개발사업의 연례 신규과제 트랙. 상위로는 미래차 전환 대응 정책, 옆으로는 범부처 자율주행기술개발혁신사업과 역할 분담 관계에 있다.","tech":"SDV는 개별 부품 성능이 아니라 차량 전체의 전기·전자 아키텍처(존 아키텍처, 중앙집중형 컴퓨팅)와 OTA 기반 SW 생명주기 관리가 본질이다. 국내 부품사 구조가 기능별 ECU 공급에 최적화돼 있어 아키텍처 전환 자체가 난제다. '수요기반 차량용 반도체'는 팹리스가 수요처를 못 찾는 문제를 완성차 수요와 묶어 풀겠다는 접근으로 읽힌다.","implication":"구독형 SW 플랫폼이 과제로 잡혔다는 것은 향후 관련 표준·인증 논의가 뒤따를 가능성이 높다는 뜻이다. 부품사 관점에서는 단품 개발 과제보다 아키텍처 레벨 컨소시엄 참여가 유리해지는 방향이다."},"keywords":["SDV","차량용반도체","구독형SW","자율주행","KEIT"]},{"id":"2026-05-auto-industry-rnd-2nd","date":"2026-05-15","date_estimated":true,"collected_at":"2026-09-07","title":"2026년도 자동차산업기술개발 2차 신규지원 대상과제 공고","type":"신규사업공고","stage":"공고","category":"SDV·차량반도체","agency":"산업통상부","exec_agency":"한국산업기술기획평가원(KEIT)","doc_no":null,"budget_total":null,"budget_note":null,"period":null,"deadline":null,"url":"https://www.motir.go.kr/kor/article/ATCLc01b2801b/71111/view","source":"산업통상부","summary":"산업통상부가 2026년도 자동차산업기술개발사업의 2차 신규지원 대상과제를 공고했다. 1차 공고에 이은 연내 추가 과제 발굴 트랙이다. (정확한 공고일은 확인 필요)","analysis":{"why_now":"연 2회 공고 구조는 1차에서 미충족된 기술영역이나 예산 잔여분을 회수해 재배분하는 통상적 운영 방식이다. 다만 2차 공고의 과제 구성은 1차 접수 결과에서 드러난 수요 공백을 반영하므로, 1차와 비교하면 정부가 어느 영역에서 지원자를 못 찾았는지를 역으로 읽어낼 수 있다.","lineage":"2026년도 자동차산업기술개발사업 1차 공고(산업통상부 공고 제2026-102호)의 후속 차수.","tech":"세부 RFP 확인이 필요하다. 1차와의 차이를 대조하는 것이 이 항목의 분석 가치다.","implication":"1차·2차 RFP를 나란히 놓고 비교하면 해당 연도 정책의 실제 우선순위와 미달 영역이 드러난다. 원문 대조가 필요한 항목으로 표시해 둔다."},"keywords":["자동차산업기술개발","2차공고","KEIT"]},{"id":"2026-01-motie-auto-4645","date":"2026-01-20","date_estimated":true,"collected_at":"2026-09-07","title":"산업부, '26년 자동차 산업에 4,645억원 투자","type":"예타·예산","stage":"예타·예산확정","category":"미래차전환·총괄","agency":"산업통상부","exec_agency":null,"doc_no":null,"budget_total":4645,"budget_note":"2026년 자동차 분야 R&D 및 기반구축 사업 총액","period":"2026","deadline":null,"url":"https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/171496/view","source":"산업통상부","summary":"산업통상부가 2026년 자동차 분야 R&D 및 기반구축 사업에 총 4,645억원을 투자한다고 밝혔다. 차체 일체형 배터리시스템(CTC) 등 미래차 핵심기술 개발이 포함된다.","analysis":{"why_now":"연초 투자계획 발표는 그 해 공고들의 예산 상한을 미리 알려주는 지표다. 개별 공고를 쫓기 전에 이 총액과 배분 구조를 먼저 확보해 두면, 이후 나오는 공고들이 전체 중 어느 비중인지 가늠할 수 있다.","lineage":"산업부 자동차산업기술개발사업·기반구축사업의 연간 예산 프레임. 이 총액이 자동차산업기술개발사업 1·2차 공고로 집행된다.","tech":"CTC(Cell to Chassis)는 배터리 팩을 차체 구조에 통합해 에너지밀도와 제조공정을 동시에 개선하는 접근이다. 구조 안전성 확보와 수리 가능성(사고 시 배터리 교체 불가 문제)이 상충하는 지점이 기술적 쟁점이다.","implication":"총액 대비 개별 공고 규모를 추적하면 정부가 실제로 어디에 무게를 뒀는지 검증할 수 있다. 발표된 우선순위와 집행 실적의 차이를 보는 것이 이 항목의 활용법이다."},"keywords":["예산","CTC","미래차","기반구축"]},{"id":"2026-01-21-gwangju-av-demo-city","date":"2026-01-21","date_estimated":false,"collected_at":"2026-09-07","title":"광주, 국내 첫 '자율주행 실증도시' 선정 — 도시 전체 실증 첫 도입","type":"정책·계획","stage":"수행중","category":"자율주행","agency":"국토교통부","exec_agency":"광주광역시","doc_no":null,"budget_total":null,"budget_note":null,"period":"2026~","deadline":null,"url":"https://smartcity.go.kr/2026/01/21/%EA%B4%91%EC%A3%BC-%EC%A0%84%EC%97%AD-%EC%9E%90%EC%9C%A8%EC%A3%BC%ED%96%89-%EC%8B%A4%EC%A6%9D%EB%AC%B4%EB%8C%80-%EB%90%9C%EB%8B%A4-%EC%A0%95%EB%B6%80-%EB%8F%84%EC%8B%9C-%EC%A0%84/","source":"스마트시티 종합포털","summary":"정부가 국내 최초로 도시 전체를 자율주행 실증공간으로 지정했다. 광주 전역에 자율차 200대를 투입해 실제 시민이 이용하는 도로에서 기술개발과 서비스 상용화 검증을 동시에 추진하며, 2027년 타 지자체로 확산할 계획이다.","analysis":{"why_now":"기존 시범운행지구는 특정 노선·구역 단위여서 수집되는 주행 데이터의 다양성이 제한적이었다. 레벨4 상용화를 2027년으로 못박은 상황에서 학습 데이터의 양과 다양성이 병목으로 지목되자, 실증 단위를 '구역'에서 '도시'로 확장한 것이다. 즉 이 정책의 동인은 규제 완화가 아니라 데이터 확보다.","lineage":"자율주행자동차 시범운행지구 제도의 확장판. 상위로는 AI 모빌리티 혁신 로드맵의 2027년 레벨4 상용화 목표에 직결되며, AI 학습센터·자율주행 데이터 플랫폼 구축과 한 묶음으로 설계됐다.","tech":"도시 전역 실증의 난점은 차량이 아니라 데이터 파이프라인이다. 200대가 만들어내는 대량의 실주행 데이터를 표준화·라벨링해 학습에 투입하는 체계가 없으면 규모만 커지고 성능 개선으로 이어지지 않는다. 정부가 데이터 플랫폼과 AI 학습센터를 함께 언급한 이유가 여기에 있다.","implication":"'실증→데이터 수집→학습' 루프를 정부가 직접 구축하겠다는 것은 데이터 접근권이 향후 정책 자원이 된다는 뜻이다. 데이터 플랫폼 구축·운영, 라벨링, 시뮬레이션 관련 후속 사업 공고가 나올 가능성이 높은 영역이다."},"keywords":["광주","실증도시","레벨4","데이터플랫폼","시범운행지구"]},{"id":"2026-02-26-ai-mobility-roadmap","date":"2026-02-26","date_estimated":false,"collected_at":"2026-09-07","title":"'27년 레벨4 완전자율주행·'28년 UAM 상용화 목표 「AI 모빌리티 혁신 로드맵」 가동","type":"정책·계획","stage":"구상·계획","category":"자율주행","agency":"국토교통부","exec_agency":null,"doc_no":null,"budget_total":null,"budget_note":null,"period":"2026~2028","deadline":null,"url":"https://www.korea.kr/news/policyNewsView.do?newsId=148960802","source":"정책브리핑","summary":"정부가 2027년 레벨4 완전자율주행 상용화, 2028년 UAM 공공서비스 상용화를 목표로 하는 「AI 모빌리티 혁신 로드맵」을 발표했다. 광주에 자율차 200대를 투입해 실증-데이터 수집-학습으로 이어지는 기술 고도화 체계를 구축한다.","analysis":{"why_now":"로드맵 명칭에 '모빌리티 혁신'이 아니라 'AI 모빌리티'가 붙은 것이 변화의 핵심이다. 자율주행을 센서·제어 문제로 보던 기존 접근에서 데이터·학습 문제로 프레임이 이동했고, 이는 국내 정책이 엔드투엔드 학습 기반 자율주행이라는 글로벌 기술 조류를 수용했음을 보여준다.","lineage":"2022년 모빌리티 혁신 로드맵 계열의 갱신판. 하위 실행수단으로 광주 자율주행 실증도시, AI 학습센터, 자율주행 데이터 플랫폼이 배치된다.","tech":"레벨4 상용화의 병목은 인지 성능 자체보다 극단적 상황(엣지 케이스) 대응과 그 안전성 입증 방법이다. 데이터 규모를 키우는 전략은 엣지 케이스 수집 확률을 높이지만, 어느 정도면 충분한지를 판정하는 기준은 아직 국내외 모두 미확립 상태다.","implication":"이 로드맵은 향후 2~3년간 국토부 계열 신규사업의 기획 근거로 인용될 상위 문서다. 개별 공고의 배경을 읽을 때 최우선으로 대조해야 할 기준선이며, 목표 연도(2027/2028)에서 역산하면 후속 공고 시점을 어느 정도 예측할 수 있다."},"keywords":["AI모빌리티","로드맵","레벨4","UAM","상용화"]},{"id":"2026-molit-work-plan","date":"2026-01-05","date_estimated":true,"collected_at":"2026-09-07","title":"국토교통부 2026년 업무계획 — 자율주행 선도국가 도약","type":"정책·계획","stage":"구상·계획","category":"자율주행","agency":"국토교통부","exec_agency":null,"doc_no":null,"budget_total":null,"budget_note":null,"period":"2026","deadline":null,"url":"https://www.molit.go.kr/2026plan/sub2_economy.html","source":"국토교통부","summary":"국토교통부 2026년 업무계획에 광주 자율주행 실증도시 조성(자율차 200대), 규제 합리화, 자율주행 전용 GPU·시뮬레이터를 지원하는 AI 학습센터 구축이 포함됐다. (게시일은 통상 전년 12월 업무보고 기준으로 추정)","analysis":{"why_now":"부처 업무계획은 그 해 신규사업 공고의 원천 문서다. 여기 한 줄로 들어간 항목이 몇 달 뒤 수백억 규모 공고로 구체화되므로, 공고를 사후에 쫓는 대신 업무계획 단계에서 미리 포착하는 것이 모니터링 관점에서 가장 앞선 지점이다.","lineage":"AI 모빌리티 혁신 로드맵을 연간 실행계획으로 분해한 문서. 광주 실증도시·AI 학습센터가 여기서 예산 사업으로 전환된다.","tech":"AI 학습센터에 'GPU와 시뮬레이터'가 명시된 점이 주목할 부분이다. 실차 실증만으로는 엣지 케이스 커버리지를 확보할 수 없어 시뮬레이션 기반 검증을 병행하겠다는 뜻이며, 시뮬레이션 시나리오의 현실성 확보가 후속 기술 쟁점이 된다.","implication":"GPU 인프라·시뮬레이터·데이터 라벨링은 전통적 자동차 부품사보다 IT·SW 기업의 영역이다. 모빌리티 사업 공고의 참여자 구성이 바뀌는 방향을 시사한다."},"keywords":["업무계획","AI학습센터","GPU","시뮬레이터","규제합리화"]},{"id":"2026-av-innovation-12-projects","date":"2026-01-15","date_estimated":true,"collected_at":"2026-09-07","title":"자율주행기술개발혁신사업단, 12개 신규과제 공고 및 온라인 통합설명회","type":"신규사업공고","stage":"공고","category":"자율주행","agency":"산업통상부·과기정통부·국토교통부·경찰청 공동","exec_agency":"자율주행기술개발혁신사업단","doc_no":null,"budget_total":10974,"budget_note":"사업 전체 규모(2021~2027, 88개 세부과제). 이번 공고분은 그 일부","period":"2021~2027","deadline":null,"url":"https://eiec.kdi.re.kr/policy/materialView.do?num=223035","source":"KDI 경제정보센터","summary":"4개 부처가 공동 추진하는 자율주행기술개발혁신사업에서 12개 신규과제를 공고하고 온라인 통합설명회를 개최했다. 사업 전체는 2021~2027년 7년간 88개 세부과제에 1조 974억원이 투입되는 범부처 대형사업이다.","analysis":{"why_now":"2027년 종료를 앞둔 사업의 후반부 신규과제다. 대형 범부처 사업은 종료 2년 전쯤 남은 공백 기술을 메우는 과제를 집중 배치하는 경향이 있어, 이번 12개 과제 구성은 사업단이 스스로 진단한 미달 영역을 드러낸다.","lineage":"2021년 착수한 범부처 자율주행기술개발혁신사업의 연차 신규과제. 산업부의 2026년 자동차산업기술개발사업이 '공백 기술영역'을 언급한 것과 짝을 이루어 읽어야 한다.","tech":"차량 기술과 AI·빅데이터·ICT의 융합, 그리고 표준 및 시험체계 개발이 사업 목표에 명시돼 있다. 과제당 연 15억원 내외·총 5년 규모는 요소기술 개발보다 시스템 통합·검증에 적합한 크기다.","implication":"2027년 사업 종료 이후를 잇는 차기 범부처 사업의 기획이 2026년 중 시작될 가능성이 높다. 기술수요조사·예타 동향을 함께 주시해야 하는 이유다."},"keywords":["자율주행기술개발혁신사업","범부처","88개과제","표준","시험체계"]},{"id":"2026-semiconductor-rnd-announcement","date":"2026-01-30","date_estimated":true,"collected_at":"2026-09-07","title":"2026년도 반도체 분야 신규 지원대상 연구개발과제 공고","type":"신규사업공고","stage":"공고","category":"SDV·차량반도체","agency":"산업통상부","exec_agency":"한국산업기술기획평가원(KEIT)","doc_no":null,"budget_total":null,"budget_note":null,"period":null,"deadline":null,"url":"https://srome.keit.re.kr/srome/biz/perform/opnnPrpsl/retrieveTaskAnncmInfoView.do?prgmId=XPG201040000&ancmId=I17849&bsnsYy=2026","source":"SROME (KEIT)","summary":"산업통상부가 2026년도 반도체 분야 신규 지원대상 연구개발과제를 공고했다. 자동차용 반도체가 포함되는 트랙으로, 자동차산업기술개발사업과 별도로 운영된다.","analysis":{"why_now":"차량용 반도체는 자동차 정책과 반도체 정책 양쪽에 걸쳐 있어 공고도 두 갈래로 나온다. 모빌리티 기술정책을 추적할 때 자동차 카테고리만 보면 이 트랙을 놓치게 되므로, 반도체 공고에서 차량 관련 RFP를 걸러내는 작업이 별도로 필요하다.","lineage":"산업부 반도체 분야 R&D 트랙. 자동차산업기술개발사업의 '수요기반 차량용 반도체' 과제와 대상 영역이 겹칠 수 있어 대조가 필요하다.","tech":"차량용 반도체는 성능보다 신뢰성 인증(AEC-Q, ISO 26262)과 장기 공급 보장이 진입장벽이다. 국내 팹리스가 기술을 확보해도 완성차 검증 사이클을 통과하는 데 수년이 걸린다는 구조적 문제가 있다.","implication":"두 트랙의 RFP를 대조하면 중복 지원과 공백을 동시에 확인할 수 있다. 세부 과제 내용 확인이 필요한 항목이다."},"keywords":["반도체","차량용반도체","KEIT","신뢰성인증"]},{"id":"2026-next-gen-battery-2800","date":"2026-03-10","date_estimated":true,"collected_at":"2026-09-07","title":"차세대 배터리 기술개발에 2029년까지 2,800억원 투입","type":"예타·예산","stage":"예타·예산확정","category":"전기차·배터리","agency":"산업통상부","exec_agency":null,"doc_no":null,"budget_total":2800,"budget_note":"2029년까지 총 투입 예정액","period":"~2029","deadline":null,"url":"https://www.motir.go.kr/kor/article/ATCL8764a1224/155119018/view","source":"산업통상부","summary":"산업통상부가 차세대 배터리 기술개발에 2029년까지 2,800억원을 투입한다고 밝혔다. (정확한 발표일은 확인 필요)","analysis":{"why_now":"국내 배터리 산업이 중국의 LFP 원가 경쟁력에 밀리는 국면에서, 기존 삼원계 개량이 아니라 차세대 화학(전고체 등)으로 건너뛰어 경쟁 축을 바꾸려는 시도로 읽힌다. 캐즘으로 불린 전기차 수요 둔화 국면이 오히려 장기 기술개발에 투자할 시간을 확보해 준 측면도 있다.","lineage":"배터리 분야 기술수요조사와 연계되는 예산 사업. 소부장 정책 및 이차전지 특화단지 정책과 함께 놓고 봐야 한다.","tech":"차세대 배터리의 병목은 셀 성능 자체보다 양산성이다. 전고체의 경우 고체 전해질과 전극의 계면 저항, 대면적 셀에서의 균일한 압력 유지가 실험실과 양산라인을 가르는 지점이다.","implication":"2029년까지의 다년 사업이므로 연차별 세부과제 공고가 반복해서 나온다. 총액과 연차 배분을 확인해 두면 개별 공고 규모를 예측하는 기준이 된다."},"keywords":["차세대배터리","전고체","예산","소부장"]},{"id":"2026-battery-tech-demand-survey","date":"2026-04-01","date_estimated":true,"collected_at":"2026-09-07","title":"2026년 배터리 분야 신규사업 발굴을 위한 기술수요조사 공고","type":"기술수요조사","stage":"구상·계획","category":"전기차·배터리","agency":"산업통상부","exec_agency":"한국산업기술기획평가원(KEIT)","doc_no":null,"budget_total":null,"budget_note":null,"period":null,"deadline":null,"url":"https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1197941","source":"NTIS 국가R&D통합공고","summary":"산업통상부가 배터리 분야 신규사업 발굴을 위한 기술수요조사를 공고했다. 산업계·학계로부터 기술 아이디어를 접수해 향후 신규 R&D 사업 기획의 입력으로 활용한다.","analysis":{"why_now":"기술수요조사는 신규사업 파이프라인에서 가장 앞선 신호다. 여기서 접수된 수요가 기획연구를 거쳐 예타로, 다시 공고로 이어지기까지 통상 1~3년이 걸린다. 즉 이 공고는 2027~2029년에 나올 배터리 신규사업의 씨앗을 보여준다.","lineage":"산업부 R&D 사업 기획의 표준 절차(기술수요조사 → 기획연구 → 예타 → 신규공고)의 1단계. 차세대 배터리 2,800억원 사업의 다음 세대 사업이 여기서 나온다.","tech":"특정 기술이 아니라 수요 발굴 절차 자체가 대상이다. 어떤 기술 항목이 조사 범위로 제시됐는지가 정부의 관심 영역을 드러내므로 원문 확인 가치가 높다.","implication":"이 저장소의 목적상 가장 주목할 유형의 항목이다. 공고가 뜬 뒤 대응하는 대신, 수요조사 단계에서 제안을 넣으면 이후 사업의 RFP 방향에 영향을 줄 수 있다. NTIS 국가R&D통합공고에서 '수요조사' 키워드를 상시 감시할 근거."},"keywords":["기술수요조사","신규사업발굴","배터리","NTIS","파이프라인"]},{"id":"2026-05-26-uam-regional-pilot","date":"2026-05-26","date_estimated":false,"collected_at":"2026-09-07","title":"국토부, UAM 지역시범사업 공모 — 최대 10억원 지원","type":"신규사업공고","stage":"공고","category":"UAM·미래항공","agency":"국토교통부","exec_agency":null,"doc_no":null,"budget_total":10,"budget_note":"선정 지자체당 최대 10억원","period":null,"deadline":null,"url":"https://www.newspim.com/news/view/20260526000203","source":"뉴스핌","summary":"국토교통부가 섬·산간 지역 이동지원을 목적으로 하는 도심항공교통(UAM) 지역시범사업을 공모했다. 선정 지자체에 최대 10억원을 지원한다.","analysis":{"why_now":"UAM의 원래 서사는 도심 교통혼잡 해소였으나, 공모 대상이 섬·산간으로 제시된 점이 중요하다. 도심 진입은 소음·안전·수용성 문제로 2032년으로 밀린 상태에서, 그 전까지 실적과 운항 데이터를 쌓을 수 있는 저밀도·저위험 지역을 먼저 공략하는 전략 수정으로 읽힌다.","lineage":"K-UAM 그랜드챌린지 및 UAM 로드맵의 지역 확산 트랙. 2028년 초기 상용화 서비스로 지목된 '지역연계·관광·공공의료'와 대상이 정확히 겹친다.","tech":"섬·산간 운항은 도심보다 장애물은 적지만 기상 변동성과 통신 음영이 크다. 저고도 기상 예측과 비가시권(BVLOS) 통신·관제가 실질적 기술 과제이며, 이는 K-UAM 안전운용체계 사업에서 기상청이 참여하는 이유와 맞닿는다.","implication":"지자체당 10억원은 기술개발보다 서비스 실증·수용성 확보 성격의 규모다. 기술 공급자 입장에서는 직접 수주보다 지자체 컨소시엄 참여 경로를 봐야 한다."},"keywords":["UAM","지역시범사업","섬·산간","공모","수용성"]},{"id":"2026-ev-subsidy-guideline","date":"2026-01-05","date_estimated":false,"collected_at":"2026-09-07","title":"2026년 전기자동차 보급사업 보조금 업무처리지침","type":"법·제도","stage":"수행중","category":"전기차·배터리","agency":"기후에너지환경부","exec_agency":null,"doc_no":null,"budget_total":null,"budget_note":null,"period":"2026","deadline":null,"url":"https://ev.or.kr/nportal/file/downloadJfile.do?FILE_MASK=20260105091A89D4906C69474AAB63F7E4BD11E742","source":"무공해차 통합누리집","summary":"2026년 전기자동차 보급사업 보조금 업무처리지침이 공고됐다. 차종별 보조금 산정 기준과 지급 절차를 규정한다.","analysis":{"why_now":"보조금 지침은 매년 1월 초 확정되며, 그 해 전기차 시장의 실질적 규칙을 정한다. R&D 공고는 아니지만 배터리 에너지밀도·재활용가치·충전속도 등이 보조금 산정에 반영되면서 사실상 기술 유도 수단으로 작동해 왔다.","lineage":"대기환경보전법 기반 무공해차 보급사업의 연례 지침. 부처 개편으로 소관이 기후에너지환경부로 이관된 점을 반영해야 한다.","tech":"보조금 산정식에 어떤 기술 지표가 들어가는지가 곧 정부가 유도하려는 기술 방향이다. 에너지밀도 계수, 배터리 재활용 관련 항목의 변화를 전년과 대조하면 정책 신호를 읽을 수 있다.","implication":"R&D 공고만 보면 놓치는 수요측 정책 수단이다. 기술개발 지원(공급)과 보조금 설계(수요)를 함께 봐야 정책의 전체 그림이 잡힌다."},"keywords":["보조금","전기차보급","기후에너지환경부","수요정책"]},{"id":"2026-industrial-rnd-planning-project","date":"2026-09-05","date_estimated":true,"collected_at":"2026-09-07","title":"[기후에너지환경부] 2026년도 산업기술R&D연구기획사업 신규지원대상 연구개발과제 공고","type":"신규사업공고","stage":"공고","category":"미래차전환·총괄","agency":"기후에너지환경부","exec_agency":null,"doc_no":null,"budget_total":null,"budget_note":null,"period":null,"deadline":"2026-10-07","url":"https://www.syu.ac.kr/rnd/%EA%B8%B0%ED%9B%84%EC%97%90%EB%84%88%EC%A7%80%ED%99%98%EA%B2%BD%EB%B6%80-2026%EB%85%84%EB%8F%84-%EC%82%B0%EC%97%85%EA%B8%B0%EC%88%A0rd%EC%97%B0%EA%B5%AC%EA%B8%B0%ED%9A%8D%EC%82%AC%EC%97%85/","source":"대학 산학협력단 공지","summary":"기후에너지환경부가 2026년도 산업기술R&D연구기획사업 신규지원대상 연구개발과제를 공고했다. 접수 마감은 10월 7일이다.","analysis":{"why_now":"'연구기획사업'은 과제 수행이 아니라 향후 신규사업을 설계하는 과제다. 기술수요조사와 함께 신규사업 파이프라인의 최상류에 위치하며, 여기서 나온 기획 결과물이 다음 해 예타와 신규공고의 근거 문서가 된다.","lineage":"산업기술 R&D 기획 절차의 한 단계. 부처 개편으로 환경 관련 산업기술 R&D가 기후에너지환경부로 재배치된 흐름을 반영한다.","tech":"기획 대상 기술영역이 무엇인지가 핵심 정보다. 모빌리티 관련 항목(무공해차, 배터리 재활용 등)이 포함됐는지 원문 확인이 필요하다.","implication":"수주 관점보다 정보 관점의 가치가 크다. 기획과제 목록은 1~2년 뒤 신규사업의 예고편이므로, 마감 여부와 무관하게 과제 목록 자체를 확보해 둘 가치가 있다."},"keywords":["연구기획사업","신규사업기획","기후에너지환경부","파이프라인"]}]/*ITEMS_JSON_END*/;
-const CATS = ["자율주행","SDV·차량반도체","전기차·배터리","UAM·미래항공","모빌리티서비스·물류","인프라·표준·규제","미래차전환·총괄"];
-const STAGES = ["구상·계획","예타·예산확정","공고","수행중"];
-const TYPES = ["정책·계획","예타·예산","기술수요조사","신규사업공고","법·제도"];
-const CAT_COLOR = {"자율주행":"#2a8b96","SDV·차량반도체":"#8b6bc0","전기차·배터리":"#4e9647","UAM·미래항공":"#5a76d0","모빌리티서비스·물류":"#c8923f","인프라·표준·규제":"#78889a","미래차전환·총괄":"#c1554f"};
-const STAGE_DESC = {
-  "구상·계획": "업무계획·로드맵·수요조사",
-  "예타·예산확정": "예타 통과 / 예산 배정",
-  "공고": "신규과제 모집 중",
-  "수행중": "집행·실증 진행"
-};
-const TODAY = new Date("2026-09-08T00:00:00+09:00");
+  const ARTICLES = /*ARTICLES_JSON_START*/[{"id": "2026-07-16-kakao-kia-robotaxi", "date": "2026-07-16", "date_estimated": false, "collected_at": "2026-08-19", "title": "카카오모빌리티, 기아와 로보택시 공동 개발 착수", "summary": "카카오모빌리티가 기아와 손잡고 자율주행 전용차(로보택시) 공동 개발에 나선다. 국내 플랫폼-완성차 협업을 통한 로보택시 상용화 준비가 본격화되는 모습이다.", "url": "https://www.hankyung.com/article/2026071601111", "source": "한국경제", "category": "자율주행", "region": "국내"}, {"id": "2026-07-21-hyundai-robotaxi-vegas", "date": "2026-07-21", "date_estimated": false, "collected_at": "2026-08-19", "title": "현대차 로보택시, 라스베이거스 시범운행 거쳐 연말 무인 상용화 속도", "summary": "현대차그룹 자율주행 합작사 모셔널이 생성형 AI 기반 거대주행모델(LDM)로 기술을 전환하고, 아이오닉 5 로보택시의 북미 무인 상용화를 2026년 말 목표로 속도를 내고 있다.", "url": "https://www.g-enews.com/article/Global-Biz/2026/07/202607212158362962bd56fbc3c_1", "source": "글로벌이코노믹", "category": "자율주행", "region": "국내"}, {"id": "2026-05-22-hyundai-kia-pbv-robotaxi", "date": "2026-05-22", "date_estimated": false, "collected_at": "2026-08-19", "title": "현대차그룹, 기아 PBV 기반 자율주행 로보택시 개발 착수", "summary": "현대차그룹이 기아의 첫 전동화 목적기반차(PBV)를 활용한 로보택시 개발에 착수했다. 아이오닉 5에 이은 두 번째 전용 로보택시 모델로, 고객 맞춤형 승차공유 서비스 공급을 노린다.", "url": "https://www.etnews.com/20260522000308", "source": "전자신문", "category": "자율주행", "region": "국내"}, {"id": "2026-08-15-k-uam-b32r2-showcase", "date": "2026-08-15", "date_estimated": true, "collected_at": "2026-08-19", "title": "K-UAM 첫 국산 기체 'B-32-R2' 공개…인천 드론·UAM 박람회서 비행 쇼케이스", "summary": "국토교통부와 인천시가 개최한 '2026 대한민국 드론·UAM 박람회'에서 삼보모터스그룹이 개발한 국산 UAM 기체 'B-32-R2'가 첫 공식 비행을 선보였다. 정부는 2030년 민간 주도 UAM 상용화를 목표로 로드맵을 추진 중이다.", "url": "https://airtravelinfo.kr/air_news/1752540", "source": "항공여행", "category": "UAM", "region": "국내"}, {"id": "2026-08-19-e-scooter-age-16", "date": "2026-08-19", "date_estimated": true, "collected_at": "2026-08-19", "title": "'킥라니' 막는다…전동킥보드 대여 '만 16세' 의무화 검토", "summary": "정부가 전동킥보드 관련 사고를 줄이기 위해 대여 가능 연령을 만 16세로 의무화하는 방안을 검토 중이다. 속도제한 해제 방지, 정기 안전점검 등 공유 모빌리티 사업자 안전관리 의무도 함께 강화될 전망이다.", "url": "https://v.daum.net/v/Ulh4mDKpvK", "source": "정책브리핑", "category": "정책·규제", "region": "국내"}, {"id": "2026-08-02-techcrunch-robotaxi-roads-diverged", "date": "2026-08-02", "date_estimated": false, "collected_at": "2026-08-19", "title": "TechCrunch Mobility: 로보택시 시장, 두 갈래 길에서 갈리다", "summary": "미국 연방정부는 자율주행 규제 완화로 속도를 내는 반면 주·지방정부는 안전 우려로 제동을 걸며, 로보택시 업계의 확장 전략이 지역별로 엇갈리고 있다.", "url": "https://techcrunch.com/2026/08/02/techcrunch-mobility-two-roads-diverged-for-robotaxis/", "source": "TechCrunch", "category": "자율주행", "region": "글로벌"}, {"id": "2026-08-19-weride-uber-dubai", "date": "2026-08-19", "date_estimated": true, "collected_at": "2026-08-19", "title": "위라이드-우버, 두바이서 로보택시 정식 승객 서비스 개시", "summary": "중국 자율주행 기업 위라이드가 우버 앱을 통해 두바이 움 수케임·주메이라 등 주요 관광지에서 로보택시 정식 승객 운행을 시작했다. 중동 지역 자율주행 확장의 신호탄으로 평가된다.", "url": "https://www.barchart.com/story/news/36588322/weride-and-uber-launch-autonomous-robotaxi-rides-in-dubai-expanding-av-footprint-in-the-uae", "source": "Barchart", "category": "모빌리티 서비스", "region": "글로벌"}, {"id": "2026-08-04-ev-battery-market-2035", "date": "2026-08-04", "date_estimated": false, "collected_at": "2026-08-19", "title": "글로벌 EV 배터리 시장, 2035년 1690억 달러 규모로 성장 전망", "summary": "전기차 배터리 시장이 2026년 1030억 달러에서 2035년 1690억 달러로 연평균 5.6% 성장할 것으로 전망됐다. 팩 가격 하락과 전기트럭용 수요 확대가 성장을 견인하고 있다.", "url": "https://www.globenewswire.com/news-release/2026/08/04/3338539/28124/en/EV-Battery-Market-to-Reach-168-95-Billion-by-2035-as-BEV-Adoption-Accelerates-Insights-by-Battery-Type-Vehicle-Type-Propulsion-Battery-Form-Material-Type-Battery-Capacity-Method-Li.html", "source": "GlobeNewswire", "category": "전기차·배터리", "region": "글로벌"}, {"id": "2026-02-02-mit-ev-battery-2026-outlook", "date": "2026-02-02", "date_estimated": false, "collected_at": "2026-08-19", "title": "2026년 EV 배터리 기술, 무엇이 달라지나", "summary": "MIT 테크놀로지 리뷰가 2026년 EV 배터리 기술 전망을 정리했다. 리튬망간 계열 셀, 배터리 여권(디지털 패스포트) 의무화 등이 핵심 화두로 꼽혔다.", "url": "https://www.technologyreview.com/2026/02/02/1132042/whats-next-for-ev-batteries-in-2026/", "source": "MIT Technology Review", "category": "전기차·배터리", "region": "글로벌"}, {"id": "2026-02-26-mobility-innovation-roadmap", "date": "2026-02-26", "date_estimated": false, "collected_at": "2026-08-20", "title": "정부, '27년 완전자율주행·'28년 UAM 상용화 목표 '모빌리티 혁신 로드맵' 발표", "summary": "정부가 2027년 레벨4 완전자율주행 상용화, 2028년 UAM 공공서비스 상용화를 목표로 하는 '모빌리티 혁신 로드맵'을 발표했다. 광주광역시에 자율차 200대를 투입해 실증-데이터 수집-학습으로 이어지는 기술 고도화 체계를 구축할 계획이다.", "url": "https://v.daum.net/v/20260226110001172", "source": "다음뉴스", "category": "정책·규제", "region": "국내"}, {"id": "2026-07-12-techcrunch-robotaxi-ultimatum", "date": "2026-07-12", "date_estimated": false, "collected_at": "2026-08-20", "title": "TechCrunch Mobility: 로보택시 업계에 던져진 최후통첩", "summary": "규제당국과 지방정부가 안전 기준 강화를 요구하며 로보택시 사업자들을 압박하고 있다는 TechCrunch의 주간 모빌리티 브리핑. 확장 속도와 안전 관리 사이의 긴장이 커지고 있다.", "url": "https://techcrunch.com/2026/07/12/techcrunch-mobility-a-robotaxi-ultimatum/", "source": "TechCrunch", "category": "자율주행", "region": "글로벌"}, {"id": "2026-05-24-techcrunch-robotaxi-reality-check", "date": "2026-05-24", "date_estimated": false, "collected_at": "2026-08-20", "title": "TechCrunch Mobility: 로보택시, 장밋빛 전망과 현실의 간극", "summary": "로보택시 확장에 대한 업계의 낙관론과 달리 실제 운행 데이터와 규제 현실은 훨씬 더디게 움직이고 있다는 TechCrunch의 점검 기사.", "url": "https://techcrunch.com/2026/05/24/techcrunch-mobility-robotaxi-reality-check/", "source": "TechCrunch", "category": "자율주행", "region": "글로벌"}, {"id": "2026-08-09-techcrunch-zoox-ubers-av-empire", "date": "2026-08-09", "date_estimated": false, "collected_at": "2026-08-21", "title": "TechCrunch Mobility: 주크스 출시 준비와 우버의 자율주행 제국", "summary": "아마존 자회사 주크스(Zoox)가 무인 로보택시의 안전성 프레임워크를 공개하며 출시를 준비하고 있고, 우버는 여러 파트너십을 통해 자체 자율주행 생태계를 넓히고 있다는 TechCrunch의 주간 모빌리티 브리핑.", "url": "https://techcrunch.com/2026/08/09/techcrunch-mobility-zoox-prepares-for-launch-and-ubers-av-empire/", "source": "TechCrunch", "category": "자율주행", "region": "글로벌"}, {"id": "2026-05-03-techcrunch-robotaxi-ticket", "date": "2026-05-03", "date_estimated": false, "collected_at": "2026-08-21", "title": "TechCrunch Mobility: 로보택시에는 어떻게 딱지를 끊을까", "summary": "무인 로보택시가 교통법규를 위반했을 때 단속·과태료 부과를 어떻게 할지에 대한 제도적 공백을 다룬 TechCrunch의 점검 기사. 연방·주 규제당국의 대응 방식 차이를 짚었다.", "url": "https://techcrunch.com/2026/05/03/techcrunch-mobility-how-do-you-issue-a-ticket-to-a-robotaxi/", "source": "TechCrunch", "category": "정책·규제", "region": "글로벌"}, {"id": "2026-07-28-future-mobility-week-coex", "date": "2026-07-28", "date_estimated": false, "collected_at": "2026-08-21", "title": "국내 첫 '퓨처 모빌리티 위크' 8월 코엑스서 개최…전기차·자율주행·무인이동체 총망라", "summary": "8월 25~27일 서울 코엑스에서 국내 최초의 통합 미래 모빌리티 전시 '2026 퓨처 모빌리티 위크'가 열린다. 전기차, 충전 인프라, 자율주행, 드론, UAM 등을 아우르는 행사로 마련됐다.", "url": "https://www.ajunews.com/view/20260728134630044", "source": "아주경제", "category": "기타", "region": "국내"}]/*ARTICLES_JSON_END*/;
 
-const $ = (s) => document.querySelector(s);
-const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const color = (c) => CAT_COLOR[c] || "#78889a";
-const fmtNum = (n) => n.toLocaleString("ko-KR");
+  const CATS = ["자율주행", "UAM", "전기차·배터리", "모빌리티 서비스", "정책·규제", "기타"];
+  const CAT_VARS = { "자율주행": "--c1", "UAM": "--c2", "전기차·배터리": "--c3", "모빌리티 서비스": "--c4", "정책·규제": "--c5", "기타": "--c6" };
+  const root = document.documentElement;
+  const cssVar = (name) => getComputedStyle(root).getPropertyValue(name).trim();
+  const catColor = (cat) => cssVar(CAT_VARS[cat] || "--c6");
 
-const state = { q:"", cats:new Set(), type:"all", stage:null };
+  const state = { bucket: "month", region: "all", cats: new Set(), query: "" };
 
-function daysUntil(d){
-  if(!d) return null;
-  const t = new Date(d + "T00:00:00+09:00");
-  return Math.ceil((t - TODAY) / 86400000);
-}
-
-function passes(it){
-  if(state.type !== "all" && it.type !== state.type) return false;
-  if(state.stage && it.stage !== state.stage) return false;
-  if(state.cats.size && !state.cats.has(it.category)) return false;
-  if(state.q){
-    const a = it.analysis || {};
-    const hay = [it.title, it.summary, it.agency, it.exec_agency, it.doc_no, it.source,
-                 a.why_now, a.lineage, a.tech, a.implication, (it.keywords||[]).join(" ")]
-                .join(" ").toLowerCase();
-    if(!hay.includes(state.q.toLowerCase())) return false;
+  // ---------- date helpers ----------
+  function parseDate(s) { const [y,m,d] = s.split("-").map(Number); return new Date(Date.UTC(y, m-1, d)); }
+  function bucketKey(dateStr, bucket) {
+    const d = parseDate(dateStr);
+    const y = d.getUTCFullYear(), m = d.getUTCMonth();
+    if (bucket === "month") return `${y}-${String(m+1).padStart(2,"0")}`;
+    if (bucket === "quarter") return `${y}-Q${Math.floor(m/3)+1}`;
+    return `${y}-${m < 6 ? "상반기" : "하반기"}`;
   }
-  return true;
-}
+  function bucketLabel(key, bucket) {
+    if (bucket === "month") { const [y,m] = key.split("-"); return `${y.slice(2)}.${m}`; }
+    return key.replace(/^(\d{4})-/, (_, y) => y.slice(2) + " ");
+  }
 
-/* ---------- alert strip: 마감 임박 공고 ---------- */
-function renderAlert(){
-  const soon = ITEMS
-    .map(it => ({it, d: daysUntil(it.deadline)}))
-    .filter(x => x.d !== null && x.d >= 0 && x.d <= 30)
-    .sort((a,b) => a.d - b.d);
-  const slot = $("#alert-slot");
-  if(!soon.length){ slot.innerHTML = ""; return; }
-  slot.innerHTML = `<div class="alert"><b>접수 마감 임박</b>` +
-    soon.slice(0,3).map(x =>
-      `<span class="a-item">${esc(x.it.title)} <span class="num">D-${x.d}</span> (${esc(x.it.deadline)})</span>`
-    ).join("") + `</div>`;
-}
+  // ---------- KPIs ----------
+  function renderKPIs() {
+    const now = new Date();
+    const thisMonthKey = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}`;
+    const weekAgo = new Date(now); weekAgo.setDate(now.getDate() - 7);
+    const total = ARTICLES.length;
+    const thisMonth = ARTICLES.filter(a => bucketKey(a.collected_at, "month") === thisMonthKey).length;
+    const thisWeek = ARTICLES.filter(a => parseDate(a.collected_at) >= weekAgo).length;
+    const cats = new Set(ARTICLES.map(a => a.category)).size;
+    const tiles = [
+      ["누적 기사", total, "건", "서비스 시작 이후 총계"],
+      ["이번 달 신규", thisMonth, "건", "이번 달 수집분"],
+      ["최근 7일", thisWeek, "건", "지난 7일간 신규"],
+      ["추적 카테고리", cats, "종", "자율주행 · UAM · 배터리 등"],
+    ];
+    document.getElementById("kpis").innerHTML = tiles.map(([label, value, unit, sub]) => `
+      <div class="kpi">
+        <div class="label">${label}</div>
+        <div class="value num">${value}<span class="unit">${unit}</span></div>
+        <div class="sub">${sub}</div>
+      </div>`).join("");
+  }
 
-/* ---------- stat tiles ---------- */
-function renderStats(){
-  const open = ITEMS.filter(it => it.stage === "공고").length;
-  const budget = ITEMS.reduce((s,it) => s + (typeof it.budget_total === "number" ? it.budget_total : 0), 0);
-  const withBudget = ITEMS.filter(it => typeof it.budget_total === "number").length;
-  const cutoff = new Date(TODAY.getTime() - 90*86400000);
-  const recent = ITEMS.filter(it => new Date(it.date + "T00:00:00+09:00") >= cutoff).length;
-  const upstream = ITEMS.filter(it => it.stage === "구상·계획").length;
-
-  const tiles = [
-    {label:"추적 중인 정책·사업", value:fmtNum(ITEMS.length), unit:"건", sub:`분야 ${new Set(ITEMS.map(i=>i.category)).size}개 · 부처 ${new Set(ITEMS.map(i=>i.agency)).size}곳`},
-    {label:"모집 중인 신규사업", value:fmtNum(open), unit:"건", sub:"stage = 공고", hi:open>0},
-    {label:"확인된 사업비", value:fmtNum(budget), unit:"억원", sub:`${withBudget}건 단순합 · 사업기간·성격 상이`},
-    {label:"최근 90일 신규", value:fmtNum(recent), unit:"건", sub:`선행 신호(구상·계획) ${upstream}건 포함`}
-  ];
-  $("#stats").innerHTML = tiles.map(t => `
-    <div class="stat${t.hi ? " hi" : ""}">
-      <div class="label">${esc(t.label)}</div>
-      <div class="value num">${t.value}<span class="unit">${esc(t.unit)}</span></div>
-      <div class="sub">${esc(t.sub)}</div>
-    </div>`).join("");
-}
-
-/* ---------- pipeline ---------- */
-function renderStages(){
-  const counts = STAGES.map(s => ITEMS.filter(i => i.stage === s).length);
-  const max = Math.max(1, ...counts);
-  $("#stages").innerHTML = STAGES.map((s,i) => `
-    <button class="stage" data-stage="${esc(s)}" aria-pressed="${state.stage === s}">
-      <div class="st-i">STEP ${i+1}</div>
-      <div class="st-n">${esc(s)}</div>
-      <div class="st-c num">${counts[i]}</div>
-      <div class="st-d">${esc(STAGE_DESC[s] || "")}</div>
-      <div class="stage-track"><i style="width:${(counts[i]/max*100).toFixed(1)}%"></i></div>
-    </button>`).join("");
-  $("#stages").querySelectorAll(".stage").forEach(b => {
-    b.addEventListener("click", () => {
-      const s = b.dataset.stage;
-      state.stage = (state.stage === s) ? null : s;
-      renderStages(); render();
-    });
-  });
-}
-
-/* ---------- monthly stacked chart ---------- */
-function renderChart(rows){
-  const svg = $("#chart");
-  const W = 660, H = 212, padL = 26, padR = 8, padB = 22, padT = 10;
-  if(!rows.length){ svg.innerHTML = `<text x="${W/2}" y="${H/2}" text-anchor="middle">데이터 없음</text>`; return; }
-
-  const seen = [...new Set(rows.map(r => r.date.slice(0,7)))].sort();
-  let months = seen;
-  if(seen.length > 1){
-    const span = [];
-    let [y,m] = seen[0].split("-").map(Number);
-    const [ey,em] = seen[seen.length-1].split("-").map(Number);
-    while((y < ey || (y === ey && m <= em)) && span.length < 24){
-      span.push(`${y}-${String(m).padStart(2,"0")}`);
-      if(++m > 12){ m = 1; y++; }
+  // ---------- trend chart (stacked bars) ----------
+  function renderTrend() {
+    const buckets = {};
+    for (const a of ARTICLES) {
+      const key = bucketKey(a.date, state.bucket);
+      buckets[key] = buckets[key] || {};
+      buckets[key][a.category] = (buckets[key][a.category] || 0) + 1;
     }
-    if(span.length < 24) months = span;   // 24개월 넘으면 데이터 있는 달만
-  }
-  const byMonth = {};
-  months.forEach(m => { byMonth[m] = {}; CATS.forEach(c => byMonth[m][c] = 0); });
-  rows.forEach(r => { byMonth[r.date.slice(0,7)][r.category] += 1; });
+    const keys = Object.keys(buckets).sort();
+    const W = 640, H = 260, padL = 28, padB = 24, padT = 10;
+    const plotW = W - padL - 8, plotH = H - padB - padT;
+    const maxTotal = Math.max(1, ...keys.map(k => CATS.reduce((s,c) => s + (buckets[k][c]||0), 0)));
+    const niceMax = Math.ceil(maxTotal / 4) * 4 || 4;
+    const barW = Math.min(46, plotW / Math.max(keys.length, 1) * 0.6);
+    const step = plotW / Math.max(keys.length, 1);
 
-  const totals = months.map(m => CATS.reduce((s,c) => s + byMonth[m][c], 0));
-  const maxV = Math.max(1, ...totals);
-  const niceMax = maxV <= 4 ? maxV : Math.ceil(maxV/2)*2;
-  const plotW = W - padL - padR, plotH = H - padT - padB;
-  const step = plotW / months.length;
-  const barW = Math.min(38, step * 0.6);
-  const y = v => padT + plotH - (v / niceMax) * plotH;
-
-  let s = "";
-  const ticks = niceMax <= 4 ? niceMax : 4;
-  for(let i=0; i<=ticks; i++){
-    const v = Math.round(niceMax * i / ticks);
-    s += `<line class="gridline" x1="${padL}" x2="${W-padR}" y1="${y(v)}" y2="${y(v)}"/>`;
-    s += `<text x="${padL-6}" y="${y(v)+3.2}" text-anchor="end">${v}</text>`;
-  }
-  months.forEach((m,i) => {
-    const cx = padL + step*i + step/2;
-    let cursor = 0;
-    CATS.forEach(c => {
-      const v = byMonth[m][c];
-      if(!v) return;
-      const h = (v / niceMax) * plotH;
-      const yy = y(cursor + v);
-      s += `<rect x="${(cx - barW/2).toFixed(1)}" y="${yy.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(h-1.2,1).toFixed(1)}" rx="2" fill="${color(c)}"><title>${esc(m)} · ${esc(c)} — ${v}건</title></rect>`;
-      cursor += v;
+    let svg = "";
+    // gridlines + axis labels
+    const ticks = 4;
+    for (let i = 0; i <= ticks; i++) {
+      const v = Math.round(niceMax * i / ticks);
+      const y = padT + plotH - (v/niceMax)*plotH;
+      svg += `<line class="gridline" x1="${padL}" x2="${W}" y1="${y}" y2="${y}"/>`;
+      svg += `<text class="axis-label" x="0" y="${y+3}">${v}</text>`;
+    }
+    keys.forEach((k, i) => {
+      const x = padL + step*i + step/2 - barW/2;
+      let yCursor = padT + plotH;
+      const total = CATS.reduce((s,c) => s + (buckets[k][c]||0), 0);
+      CATS.forEach(cat => {
+        const v = buckets[k][cat] || 0;
+        if (!v) return;
+        const h = (v/niceMax)*plotH;
+        yCursor -= h;
+        svg += `<rect class="bar-seg" x="${x}" y="${yCursor}" width="${barW}" height="${Math.max(h-1.5,0)}" rx="2" fill="${catColor(cat)}" data-bucket="${k}" data-cat="${cat}" data-v="${v}"/>`;
+      });
+      svg += `<text class="axis-label" x="${padL + step*i + step/2}" y="${H-4}" text-anchor="middle">${bucketLabel(k, state.bucket)}</text>`;
     });
-    s += `<text x="${cx}" y="${H-6}" text-anchor="middle">${m.slice(2).replace("-","/")}</text>`;
+
+    const svgEl = document.getElementById("trend-chart");
+    svgEl.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    svgEl.innerHTML = svg;
+
+    const tooltip = document.getElementById("tooltip");
+    svgEl.querySelectorAll(".bar-seg").forEach(el => {
+      el.addEventListener("mousemove", (e) => {
+        const cat = el.getAttribute("data-cat"), k = el.getAttribute("data-bucket"), v = el.getAttribute("data-v");
+        tooltip.innerHTML = `<b>${bucketLabel(k, state.bucket)} · ${cat}</b><div class="row"><span>기사 수</span><span class="num">${v}건</span></div>`;
+        tooltip.style.left = (e.clientX + 14) + "px";
+        tooltip.style.top = (e.clientY + 14) + "px";
+        tooltip.classList.add("show");
+      });
+      el.addEventListener("mouseleave", () => tooltip.classList.remove("show"));
+    });
+
+    document.getElementById("trend-legend").innerHTML = CATS.map(c => `
+      <span class="item"><span class="swatch" style="background:${catColor(c)}"></span>${c}</span>`).join("");
+  }
+
+  // ---------- category bars ----------
+  function renderCatBars() {
+    const counts = {};
+    CATS.forEach(c => counts[c] = 0);
+    ARTICLES.forEach(a => counts[a.category] = (counts[a.category]||0) + 1);
+    const max = Math.max(1, ...Object.values(counts));
+    document.getElementById("cat-bars").innerHTML = CATS.map(c => `
+      <div class="cat-bar-row">
+        <div class="name">${c}</div>
+        <div class="cat-bar-track"><div class="cat-bar-fill" style="width:${(counts[c]/max*100).toFixed(1)}%; background:${catColor(c)}"></div></div>
+        <div class="count num">${counts[c]}</div>
+      </div>`).join("");
+  }
+
+  // ---------- filter chips ----------
+  function renderChips() {
+    document.getElementById("cat-chips").innerHTML = CATS.map(c => `
+      <button class="chip" data-cat="${c}"><span class="dot" style="background:${catColor(c)}"></span>${c}</button>`).join("");
+    document.querySelectorAll(".chip").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const c = btn.getAttribute("data-cat");
+        if (state.cats.has(c)) { state.cats.delete(c); btn.classList.remove("active"); }
+        else { state.cats.add(c); btn.classList.add("active"); }
+        renderList();
+      });
+    });
+  }
+
+  // ---------- article list ----------
+  function renderList() {
+    let items = ARTICLES.slice().sort((a,b) =>
+      b.collected_at.localeCompare(a.collected_at) || b.date.localeCompare(a.date));
+    if (state.region !== "all") items = items.filter(a => a.region === state.region);
+    if (state.cats.size) items = items.filter(a => state.cats.has(a.category));
+    if (state.query) {
+      const q = state.query.toLowerCase();
+      items = items.filter(a => a.title.toLowerCase().includes(q) || a.summary.toLowerCase().includes(q));
+    }
+    document.getElementById("count-line").textContent = `${items.length}건 표시 중 (전체 ${ARTICLES.length}건)`;
+    document.getElementById("empty-state").style.display = items.length ? "none" : "block";
+    document.getElementById("article-list").innerHTML = items.map(a => `
+      <li class="article">
+        <div class="bar" style="background:${catColor(a.category)}"></div>
+        <div>
+          <div class="title-row">
+            <a class="title" href="${a.url}" target="_blank" rel="noopener">${escapeHtml(a.title)}</a>
+          </div>
+          <div class="summary">${escapeHtml(a.summary)}</div>
+          <div class="meta">
+            <span class="tag" style="color:${catColor(a.category)}">${a.category}</span>
+            <span class="tag">${a.region}</span>
+            ${a.date_estimated ? '<span class="tag estimated">추정</span>' : ''}
+          </div>
+        </div>
+        <div class="right">
+          <div class="date num">${a.date}</div>
+          <div class="source">${escapeHtml(a.source)}</div>
+          ${a.collected_at !== a.date ? `<div class="source">수집 ${a.collected_at}</div>` : ''}
+        </div>
+      </li>`).join("");
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+  }
+
+  // ---------- wiring ----------
+  document.getElementById("bucket-seg").addEventListener("click", (e) => {
+    const btn = e.target.closest("button"); if (!btn) return;
+    document.querySelectorAll("#bucket-seg button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    state.bucket = btn.getAttribute("data-bucket");
+    renderTrend();
   });
-  svg.innerHTML = s;
-
-  const usedCats = CATS.filter(c => months.some(m => byMonth[m][c] > 0));
-  $("#legend").innerHTML = usedCats.map(c =>
-    `<span class="it"><span class="sw" style="background:${color(c)}"></span>${esc(c)}</span>`).join("");
-}
-
-/* ---------- category shares ---------- */
-function renderCats(rows){
-  const counts = CATS.map(c => rows.filter(r => r.category === c).length);
-  const max = Math.max(1, ...counts);
-  const total = rows.length || 1;
-  const html = CATS.map((c,i) => counts[i] === 0 ? "" : `
-    <div class="cat-row">
-      <span class="cn">${esc(c)}</span>
-      <span class="cv num">${counts[i]}건 · ${Math.round(counts[i]/total*100)}%</span>
-      <span class="cat-bar"><i style="width:${(counts[i]/max*100).toFixed(1)}%; background:${color(c)}"></i></span>
-    </div>`).join("");
-  $("#cat-rows").innerHTML = html || `<div class="cv" style="color:var(--muted);font-size:12px">데이터 없음</div>`;
-}
-
-/* ---------- controls ---------- */
-function renderControls(){
-  $("#type-seg").innerHTML = [{v:"all",l:"전체"}].concat(TYPES.map(t => ({v:t,l:t})))
-    .map(o => `<button data-type="${esc(o.v)}" class="${state.type===o.v?"on":""}">${esc(o.l)}</button>`).join("");
-  $("#type-seg").querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
-    state.type = b.dataset.type; renderControls(); render();
-  }));
-
-  $("#chips").innerHTML = CATS.map(c => {
-    const n = ITEMS.filter(i => i.category === c).length;
-    if(!n) return "";
-    const on = state.cats.has(c);
-    return `<button class="chip${on?" on":""}" data-cat="${esc(c)}" style="${on?`color:${color(c)};background:${color(c)}14`:""}">
-      <span class="sw" style="background:${color(c)}"></span>${esc(c)}<span class="cc">${n}</span></button>`;
-  }).join("");
-  $("#chips").querySelectorAll(".chip").forEach(b => b.addEventListener("click", () => {
-    const c = b.dataset.cat;
-    state.cats.has(c) ? state.cats.delete(c) : state.cats.add(c);
-    renderControls(); render();
-  }));
-}
-
-/* ---------- list ---------- */
-function itemHTML(it, open){
-  const a = it.analysis || {};
-  const d = daysUntil(it.deadline);
-  const meta = [];
-  if(it.agency) meta.push(`<span><span class="k">소관</span> <span class="v">${esc(it.agency)}</span></span>`);
-  if(it.exec_agency) meta.push(`<span><span class="k">전담</span> <span class="v">${esc(it.exec_agency)}</span></span>`);
-  if(typeof it.budget_total === "number") meta.push(`<span><span class="k">사업비</span> <span class="v">${fmtNum(it.budget_total)}억원</span></span>`);
-  if(it.period) meta.push(`<span><span class="k">기간</span> <span class="v">${esc(it.period)}</span></span>`);
-  if(it.doc_no) meta.push(`<span><span class="v">${esc(it.doc_no)}</span></span>`);
-  if(it.deadline) meta.push(`<span class="ddl">마감 ${esc(it.deadline)}${d !== null && d >= 0 ? ` · D-${d}` : ""}</span>`);
-
-  const fields = [["왜 지금", a.why_now], ["정책 계보", a.lineage], ["기술 쟁점", a.tech], ["시사점", a.implication]];
-
-  return `<li class="item${open?" open":""}" data-id="${esc(it.id)}">
-    <button class="item-head" aria-expanded="${open}">
-      <span class="rail" style="background:${color(it.category)}"></span>
-      <span class="ihead-main">
-        <span class="meta-top">
-          <span class="tag cat" style="--tagbg:${color(it.category)}1a; --tagfg:${color(it.category)}">${esc(it.category)}</span>
-          <span class="tag type">${esc(it.type)}</span>
-          <span class="date">${esc(it.date)}</span>
-          ${it.date_estimated ? `<span class="est">추정</span>` : ""}
-        </span>
-        <span class="item-title">${esc(it.title)}</span>
-        <span class="meta-bot">${meta.join("")}</span>
-      </span>
-      <span class="chev">▼</span>
-    </button>
-    <div class="body">
-      <p class="summary">${esc(it.summary)}</p>
-      <div class="analysis">
-        ${fields.map(([k,v]) => `<div class="af"><div class="k">${esc(k)}</div><div class="t">${esc(v || "—")}</div></div>`).join("")}
-      </div>
-      <div class="foot">
-        <span class="kw">${(it.keywords||[]).map(k => `<span>${esc(k)}</span>`).join("")}</span>
-        <a class="src" href="${esc(it.url)}" target="_blank" rel="noopener noreferrer">원문 · ${esc(it.source)} ↗</a>
-      </div>
-    </div>
-  </li>`;
-}
-
-const opened = new Set();
-
-function render(){
-  const rows = ITEMS.filter(passes).sort((a,b) => b.date.localeCompare(a.date) || a.id.localeCompare(b.id));
-  if(opened.size === 0 && rows.length) opened.add(rows[0].id);
-
-  $("#count").textContent = `${rows.length}건 표시 / 전체 ${ITEMS.length}건` +
-    (state.stage ? ` · 단계: ${state.stage}` : "") +
-    (state.cats.size ? ` · 분야: ${[...state.cats].join(", ")}` : "");
-
-  $("#list").innerHTML = rows.map(it => itemHTML(it, opened.has(it.id))).join("");
-  $("#empty").hidden = rows.length > 0;
-
-  $("#list").querySelectorAll(".item").forEach(li => {
-    li.querySelector(".item-head").addEventListener("click", () => {
-      const id = li.dataset.id;
-      opened.has(id) ? opened.delete(id) : opened.add(id);
-      li.classList.toggle("open");
-      li.querySelector(".item-head").setAttribute("aria-expanded", String(opened.has(id)));
-    });
+  document.getElementById("region-seg").addEventListener("click", (e) => {
+    const btn = e.target.closest("button"); if (!btn) return;
+    document.querySelectorAll("#region-seg button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    state.region = btn.getAttribute("data-region");
+    renderList();
+  });
+  document.getElementById("search").addEventListener("input", (e) => {
+    state.query = e.target.value.trim();
+    renderList();
   });
 
-  renderChart(rows);
-  renderCats(rows);
-}
-
-$("#q").addEventListener("input", (e) => { state.q = e.target.value.trim(); render(); });
-
-renderAlert();
-renderStats();
-renderStages();
-renderControls();
-render();
+  renderKPIs();
+  renderTrend();
+  renderCatBars();
+  renderChips();
+  renderList();
 </script>

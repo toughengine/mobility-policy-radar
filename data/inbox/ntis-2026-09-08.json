@@ -1,0 +1,309 @@
+{
+  "source": "NTIS 국가R&D통합공고",
+  "collected_at": "2026-09-08",
+  "queried_years": [
+    "2026"
+  ],
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "uid": "1277085",
+      "title": "2026년 「AX실증밸리조성(RD)」 사업 신규지원대상 과제 통합 공고_(내역1-1)[지정]모두의AI, (내역1-2)[지정]도시·생활혁신AX, (내역2-1)[지정]자율주행모빌리티AX",
+      "agency": "과학기술정보통신부",
+      "status": "",
+      "period": "2026.09.16 ~ 2026.09.30",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1277085",
+      "found_by": "2026 자율주행"
+    },
+    {
+      "uid": "1277087",
+      "title": "2026년 「AX실증밸리조성(RD)」 사업 신규지원대상 과제 통합 공고_ (내역2-2)[지정]자율주행모빌리티AX",
+      "agency": "과학기술정보통신부",
+      "status": "",
+      "period": "2026.09.16 ~ 2026.09.30",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1277087",
+      "found_by": "2026 자율주행"
+    },
+    {
+      "uid": "1276943",
+      "title": "2026년도 투·융자 연계 기술개발사업 지원계획 수정 공고(딥테크 챌린지 프로젝트_기술도전형)_(2026-DCP-56_모빌리티_딥테크 챌린지 프로젝트(DCP*))",
+      "agency": "중소벤처기업부",
+      "status": "",
+      "period": "2026.08.28 ~ 2026.10.28",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1276943",
+      "found_by": "2026 모빌리티",
+      "variants": 3
+    },
+    {
+      "uid": "1275888",
+      "title": "2026년도 NRF 인터내셔널 모빌리티 신규과제 공모",
+      "agency": "과학기술정보통신부",
+      "status": "",
+      "period": "2026.08.19 ~ 2026.09.16",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1275888",
+      "found_by": "2026 모빌리티"
+    },
+    {
+      "uid": "1273844",
+      "title": "(공고-국-제29호) 2026년 국토교통연구기획 사업 제2차 시행 공고",
+      "agency": "국토교통부",
+      "status": "마감",
+      "period": "2026.08.10 ~ 2026.08.18",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1273844",
+      "found_by": "2026 교통"
+    },
+    {
+      "uid": "1269900",
+      "title": "2026년도 자동차산업기술개발 2차 신규지원 대상과제 공고",
+      "agency": "산업통상부",
+      "status": "마감",
+      "period": "2026.06.05 ~ 2026.06.29",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1269900",
+      "found_by": "2026 자동차"
+    },
+    {
+      "uid": "1266670",
+      "title": "2026년도 미래 혁신 선도형 이차전지 원천기술개발 사업",
+      "agency": "과학기술정보통신부",
+      "status": "마감",
+      "period": "2026.05.14 ~ 2026.05.22",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1266670",
+      "found_by": "2026 이차전지",
+      "variants": 1
+    },
+    {
+      "uid": "1265684",
+      "title": "2026년도 SDV대응가혹환경극복자동차반도체핵심IP원천기술개발사업 신규과제 재공모",
+      "agency": "과학기술정보통신부",
+      "status": "마감",
+      "period": "2026.05.08 ~ 2026.05.18",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1265684",
+      "found_by": "2026 자동차"
+    },
+    {
+      "uid": "1264713",
+      "title": "(재공고-국-제27호) 2026년 국토교통연구기획 사업 제1차 시행 재공고",
+      "agency": "국토교통부",
+      "status": "마감",
+      "period": "2026.05.08 ~ 2026.05.15",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1264713",
+      "found_by": "2026 교통",
+      "variants": 1
+    },
+    {
+      "uid": "1263597",
+      "title": "(공고-국-제28호) 2026년 협력거점형 국토교통 국제협력 연구개발사업(다자협력형) 시행 공고",
+      "agency": "국토교통부",
+      "status": "마감",
+      "period": "2026.05.06 ~ 2026.05.28",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1263597",
+      "found_by": "2026 교통"
+    },
+    {
+      "uid": "1264708",
+      "title": "2026년도 수요맞춤형산업별배터리소재및셀기술개발 사업 신규 지원대상 연구개발과제 재공고",
+      "agency": "산업통상부",
+      "status": "마감",
+      "period": "2026.04.30 ~ 2026.05.14",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1264708",
+      "found_by": "2026 배터리"
+    },
+    {
+      "uid": "1263333",
+      "title": "2026년도 투·융자 연계 기술개발사업 지원계획 공고(딥테크 챌린지 프로젝트_기술도전형)_(2026)(2026-DCP-29_모빌리티_딥테크 챌린지 프로젝트(DCP*))",
+      "agency": "중소벤처기업부",
+      "status": "마감",
+      "period": "2026.04.23 ~ 2026.06.23",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1263333",
+      "found_by": "2026 모빌리티",
+      "variants": 7
+    },
+    {
+      "uid": "1260364",
+      "title": "2026년도 SDV대응가혹환경극복자동차반도체핵심IP원천기술개발사업 신규과제 공모(수정)",
+      "agency": "과학기술정보통신부",
+      "status": "마감",
+      "period": "2026.04.22 ~ 2026.05.07",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1260364",
+      "found_by": "2026 자동차"
+    },
+    {
+      "uid": "1263029",
+      "title": "2026년도 SDV대응가혹환경극복자동차반도체핵심IP원천기술개발사업 신규과제 공모",
+      "agency": "과학기술정보통신부",
+      "status": "마감",
+      "period": "2026.04.22 ~ 2026.05.07",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1263029",
+      "found_by": "2026 자동차"
+    },
+    {
+      "uid": "1259249",
+      "title": "2026년도 배터리 및 전기전자 분야 신규 지원대상 연구개발과제 재공고",
+      "agency": "산업통상부",
+      "status": "마감",
+      "period": "2026.03.24 ~ 2026.04.07",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259249",
+      "found_by": "2026 배터리",
+      "variants": 1
+    },
+    {
+      "uid": "1257761",
+      "title": "2026년도 해양배터리 특화 데이터 허브 플랫폼 구축 기술개발사업 신규과제 선정계획 재공고",
+      "agency": "해양수산부",
+      "status": "마감",
+      "period": "2026.03.04 ~ 2026.03.11",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1257761",
+      "found_by": "2026 배터리"
+    },
+    {
+      "uid": "1256770",
+      "title": "(재공고-국-제14호) 2026년 자율주행 글로벌 혁신클러스터 연구개발 사업 시행 재공고",
+      "agency": "국토교통부",
+      "status": "마감",
+      "period": "2026.02.20 ~ 2026.02.27",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1256770",
+      "found_by": "2026 자율주행",
+      "variants": 1
+    },
+    {
+      "uid": "1256427",
+      "title": "(재공고-국-제12호) 2026년 워킹쓰루 교통결제시스템 표준 및 서비스 실용화 기술개발 사업 시행 재공고",
+      "agency": "국토교통부",
+      "status": "마감",
+      "period": "2026.02.13 ~ 2026.02.23",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1256427",
+      "found_by": "2026 교통",
+      "variants": 1
+    },
+    {
+      "uid": "1256237",
+      "title": "(연장공고) (SW자율주행 부문) 2026년도 제1차 정보통신·방송 기술개발사업 및 표준개발지원사업 신규지원 대상과제 공고",
+      "agency": "과학기술정보통신부",
+      "status": "마감",
+      "period": "2026.02.11 ~ 2026.02.24",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1256237",
+      "found_by": "2026 자율주행",
+      "variants": 4
+    },
+    {
+      "uid": "1256003",
+      "title": "2026년도 자동차산업기술개발사업(1차) 신규지원 대상과제 공고",
+      "agency": "산업통상부",
+      "status": "마감",
+      "period": "2026.02.06 ~ 2026.03.12",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1256003",
+      "found_by": "2026 자동차"
+    },
+    {
+      "uid": "1255568",
+      "title": "2026년도 자동차분야 신규 기반조성 사업시행계획 통합공고(1차)",
+      "agency": "산업통상부",
+      "status": "마감",
+      "period": "2026.02.06 ~ 2026.03.12",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1255568",
+      "found_by": "2026 자동차"
+    },
+    {
+      "uid": "1255762",
+      "title": "국제개발협력센터[입찰재공고] 「2025/26년 경제혁신파트너십프로그램(EIPP)」 헝가리 정책자문사업: '한국-헝가리 배터리협력연구센터 설립 지원' 용역입찰 재공고2026.02.06",
+      "agency": "국무조정실",
+      "status": "마감",
+      "period": "2026.02.06 ~ 2026.02.20",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1255762",
+      "found_by": "2026 배터리"
+    },
+    {
+      "uid": "1253979",
+      "title": "2026년도 자동차핵심부품용탄소배출저감특화철강판재기술개발사업 신규지원 대상과제 공고",
+      "agency": "산업통상부",
+      "status": "마감",
+      "period": "2026.01.29 ~ 2026.02.25",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1253979",
+      "found_by": "2026 자동차"
+    },
+    {
+      "uid": "1254413",
+      "title": "(공고-국-제16호) 2026년 지역특화형 자율주행 서비스 모델 및 실증 기술 개발 사업 시행 공고_(2026)(공고-국-제16호) 2026년 지역특화형 자율주행 서비스 모델 개발 및 실증 기술 개발 사업 시행 공고",
+      "agency": "국토교통부",
+      "status": "마감",
+      "period": "2026.01.26 ~ 2026.02.19",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1254413",
+      "found_by": "2026 자율주행"
+    },
+    {
+      "uid": "1253323",
+      "title": "(공고-국-제04호) 2026년 협력거점형 국토교통 국제협력 연구개발 사업(한-스페인 양자협력형 국제공동연구)",
+      "agency": "국토교통부",
+      "status": "마감",
+      "period": "2026.01.20 ~ 2026.02.26",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1253323",
+      "found_by": "2026 교통"
+    },
+    {
+      "uid": "1253114",
+      "title": "2026년 국토교통 과학기술 신진연구자 지원사업 시행 공고_(2026)(공고-국-제01호) 2026년 국토교통 과학기술 신진연구자 지원사업 시행 공고",
+      "agency": "국토교통부",
+      "status": "마감",
+      "period": "2026.01.16 ~ 2026.02.09",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1253114",
+      "found_by": "2026 교통"
+    },
+    {
+      "uid": "1253116",
+      "title": "(공고-국-제03호) 2026년 협력거점형 국토교통 국제협력 연구개발사업(선도기술탐색형) 시행 공고",
+      "agency": "국토교통부",
+      "status": "마감",
+      "period": "2026.01.16 ~ 2026.02.09",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1253116",
+      "found_by": "2026 교통"
+    },
+    {
+      "uid": "1253115",
+      "title": "(공고-국-제02호) 2026년 성과확산형 국토교통 국제협력 연구개발사업 시행 공고",
+      "agency": "국토교통부",
+      "status": "마감",
+      "period": "2026.01.16 ~ 2026.02.09",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1253115",
+      "found_by": "2026 교통"
+    },
+    {
+      "uid": "1252205",
+      "title": "2026년도 환경기술개발사업 신규과제 추진계획 공고_(2026)수소자동차핵심부품재활용기술개발사업(RD)",
+      "agency": "기후에너지환경부",
+      "status": "마감",
+      "period": "2025.12.19 ~ 2026.01.23",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1252205",
+      "found_by": "2026 자동차",
+      "variants": 2
+    }
+  ]
+}

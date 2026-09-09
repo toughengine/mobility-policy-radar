@@ -1,47 +1,65 @@
 # 모빌리티 정책·사업 브리프 — 실행 플레이북
 
 **매일 자동으로 실행되는 Claude 세션**이 따르는 절차입니다.
-(Routine: 매일 08:00 KST 발화 · 저장소 `toughengine/mobility-policy-radar`)
+(Routine: 매일 08:07 KST 발화 · 저장소 `toughengine/mobility-policy-radar`)
 
 이 브리프의 목적은 뉴스 수집이 아닙니다. **자동차·모빌리티 기술정책과 정부 신규사업을
 추적하고, 각 사업이 왜 지금 기획되었는지를 분석해 누적하는 것**입니다.
 "공고가 떴습니다"로 끝나는 항목은 이 저장소에 넣을 가치가 없습니다.
 
-## 중요: Bash/`git`을 절대 사용하지 않는다
+## 이 세션이 쓸 수 있는 것 (2026-09-09 실측)
 
-이 자동화는 사람이 지켜보지 않는 상태로 실행됩니다. **Bash로 `git`/`python3` 등을
-실행하면 최초 1회 사람 승인이 필요해 그 자리에서 영원히 멈춥니다** (실제로 재현 확인됨).
-반면 GitHub MCP 도구(`mcp__github__*`)는 승인 없이 즉시 실행됩니다. 그래서 이 플레이북은
-**처음부터 끝까지 GitHub API 도구 + Artifact 도구 + WebSearch + PushNotification만**
-사용하고 Bash는 절대 호출하지 않습니다.
+Routine이 발화시킨 세션을 실제로 진단한 결과입니다:
+
+| 도구 | 가능? |
+|---|---|
+| `Bash` (git 2.43, python3 3.11, curl) | ✅ **승인 대기 없이 즉시 실행됨** |
+| `WebSearch` · `Write` · `Artifact` · `PushNotification` | ✅ |
+| `mcp__github__*` | ❌ 서버 자체가 로드되지 않음 |
+| `mcp__Claude_Code_Remote__add_repo` | ❌ 도구 목록에 없음 |
+| 저장소 체크아웃 | ❌ 작업 디렉터리가 비어 있음 |
+
+이전 버전의 플레이북은 "Bash를 절대 쓰지 말고 GitHub MCP 도구만 쓰라"고 했지만,
+**그 도구가 없다는 것이 확인되어 전제가 반대로 뒤집혔습니다.** Bash가 승인 대기로
+멈춘다는 과거 경험은 `permission_mode: auto`로 도는 이 Routine 세션에는 해당하지
+않습니다.
+
+그래서 저장소는 `GH_PAT` 환경변수의 토큰으로 직접 clone 합니다:
+
+```bash
+cd /home/user
+git clone https://x-access-token:${GH_PAT}@github.com/toughengine/mobility-policy-radar.git repo
+cd repo
+```
+
+`GH_PAT`가 없으면 **우회하지 말고** 그 사실을 `PushNotification`으로 알리고 종료합니다.
+**토큰 값은 절대 출력·로그·커밋하지 않습니다.**
 
 ## 수집 경로 — 누가 무엇을 하는가
 
-수집과 분석은 분리되어 있다. **이 세션은 수집하지 않는다.**
+수집과 분석은 분리되어 있습니다. **이 세션은 NTIS를 직접 훑지 않습니다.**
 
 | 단계 | 담당 | 시각 | 비용 |
 |---|---|---|---|
 | NTIS 국가R&D통합공고 수집 | GitHub Actions (`.github/workflows/collect-ntis.yml`) | 매일 07:00 KST | 토큰 0 (curl + 정규식) |
-| 정책·예타·계획 보완 수집 | 이 세션의 WebSearch | 08:00 KST | 검색 몇 회 |
-| **분석 + 대시보드 갱신** | **이 세션** | 08:00 KST | 신규 건수에 비례 |
+| 정책·예타·계획 보완 수집 | 이 세션의 WebSearch | 08:07 KST | 검색 몇 회 |
+| **분석 + 대시보드 갱신** | **이 세션** | 08:07 KST | 신규 건수에 비례 |
 
-수집을 GitHub에 맡긴 이유는 두 가지 제약 때문이다. 첫째, 이 세션은 **Bash를 쓸 수 없어**
-수집 스크립트를 실행하지 못한다. 둘째, **WebFetch에는 환경의 egress 허용목록이 적용되지
-않아** NTIS·IRIS·SROME가 여전히 차단된다(허용목록을 넣어도 그렇다 — 2026-09 실측).
-그래서 차단 도메인에는 WebFetch를 시도하지 않는다. 시간만 버린다.
+**WebFetch에는 환경의 egress 허용목록이 적용되지 않아** NTIS·IRIS·SROME·korea.kr가
+차단됩니다(허용목록을 넣어도 그렇습니다 — 실측). 그래서 차단 도메인에 WebFetch를
+시도하지 않습니다. 시간만 버립니다. 굳이 직접 받아야 하면 Bash의 `curl`을 쓰세요
+(그건 됩니다).
 
-신규 공고가 없는 날은 Actions가 커밋을 만들지 않는다. 그런 날 이 세션이 할 일은 없고,
-**0건으로 끝내는 것이 정상**이다.
+신규 공고가 없는 날은 Actions가 커밋을 만들지 않습니다. 그런 날 이 세션이 할 일은 없고,
+**0건으로 끝내는 것이 정상**입니다.
 
 ## 실행 순서
 
-1. **현재 DB 읽기** — `mcp__github__get_file_contents`로 `main`의
-   `data/policy_items.json`을 읽는다. 파일 SHA를 기억한다.
+1. **저장소 clone** — 위 방식으로 clone 한 뒤 `data/policy_items.json`을 읽는다.
 
-2. **오늘의 수집 결과 읽기** — `mcp__github__get_file_contents`로
-   `data/inbox/ntis-YYYY-MM-DD.json`을 읽는다 (오늘 날짜 파일이 없으면 Actions가 신규
-   공고를 못 찾은 것이므로 정상이다 — 3번으로 넘어가되 기대치를 낮춘다).
-   각 후보에는 제목·소관부처·접수기간·NTIS 링크가 들어 있다.
+2. **오늘의 수집 결과 읽기** — `data/inbox/ntis-YYYY-MM-DD.json`(오늘 날짜)을 읽는다.
+   오늘 날짜 파일이 없으면 신규 공고가 없었던 것이니 정상이다. 아직 승격되지 않은
+   이전 날짜 후보가 남아 있으면 그것도 함께 본다.
 
    **보완 수집 (WebSearch)** — NTIS에 안 잡히는 유형을 검색으로 메운다. 공고가 아니라
    그 앞단이라 특히 가치가 높다:
@@ -67,47 +85,50 @@
    **근거가 부족하면 단정하지 않는다.** "~로 보인다", "원문 확인 필요"로 불확실성을
    명시한다. 추측을 사실처럼 쓰는 것이 이 저장소에서 가장 큰 실패다.
 
-5. **DB 갱신 (메모리상)** — `items` 배열 끝에 append 한다 (기존 항목 수정 금지).
-   `data/schema.md`의 열거값(`type`/`stage`/`category`)만 사용한다.
+5. **DB 갱신** — `data/policy_items.json`의 `items` 배열 끝에 append 한다 (기존 항목
+   수정 금지). `data/schema.md`의 열거값(`type`/`stage`/`category`)만 사용한다.
    `updated_at`을 현재 시각(KST, ISO8601)으로 갱신한다.
 
-6. **대시보드 HTML 갱신 (메모리상)** — `artifact/dashboard.html`을 읽고(SHA 기억)
-   아래 **세 마커 구간만** 문자열 치환한다. 구간 밖은 절대 건드리지 않는다:
-   - `<!--GENERATED_AT_START-->…<!--GENERATED_AT_END-->` → `YYYY-MM-DD HH:MM KST`
-   - `<!--TOTAL_COUNT_START-->…<!--TOTAL_COUNT_END-->` → 갱신된 `items` 총 개수
-   - `/*ITEMS_JSON_START*/…/*ITEMS_JSON_END*/` → 전체 `items` 배열 JSON
-     (대괄호 포함, 나머지는 JS가 알아서 재계산한다)
+6. **대시보드 재생성** — 체크아웃이 있으므로 마커를 손으로 치환하지 말고 스크립트를
+   돌린다. 더 안전하고 실수할 여지가 없다:
 
-7. **브랜치 생성** — `mcp__github__create_branch`로 `main` 기준
-   `data-sync/YYYY-MM-DD` 브랜치를 만든다.
+   ```bash
+   python3 scripts/generate_dashboard.py
+   ```
 
-8. **파일 반영** — `mcp__github__create_or_update_file`로 두 파일을 커밋한다
-   (각 `sha`는 1번/6번에서 읽은 값):
-   `data/policy_items.json`, `artifact/dashboard.html`
-   커밋 메시지 예: `정책·사업 브리프: YYYY-MM-DD (N건 추가)`
+7. **커밋 & 푸시**
 
-9. **PR 생성 & 즉시 병합** — `create_pull_request` 후 곧바로
-   `merge_pull_request`(`squash`). 사람 승인을 기다리지 않는다 — 이 저장소의 데이터
-   파이프라인은 PR을 리뷰용이 아니라 main 반영 수단으로만 쓰기로 사용자와 합의되어 있다.
+   ```bash
+   git add -A
+   git commit -m "정책·사업 브리프: YYYY-MM-DD (N건 추가)"
+   git push origin main
+   ```
 
-10. **아티팩트 재배포** — Artifact 도구로 6번의 최신 HTML을 **기존과 같은 URL**로
-    재배포한다 (`url` 파라미터 지정). favicon은 **재배포 시 생략**한다 (기존 아이콘 유지).
+   `main` 직접 푸시가 거부되면 `data-sync/YYYY-MM-DD` 브랜치로 푸시하고 그 사실을
+   알림에 포함한다.
 
-    > 대시보드 URL: `https://claude.ai/code/artifact/b32b2210-ac00-44df-9b8d-677817b3ac80`
+8. **아티팩트 재배포** — Artifact 도구로 `artifact/dashboard.html`을 **기존과 같은 URL**로
+   재배포한다 (`url` 파라미터 지정). favicon은 **생략**한다 (기존 🏛️ 유지).
 
-11. **푸시 알림** — `PushNotification`으로 한 줄 요약.
-    예: `정책 브리프: 3건 추가 (K-UAM 실증 예타 통과 등)`
-    0건이면 짧게 "오늘은 신규 항목 없음".
+   > 대시보드 URL: `https://claude.ai/code/artifact/b32b2210-ac00-44df-9b8d-677817b3ac80`
 
-12. **실패 시** — 무리하게 재시도하지 말고 `PushNotification`으로 짧게 알리고 종료한다.
+9. **푸시 알림** — `PushNotification`으로 한 줄 요약.
+   예: `정책 브리프: 3건 추가 (K-UAM 실증 예타 통과 등)`
+   추가할 항목이 없었으면 짧게 "오늘은 신규 항목 없음".
+
+10. **실패 시** — 무리하게 재시도하지 말고 실패 사실을 `PushNotification`으로 짧게
+    알리고 종료한다.
 
 ## 하지 말 것
 
-- **Bash 도구 호출 자체** (git, python3 포함 — 승인 대기로 영구 정지)
-- **NTIS·IRIS·SROME에 WebFetch 시도** — 환경 허용목록이 WebFetch엔 적용되지 않아 반드시
-  실패한다. 수집은 GitHub Actions가 이미 해뒀으니 `data/inbox/`를 읽으면 된다
+- **`GH_PAT` 값을 출력·로그·커밋하는 것.** clone URL이 들어간 명령의 출력을 그대로
+  알림에 붙이지 않는다.
+- **NTIS·IRIS·SROME·korea.kr에 WebFetch 시도** — 환경 허용목록이 WebFetch엔 적용되지
+  않아 반드시 실패한다. 수집은 GitHub Actions가 이미 해뒀으니 `data/inbox/`를 읽으면
+  된다. 꼭 직접 받아야 하면 Bash의 `curl`을 쓴다.
+- **아티팩트 `688798f0-…`를 건드리는 것** — 별개 프로젝트(`toughengine/TEST1`의
+  모빌리티 뉴스 브리프)다. 이 저장소의 발행 대상은 오직 `b32b2210-…`이다.
 - 기존 항목 삭제/수정 (명백한 오류 정정은 예외)
 - `type`/`stage`/`category` 열거값 임의 추가 (대시보드 색상·집계가 고정 순서에 의존)
 - **`analysis` 필드를 비우거나 요약을 복사해 채우는 것** — 분석이 없으면 이 항목은 무가치하다
 - 근거 없는 단정, 기업 홍보성 내용, 모빌리티 기술정책과 무관한 일반 뉴스
-- 마커 구간 밖의 HTML 변경

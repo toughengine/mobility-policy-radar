@@ -1,0 +1,21 @@
+{
+  "source": "NTIS 국가R&D통합공고",
+  "collected_at": "2026-09-12",
+  "queried_years": [
+    "2026"
+  ],
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "uid": "1263332",
+      "title": "2026년도 투·융자 연계 기술개발사업 지원계획 공고(딥테크 챌린지 프로젝트_기술도전형)_(2026)(2026-DCP-28_모빌리티_딥테크 챌린지 프로젝트(DCP*))",
+      "agency": "중소벤처기업부",
+      "status": "마감",
+      "period": "2026.04.23 ~ 2026.06.23",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1263332",
+      "found_by": "2026 모빌리티",
+      "variants": 7
+    }
+  ]
+}

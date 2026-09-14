@@ -69,10 +69,17 @@ def get(u,retries=5):
 def txt(f): return re.sub(r"\s+"," ",html.unescape(re.sub(r"<[^>]+>","",f))).strip()
 PAT=(r'pressReleaseView\.do\?newsId=(\d+)[^>]*>\s*<span class="text">\s*<strong>(.*?)</strong>\s*'
      r'(?:<span class="lead">(.*?)</span>)?')
-known={re.search(r"newsId=(\d+)",i.get("url","")).group(1)
-       for i in json.loads(pathlib.Path("/tmp/items.json").read_text(encoding="utf-8"))
-       if re.search(r"newsId=(\d+)",i.get("url",""))}
-seen={}; ok=fail=0; searched=0
+DB=json.loads(pathlib.Path("/tmp/items.json").read_text(encoding="utf-8"))
+known={m.group(1) for i in DB if (m:=re.search(r"newsId=(\d+)",i.get("url","")))}
+# 정책브리핑은 같은 보도자료를 인접한 newsId로 중복 게시한다(실측: 156772711/156772713,
+# 156713294/156713355). newsId만으로는 못 거르므로 제목을 정규화해 포함관계로 대조한다.
+norm=lambda t: re.sub(r"[^0-9A-Za-z가-힣]+","",t)
+kt=[(norm(i["title"]),i["id"]) for i in DB]
+def dup_of(t):
+    n=norm(t)
+    if len(n)<10: return None
+    return next((cid for kn,cid in kt if len(kn)>=10 and (n in kn or kn in n)), None)
+seen={}; ok=fail=0; searched=0; dups=[]
 for kw in KEYWORDS:
     for p in (1,2):
         pg=get(S.format(q=urllib.parse.quote(kw),p=p))
@@ -82,18 +89,28 @@ for kw in KEYWORDS:
             searched+=1; t=txt(title)
             if nid in seen or nid in known: continue
             if any(x in t for x in EXCLUDE) or kw not in t: continue
+            d=dup_of(t)
+            if d: dups.append((t,d)); known.add(nid); continue
             seen[nid]={"news_id":nid,"title":t,"lead":txt(lead or "")[:300],
                        "url":V.format(n=nid),"matched_by":kw}
 print(json.dumps({"queries_ok":ok,"queries_failed":fail,"searched":searched,
+                  "dup_dropped":[{"title":t,"same_as":d} for t,d in dups],
                   "new":len(seen),"candidates":list(seen.values())},ensure_ascii=False,indent=1))
 PY
 python3 /tmp/collect.py > /tmp/cand.json; python3 -c "
-import json;d=json.load(open('/tmp/cand.json'));print('질의 성공',d['queries_ok'],'실패',d['queries_failed'],'· 훑음',d['searched'],'· 신규',d['new'])
+import json;d=json.load(open('/tmp/cand.json'))
+print('질의 성공',d['queries_ok'],'실패',d['queries_failed'],'· 훑음',d['searched'],'· 재보도제외',len(d['dup_dropped']),'· 신규',d['new'])
+for x in d['dup_dropped']: print(' = 재보도:',x['title'][:60],'->',x['same_as'])
 for c in d['candidates']: print(' -',c['matched_by'],'|',c['title'][:70])"
 ```
 
-`queries_ok`가 0이면 수집이 **고장난 것**이지 신규가 없는 것이 아닙니다. 그 사실을
-알림에 명시하고 발행 없이 종료합니다.
+고장과 "오늘은 없음"을 구분하는 신호는 두 개입니다:
+
+- `queries_ok`가 0 → **네트워크가 막힌 것**입니다. 알림에 그대로 쓰고 발행 없이 종료합니다.
+- `queries_ok`는 정상인데 `searched`가 0 → **정책브리핑 마크업이 바뀌어 정규식 파싱이
+  깨진 것**입니다. 이 경우도 고장입니다. 조용히 0건으로 넘기지 말고 알림에 명시합니다.
+
+둘 다 정상인데 `new`가 0인 것은 **정상**입니다. 실측상 흔한 날입니다.
 
 ## 3. 선별
 
@@ -101,10 +118,12 @@ for c in d['candidates']: print(' -',c['matched_by'],'|',c['title'][:70])"
 장·차관 동정, 박람회·엑스포·경진대회 개최, 인재양성 아카데미·부트캠프 홍보, 수상 소식,
 기업 제품 출시, 해외 뉴스, 학술대회·컨퍼런스·쇼케이스 개최 안내.
 
-**이미 DB에 있는 사업의 재보도**도 버립니다. `/tmp/items.json`의 제목과 사실상 같은
-것이면 newsId가 달라도 같은 건입니다 — 부처가 같은 사업을 여러 번 보도합니다.
+재보도(이미 DB에 있는 건이 다른 newsId로 다시 올라온 것)는 수집 단계에서 제목 정규화로
+이미 걸러져 `dup_dropped`에 들어갑니다. 그래도 제목이 많이 달라진 재보도는 빠져나올 수
+있으니, 후보의 **발표일과 부처가 DB의 기존 항목과 겹치면** 원문을 열어 대조하세요.
 
-남은 것이 0건이면 정상입니다. **억지로 채우지 마세요.** 알림만 보내고 종료합니다.
+남은 것이 0건이면 정상입니다. **억지로 채우지 마세요.** 다만 종료하지 말고 6단계로
+가서 **타임스탬프만 갱신해 재발행**합니다(아래 참조).
 
 ## 4. 원문 확인 (제목·날짜)
 
@@ -155,17 +174,21 @@ done
 
 ## 6. 아티팩트 갱신
 
+**신규가 0건인 날에도 재발행합니다.** 항목은 그대로 두고 갱신 시각만 바꿉니다. 그래야
+대시보드만 보고도 "오늘 점검했고 새 것이 없었다"와 "수집기가 죽었다"를 구분할 수 있습니다.
+(수집이 고장난 날은 2단계에서 이미 종료했으므로 여기까지 오지 않습니다.)
+
 ```bash
 python3 - <<'PY'
 import json,pathlib,datetime as dt
 KST=dt.timezone(dt.timedelta(hours=9)); now=dt.datetime.now(KST)
 H=pathlib.Path("HTML_PATH_HERE"); h=H.read_text(encoding="utf-8")
 items=json.loads(pathlib.Path("/tmp/items.json").read_text(encoding="utf-8"))
-new=json.loads(pathlib.Path("/tmp/new_items.json").read_text(encoding="utf-8"))
+nf=pathlib.Path("/tmp/new_items.json")
+new=json.loads(nf.read_text(encoding="utf-8")) if nf.exists() else []
 ids={i["id"] for i in items}; urls={i["url"] for i in items}
 new=[n for n in new if n["id"] not in ids and n["url"] not in urls]
-assert new, "신규 0건 — 발행하지 않는다"
-merged=items+new
+merged=items+new   # 신규 0건이면 merged==items — 갱신 시각만 바뀐 채로 그대로 재발행한다
 def splice(s,a,b,v):
     i=s.index(a)+len(a); j=s.index(b); return s[:i]+v+s[j:]
 h=splice(h,"/*ITEMS_JSON_START*/","/*ITEMS_JSON_END*/",json.dumps(merged,ensure_ascii=False,separators=(",",":")))
@@ -183,7 +206,8 @@ PY
 ## 7. 알림
 
 `PushNotification`으로 한 줄. 예: `정책 브리프: 3건 추가 (K-UAM 실증 예타 통과 등)`.
-0건이면 `정책 브리프: 오늘 신규 없음 (질의 34/34 성공)`.
+0건이면 `정책 브리프: 오늘 신규 없음 (질의 34/34 · 555건 훑음)` — 숫자를 넣어야
+"점검했는데 없었다"가 전달됩니다.
 수집이 고장났으면 그 사실을 그대로 씁니다. 실패를 성공처럼 쓰지 않습니다.
 
 ## 8. 실패했을 때

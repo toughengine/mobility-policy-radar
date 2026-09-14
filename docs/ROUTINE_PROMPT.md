@@ -51,6 +51,9 @@ DB를 못 읽은 채로 발행하면 누적분이 날아갑니다.
 아래를 그대로 실행합니다. 정책브리핑(korea.kr)을 키워드로 검색해 **제목에 그 키워드가
 실제로 있는 것만** 남깁니다. 전문 검색이라 제목 필터가 없으면 노이즈가 큽니다.
 
+34개 질의에 **5~10분** 걸립니다. Bash 기본 타임아웃(120초)으로는 반드시 중간에 끊기므로
+`timeout: 900000`(15분)을 지정해 실행하세요.
+
 ```bash
 cat > /tmp/collect.py <<'PY'
 import html,json,re,subprocess,time,urllib.parse,pathlib

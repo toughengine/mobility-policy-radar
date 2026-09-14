@@ -26,7 +26,9 @@
 | `scripts/collect_ntis.py` | NTIS 국가R&D통합공고 수집기 |
 | `scripts/generate_dashboard.py` | DB → `artifact/dashboard.html` 생성기 |
 | `artifact/dashboard.html` | 생성된 대시보드 (Claude Artifact로 발행) |
-| `docs/POLICY_BRIEFING_PLAYBOOK.md` | 매일 자동 실행되는 세션이 따르는 절차 |
+| `scripts/sync_from_artifact.py` | 아티팩트 → 저장소 DB 되가져오기 |
+| `docs/ROUTINE_PROMPT.md` | **매일 자동 실행되는 세션의 프롬프트 전문** (트리거와 동기) |
+| `docs/POLICY_BRIEFING_PLAYBOOK.md` | (구) 저장소 체크아웃 전제 절차 — `ROUTINE_PROMPT.md`로 대체됨 |
 
 ## 데이터 모델
 
@@ -105,23 +107,62 @@ python3 scripts/collect_ntis.py --stdout   # 파일로 저장하지 않고 출�
 수집기는 `data/inbox/ntis-YYYY-MM-DD.json`에 **후보만** 저장합니다. 분석은 판단이
 필요하므로 Claude 세션이 후보를 검토해 `data/policy_items.json`으로 승격시킵니다.
 
-## 자동화 방식
+## 자동화 방식 — 정본은 저장소가 아니라 아티팩트에 있다
 
-하루에 두 단계가 순서대로 돕니다.
+이 부분은 직관에 반하므로 먼저 짚습니다. **일일 자동화의 DB는 저장소가 아니라 발행된
+대시보드 HTML 안**입니다.
 
-1. **07:00 KST — GitHub Actions**가 `scripts/collect_ntis.py`를 실행해 NTIS 신규 공고를
-   `data/inbox/`에 커밋합니다. 토큰을 쓰지 않습니다.
-2. **08:00 KST — Claude Routine**이 전용 세션을 깨워
-   `docs/POLICY_BRIEFING_PLAYBOOK.md` 절차대로 진행합니다: `data/inbox/`를 읽고,
-   WebSearch로 정책·예타를 보완하고, 분석 4필드를 채워 DB에 append하고, 대시보드를
-   갱신해 같은 아티팩트 URL로 재배포합니다.
+이유는 하나입니다. Routine이 깨우는 세션에는 **저장소 체크아웃도 GitHub MCP 도구도
+없습니다**(2026-09-09 실측, 2026-09-14 재확인). 그 세션이 쓸 수 있는 것은 `Bash`(curl·
+python3)·`Artifact`·`WebSearch`·`PushNotification` 뿐입니다. 저장소에 손이 닿지 않으니
+저장소를 DB로 쓸 수가 없습니다.
 
-변경사항은 `data-sync/YYYY-MM-DD` 브랜치로 커밋된 뒤 PR을 통해 `main`으로 병합됩니다
-(직접 푸시가 막혀 있어 PR을 병합 수단으로만 사용).
+그래서 대시보드 HTML에 마커를 박아 두고 그 사이를 DB로 씁니다:
 
-자동화 세션은 **Bash를 호출하지 않습니다** — 승인 대기로 영구 정지되기 때문입니다.
-수집 스크립트를 GitHub Actions에 맡긴 이유가 이것입니다. 사람이 로컬에서 직접
-돌리는 것은 물론 가능합니다.
+```
+const ITEMS = /*ITEMS_JSON_START*/[ …항목 배열… ]/*ITEMS_JSON_END*/;
+<!--TOTAL_COUNT_START-->84<!--TOTAL_COUNT_END-->
+<!--GENERATED_AT_START-->2026-09-14 21:46 KST<!--GENERATED_AT_END-->
+```
+
+대시보드는 이 배열만 보고 전부 클라이언트에서 그리므로, 마커 세 곳만 갈아끼우면
+저장소 없이도 갱신이 끝납니다.
+
+### 하루의 흐름
+
+| 시각 | 누가 | 무엇을 | 비용 |
+|---|---|---|---|
+| 07:00 KST | GitHub Actions | 정책브리핑 + NTIS 수집 → `data/inbox/` 커밋 | 토큰 0 |
+| 08:07 KST | Claude Routine 세션 | 아티팩트 읽기 → curl 수집 → 선별 → **분석** → 아티팩트 재발행 | 신규 건수에 비례 |
+| 사람이 있을 때 | 이 저장소 | `scripts/sync_from_artifact.py`로 아티팩트 → DB 되가져오기 | — |
+
+Routine 세션의 프롬프트 전문은 `docs/ROUTINE_PROMPT.md`에 있습니다. **프롬프트를 고칠
+때는 그 파일과 트리거를 함께 고칩니다.** 수집 스크립트가 프롬프트 안에 통째로 들어 있는
+것도 같은 이유입니다 — 그 세션에는 스크립트를 담을 저장소가 없습니다.
+
+### 신규 0건인 날에도 재발행한다
+
+갱신 시각만 바꿔 내보냅니다. 그러지 않으면 대시보드에서 "오늘 점검했고 새 것이 없었다"와
+"수집기가 죽었다"가 똑같아 보입니다. 실측상 신규 0건은 흔한 날입니다.
+
+수집이 실제로 고장난 경우는 두 신호로 구분합니다. `queries_ok`가 0이면 네트워크 차단,
+`queries_ok`는 정상인데 `searched`가 0이면 정책브리핑 마크업 변경에 의한 정규식 파싱
+붕괴입니다. 둘 다 **발행하지 않고** 알립니다.
+
+### 되돌림 (sync)
+
+정본이 아티팩트로 가면 `data/policy_items.json`이 뒤처집니다. git 이력이 있어야 "언제
+무엇이 늘었는지"를 되짚을 수 있으므로 이 간격은 메워야 합니다:
+
+```bash
+# Artifact 도구로 index.html 을 내려받은 뒤
+python3 scripts/sync_from_artifact.py <내려받은 index.html> --check   # 차이만 확인
+python3 scripts/sync_from_artifact.py <내려받은 index.html>          # 반영
+python3 scripts/generate_dashboard.py                                # 저장소 HTML도 맞춤
+```
+
+아티팩트 쪽 항목이 저장소보다 **적으면 쓰지 않고 멈춥니다.** 자동화가 항목을 잃은 채
+발행한 사고라면 그것을 저장소에까지 덮어쓰면 안 되기 때문입니다.
 
 ## 연혁 — 그리고 이 저장소가 아닌 것
 

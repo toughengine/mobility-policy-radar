@@ -21,7 +21,8 @@
 | `data/policy_items.json` | 누적 DB. 정책·사업 항목 + **분석 4필드**를 append-only로 저장 |
 | `data/schema.md` | 스키마 및 작성 규칙 |
 | `data/inbox/` | 수집기가 만든 **검토 대기 후보** (분석 전) |
-| `.github/workflows/collect-ntis.yml` | 매일 07:00 KST 자동 수집 (GitHub Actions) |
+| `.github/workflows/collect-ntis.yml` | 매일 07:00 KST 자동 수집 (정책 + 공고) |
+| `scripts/collect_policy.py` | **정책브리핑 보도자료 수집기 (주력)** |
 | `scripts/collect_ntis.py` | NTIS 국가R&D통합공고 수집기 |
 | `scripts/generate_dashboard.py` | DB → `artifact/dashboard.html` 생성기 |
 | `artifact/dashboard.html` | 생성된 대시보드 (Claude Artifact로 발행) |
@@ -46,8 +47,9 @@
 
 | 단계 | 담당 | 시각 | 비용 |
 |---|---|---|---|
-| NTIS 국가R&D통합공고 수집 | GitHub Actions | 매일 07:00 KST | 토큰 0 (curl + 정규식) |
-| 정책·예타·계획 보완 수집 | Claude 세션의 WebSearch | 08:00 KST | 검색 몇 회 |
+| 정책브리핑 보도자료 수집 | GitHub Actions | 매일 07:00 KST | 토큰 0 |
+| NTIS 국가R&D통합공고 수집 | GitHub Actions | 매일 07:00 KST | 토큰 0 |
+| 정책·예타 보완 수집 | Claude 세션의 WebSearch | 08:07 KST | 검색 몇 회 |
 | 분석 + 대시보드 갱신 | Claude 세션 | 08:00 KST | 신규 건수에 비례 |
 
 그래서 매일 돌려도 부담이 없습니다. 신규 공고가 없는 날은 Actions가 커밋조차 만들지
@@ -55,6 +57,17 @@
 
 수동으로 돌리고 싶으면 GitHub 저장소의 **Actions 탭 → NTIS 공고 수집 → Run workflow**
 를 누르면 됩니다.
+
+### 정책브리핑을 어떻게 긁는가
+
+- 전 부처 보도자료가 **한 목록에** 모이므로 부처별로 돌 필요가 없다. 서버 렌더링이라
+  HTML만 받아도 제목·리드·newsId가 다 들어 있다.
+- **최신순 훑기는 안 쓴다.** 최신 240건(약 1주일치)에 제목 매칭이 **0건**이었다.
+  정책브리핑 전체에서 모빌리티 비중이 그만큼 낮다.
+- 대신 **키워드 검색 + 제목 필터**를 쓴다. 검색만 쓰면 본문에 단어가 스치기만 해도
+  걸려 노이즈가 크지만, 제목에 그 키워드가 실제로 있는 것만 남기면 정밀도가 확보된다.
+  실측: 검색 730건 → 제목매칭 69건.
+- 날짜 필터(`startDate`/`endDate`)는 GET 파라미터로 동작하지 않아 `newsId`로 중복을 거른다.
 
 ### NTIS를 어떻게 긁는가 (그리고 왜 이렇게 하는가)
 

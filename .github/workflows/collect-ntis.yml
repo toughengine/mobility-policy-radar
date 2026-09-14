@@ -1,4 +1,4 @@
-name: NTIS 공고 수집
+name: 정책·공고 수집
 
 # 수집은 토큰을 쓰지 않는다 (curl + 정규식). 그래서 매일 돌려도 비용이 없다.
 # 토큰이 드는 것은 이후 Claude 세션이 하는 '분석'뿐이고, 그것은 신규 공고 건수에만 비례한다.
@@ -18,7 +18,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: collect-ntis
+  group: collect
   cancel-in-progress: false
 
 jobs:
@@ -33,14 +33,16 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: 정책브리핑 보도자료 수집
+        run: python scripts/collect_policy.py | tee -a collect.log
+
       - name: NTIS 국가R&D통합공고 수집
-        id: collect
-        run: python scripts/collect_ntis.py | tee collect.log
+        run: python scripts/collect_ntis.py | tee -a collect.log
 
       - name: 신규 후보 수 확인
         id: count
         run: |
-          n=$(python -c 'import json,pathlib,sys; f=sorted(pathlib.Path("data/inbox").glob("ntis-*.json")); print(len(json.loads(f[-1].read_text(encoding="utf-8"))["candidates"]) if f else 0)')
+          n=$(python -c "import json,pathlib,datetime as dt; d=dt.date.today().isoformat(); print(sum(len(json.loads(p.read_text(encoding='utf-8'))['candidates']) for p in (pathlib.Path('data/inbox')/(x+'-'+d+'.json') for x in ('policy','ntis')) if p.exists()))")
           echo "count=$n" >> "$GITHUB_OUTPUT"
           echo "신규 후보 $n건"
 

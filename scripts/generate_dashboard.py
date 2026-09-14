@@ -25,8 +25,9 @@ CATEGORIES = [
     "인프라·표준·규제",
     "미래차전환·총괄",
 ]
-STAGES = ["구상·계획", "예타·예산확정", "공고", "수행중"]
-TYPES = ["정책·계획", "예타·예산", "기술수요조사", "신규사업공고", "법·제도"]
+STAGES = ["구상·계획", "예타·예산확정", "제도화", "공고·모집", "수행중"]
+TYPES = ["전략·계획", "법·제도", "규제·표준", "예타·예산",
+         "실증·시범사업", "신규사업공고", "기술수요조사", "통계·조사"]
 
 TEMPLATE = r"""<title>모빌리티 정책·사업 브리프</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -134,7 +135,7 @@ TEMPLATE = r"""<title>모빌리티 정책·사업 브리프</title>
   .sec-head{display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:12px; flex-wrap:wrap;}
   .sec-head h2{font-size:16px;}
   .sec-head .desc{font-size:12px; color:var(--muted);}
-  .stages{display:grid; grid-template-columns:repeat(4,1fr); gap:9px;}
+  .stages{display:grid; grid-template-columns:repeat(5,1fr); gap:9px;}
   .stage{
     background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
     padding:14px 16px; position:relative; cursor:pointer; text-align:left; width:100%;
@@ -248,11 +249,12 @@ TEMPLATE = r"""<title>모빌리티 정책·사업 브리프</title>
 
   @media (max-width:860px){
     .stats{grid-template-columns:repeat(2,1fr);}
-    .stages{grid-template-columns:repeat(2,1fr);}
+    .stages{grid-template-columns:repeat(3,1fr);}
     .grid-2{grid-template-columns:1fr;}
     .analysis{grid-template-columns:1fr;}
   }
   @media (max-width:560px){
+    .stages{grid-template-columns:repeat(2,1fr);}
     .wrap{padding:26px 16px 56px;}
     h1{font-size:25px;}
     .masthead-meta{text-align:left;}
@@ -283,7 +285,7 @@ TEMPLATE = r"""<title>모빌리티 정책·사업 브리프</title>
     <div class="sec-head">
       <div>
         <h2>정책에서 사업까지</h2>
-        <div class="desc">정부 R&amp;D는 구상 → 예타 → 공고 순으로 흐릅니다. 앞단을 볼수록 대응이 빨라집니다. 단계를 눌러 필터링하세요.</div>
+        <div class="desc">정책은 구상 → 예타 → 제도화 → 공고를 거쳐 집행됩니다. 앞단을 볼수록 대응이 빨라집니다. 단계를 눌러 필터링하세요.</div>
       </div>
     </div>
     <div class="stages" id="stages"></div>
@@ -328,9 +330,10 @@ const STAGES = __STAGES__;
 const TYPES = __TYPES__;
 const CAT_COLOR = __CAT_COLOR__;
 const STAGE_DESC = {
-  "구상·계획": "업무계획·로드맵·수요조사",
-  "예타·예산확정": "예타 통과 / 예산 배정",
-  "공고": "신규과제 모집 중",
+  "구상·계획": "방안·로드맵·수요조사",
+  "예타·예산확정": "예타 / 예산·금융 확정",
+  "제도화": "법·시행규칙·기준 마련",
+  "공고·모집": "과제·지역 모집 중",
   "수행중": "집행·실증 진행"
 };
 const TODAY = new Date(__TODAY_JSON__);
@@ -378,7 +381,7 @@ function renderAlert(){
 
 /* ---------- stat tiles ---------- */
 function renderStats(){
-  const open = ITEMS.filter(it => it.stage === "공고").length;
+  const open = ITEMS.filter(it => it.stage === "공고·모집").length;
   const budget = ITEMS.reduce((s,it) => s + (typeof it.budget_total === "number" ? it.budget_total : 0), 0);
   const withBudget = ITEMS.filter(it => typeof it.budget_total === "number").length;
   const cutoff = new Date(TODAY.getTime() - 90*86400000);
@@ -387,7 +390,7 @@ function renderStats(){
 
   const tiles = [
     {label:"추적 중인 정책·사업", value:fmtNum(ITEMS.length), unit:"건", sub:`분야 ${new Set(ITEMS.map(i=>i.category)).size}개 · 부처 ${new Set(ITEMS.map(i=>i.agency)).size}곳`},
-    {label:"모집 중인 신규사업", value:fmtNum(open), unit:"건", sub:"stage = 공고", hi:open>0},
+    {label:"모집·공고 중", value:fmtNum(open), unit:"건", sub:"과제·지역 모집 단계", hi:open>0},
     {label:"확인된 사업비", value:fmtNum(budget), unit:"억원", sub:`${withBudget}건 단순합 · 사업기간·성격 상이`},
     {label:"최근 90일 신규", value:fmtNum(recent), unit:"건", sub:`선행 신호(구상·계획) ${upstream}건 포함`}
   ];

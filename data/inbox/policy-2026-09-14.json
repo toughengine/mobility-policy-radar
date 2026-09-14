@@ -1,0 +1,489 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-09-14",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 730,
+  "matched_total": 69,
+  "already_known": 1,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156781052",
+      "title": "관광·공공의료 등 지역 맞춤형 UAM 서비스 상용화 본격화",
+      "lead": "관광·공공의료 등 지역 맞춤형 UAM",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156781052",
+      "matched_by": "UAM"
+    },
+    {
+      "news_id": "156780363",
+      "title": "자율주행·AI 등 첨단 모빌리티, 국민의 일상으로 '2026 글로벌 모빌리티 콘퍼런스' 개막",
+      "lead": "자율주행",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156780363",
+      "matched_by": "자율주행"
+    },
+    {
+      "news_id": "156780234",
+      "title": "태양광, 전기차 등 실생활 온실가스 감축, 배출권거래제에 활용",
+      "lead": "... 승인·감축량 인증 등 심의·의결 ▷ 충북 음성 개인주택 태양광 확산, 수소버스 교체 외부사업 최초 승인 ▷ 공유차량 서비스 업체의 전기차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156780234",
+      "matched_by": "전기차"
+    },
+    {
+      "news_id": "156780225",
+      "title": "전기차 충전요금 가을철 주말·공휴일 낮시간대 할인 개시",
+      "lead": "... 공급되는 시간대에 전기사용을 유도하고 국민에게 실질적인 요금절감 혜택을 제공함과 동시에 국가 전력망에는 안정적인 운영 여건을 조성하고자 마련되었다. 이에, 전기차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156780225",
+      "matched_by": "전기차"
+    },
+    {
+      "news_id": "156776369",
+      "title": "산업부, 충청-영남-호남을 잇는 '배터리 삼각벨트' 본격 가동",
+      "lead": "산업부 , 충청 - 영남 - 호남을 잇는 ' 배터리",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156776369",
+      "matched_by": "배터리"
+    },
+    {
+      "news_id": "156776345",
+      "title": "도심항공교통(K-UAM) 특화 기상기술, 실증하여 서비스로 연결한다",
+      "lead": "도심항공교통 (K-UAM",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156776345",
+      "matched_by": "UAM"
+    },
+    {
+      "news_id": "156776125",
+      "title": "해수부, 여객선 휴대·반입 리튬배터리 안전관리 강화한다",
+      "lead": "해수부, 여객선 휴대·반입 리튬배터리",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156776125",
+      "matched_by": "배터리"
+    },
+    {
+      "news_id": "156775876",
+      "title": "이제는 아파트 현관 앞까지... 드론과 자율주행 로봇 연계 배송 실증",
+      "lead": "- 최대 적재중량 40kg급 드론-자율",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156775876",
+      "matched_by": "자율주행"
+    },
+    {
+      "news_id": "156775659",
+      "title": "광통신·이차전지 등 전남광주 첨단산업, 맞춤형 지원으로 수출 경쟁력 높인다",
+      "lead": "수출플러스지원단 ( 단장 : 재정경제부 1 차관 . 이하 ' 지원단 ') 은 대한무역투자진흥공사 , 한국무역보험공사 , 중소벤처기업진흥공단 , 한국수출입은행 , 무역협회 , 해외인증지원단 , 한국산업단지공단 등 수출지원기관과 함께 8.25( 화 ) 광...",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156775659",
+      "matched_by": "이차전지"
+    },
+    {
+      "news_id": "156775620",
+      "title": "[참고] 「자율주행차법」 · 「화물자동차법」 · 「도로법」 · 「철도지하화통합개발법」 개정안 국회 본회의 통과",
+      "lead": "[참고] 「자율주행",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156775620",
+      "matched_by": "자율주행"
+    },
+    {
+      "news_id": "156775493",
+      "title": "\"전기차 충전구역 이중주차 신고했는데, 반려?\"… '적극행정국민신청' 통해 규정 개선",
+      "lead": "\" 전기차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156775493",
+      "matched_by": "전기차"
+    },
+    {
+      "news_id": "156775344",
+      "title": "\"전기차 충전 민원, 3년 만에 약 2배 '껑충'\"… '민원주의보' 발령",
+      "lead": "\" 전기차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156775344",
+      "matched_by": "전기차"
+    },
+    {
+      "news_id": "156775130",
+      "title": "인공지능(AI) 영상인식 기반 전기차 화재 조기감지기술 및 신개념 전기차 안전연소 기술 공개",
+      "lead": "﻿ ﻿ 인공지능 (AI) 영상인식 기반 전기차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156775130",
+      "matched_by": "전기차"
+    },
+    {
+      "news_id": "156775058",
+      "title": "2025년도 첨단모빌리티 현황조사 결과",
+      "lead": "2025년도 첨단모빌리티",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156775058",
+      "matched_by": "모빌리티"
+    },
+    {
+      "news_id": "156774812",
+      "title": "친환경차 검사기준 분리… 전기차 관리 강화 「자동차관리법 시행규칙」 개정안 입법예고",
+      "lead": "친환경차 검사기준 분리… 전기차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156774812",
+      "matched_by": "전기차"
+    },
+    {
+      "news_id": "156774319",
+      "title": "7월 자동차 수출 역대 최대… 민관 원팀, 미래차 전환·상생협력에 한뜻",
+      "lead": "7 월 자동차 수출 역대 최대 … 민관 원팀 , 미래차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156774319",
+      "matched_by": "미래차"
+    },
+    {
+      "news_id": "156774178",
+      "title": "[참고] 미래를 위한 세제지원, 자율주행 혁신은 앞당기고 청년 주거부담은 낮춘다.",
+      "lead": "[참고] 미래를 위한 세제지원, 자율주행",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156774178",
+      "matched_by": "자율주행"
+    },
+    {
+      "news_id": "156774157",
+      "title": "K-UAM 초기 상용화의 첫걸음, '시범운용구역' 지정 추진",
+      "lead": "K-UAM",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156774157",
+      "matched_by": "UAM"
+    },
+    {
+      "news_id": "156773852",
+      "title": "기후부·산업부, 칸막이 허물고 사용후 배터리 산업 육성에 박차",
+      "lead": "▷ 기후부·산업부 간 사용후 배터리",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156773852",
+      "matched_by": "배터리"
+    },
+    {
+      "news_id": "156773784",
+      "title": "미래를 달릴 아이디어 첨단산업 인재양성 부트캠프 미래차 경진대회에서 펼쳐지다",
+      "lead": "미래를 달릴 아이디어 첨단산업 인재양성 부트캠프 미래차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156773784",
+      "matched_by": "미래차"
+    },
+    {
+      "news_id": "156773653",
+      "title": "산업부와 기후부, 칸막이 허물고 사용후배터리 산업 육성에 박차",
+      "lead": "산업부와 기후부 , 칸막이 허물고 사용후배터리",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156773653",
+      "matched_by": "배터리"
+    },
+    {
+      "news_id": "156773542",
+      "title": "과기정통부와 한국전자통신연구원, ITU-T 자율주행차 국제표준화 주도한다.",
+      "lead": "- 차홍기 한국전자통신연구원 실장 , ITU-T 자율주행",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156773542",
+      "matched_by": "자율주행"
+    },
+    {
+      "news_id": "156772865",
+      "title": "전기차·친환경 선박 등 4개 기업 사업재편 승인",
+      "lead": "전기차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156772865",
+      "matched_by": "전기차"
+    },
+    {
+      "news_id": "156772794",
+      "title": "[차관동정] 홍지선 제2차관, \"모빌리티 혁신, 전문가와 현장의 제안을 실질적 성과로 연결\"",
+      "lead": "[차관동정] 홍지선 제2차관, \"모빌리티",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156772794",
+      "matched_by": "모빌리티"
+    },
+    {
+      "news_id": "156772713",
+      "title": "2035년까지 신규 구매·임차 경찰 차량, 전기･수소차로 100% 보급한다",
+      "lead": "- 행안부·기후부·경찰청이 함께 '경찰차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156772713",
+      "matched_by": "수소차"
+    },
+    {
+      "news_id": "156772711",
+      "title": "2035년까지 신규 구매·임차 경찰 차량, 전기·수소차로 100% 보급한다",
+      "lead": "▷ 기후부, 행안부·경찰청과 함께 '경찰 차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156772711",
+      "matched_by": "수소차"
+    },
+    {
+      "news_id": "156772403",
+      "title": "기상청, 도심항공교통(UAM) 비행 기상지원으로 미래 항공교통 안전 첫걸음",
+      "lead": "기상청 , 도심항공교통 (UAM",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156772403",
+      "matched_by": "UAM"
+    },
+    {
+      "news_id": "156772401",
+      "title": "K-UAM 초기 상용화 모델, 국민 앞에 첫 선",
+      "lead": "K-UAM",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156772401",
+      "matched_by": "UAM"
+    },
+    {
+      "news_id": "156772292",
+      "title": "청년들, 현대차그룹 K-뉴딜 아카데미에서 미래 모빌리티 분야 전문성 키운다!",
+      "lead": "... 노동시장에 진입할 수 있도록 지원하는 사업이다. 현대차그룹의 K-뉴딜 아카데미인 「HINT」는 \"가능성이 미래가 되는 곳\"이라는 슬로건 하에 현대차그룹의 미래 모빌리티",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156772292",
+      "matched_by": "모빌리티"
+    },
+    {
+      "news_id": "156771841",
+      "title": "「2026 대한민국 해양모빌리티·안전 엑스포」 참가 신청 접수, 관람객 사전 등록 개시",
+      "lead": "「2026 대한민국 해양모빌리티",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156771841",
+      "matched_by": "모빌리티"
+    },
+    {
+      "news_id": "156771115",
+      "title": "[참고] 국내 개발 UAM 기체 비행 성공",
+      "lead": "[참고] 국내 개발 UAM",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156771115",
+      "matched_by": "UAM"
+    },
+    {
+      "news_id": "156770997",
+      "title": "[설명] 해외 자율주행 기업의 진출을 고려한 제도화 방향은 전혀 결정된 바 없습니다.",
+      "lead": "[설명] 해외 자율주행",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156770997",
+      "matched_by": "자율주행"
+    },
+    {
+      "news_id": "156770877",
+      "title": "′28년 도심항공교통(UAM) 상용화 속도 낸다. 시범운용모델 마련 및 제1호 조종사·정비사 양성 프로젝트 착수",
+      "lead": "′28년 도심항공교통(UAM",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156770877",
+      "matched_by": "UAM"
+    },
+    {
+      "news_id": "156770699",
+      "title": "민간 개발 도심항공교통(UAM) 기체 첫 공개,K-UAM 비행 쇼케이스 개최",
+      "lead": "민간 개발 도심항공교통(UAM",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156770699",
+      "matched_by": "UAM"
+    },
+    {
+      "news_id": "156769993",
+      "title": "제6회 2026 대한민국 드론·UAM 박람회, 일상을 바꾸고, 미래를 그리다",
+      "lead": "제6회 2026 대한민국 드론·UAM",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156769993",
+      "matched_by": "UAM"
+    },
+    {
+      "news_id": "156769794",
+      "title": "더 안전한 무인 자율주행차 시대 열린다... 정부, 가이드라인 마련으로 상용화 속도",
+      "lead": "더 안전한 무인 자율주행차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156769794",
+      "matched_by": "자율주행차"
+    },
+    {
+      "news_id": "156768825",
+      "title": "(참고) 전기자동차 보급사업 수행자 선정",
+      "lead": "▷ 전기",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156768825",
+      "matched_by": "전기자동차"
+    },
+    {
+      "news_id": "156767020",
+      "title": "전기차 충전기 재검정, 미리미리 준비하세요",
+      "lead": "전기차 충전기",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156767020",
+      "matched_by": "충전기"
+    },
+    {
+      "news_id": "156766930",
+      "title": "새만금에서 해양무인이동체 실증 '본격화'",
+      "lead": "새만금에서 해양무인이동체",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156766930",
+      "matched_by": "무인이동체"
+    },
+    {
+      "news_id": "156766146",
+      "title": "전기차 공공충전기 봄철 주말충전요금 할인 실적 공개",
+      "lead": "... 31일까지의 주말·공휴일 총 17일 중 낮 11시부터 14시까지 3시간 동안 할인이 적용되었다. 해당 시간에 기후에너지환경부 및 한국전력공사의 충전기",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156766146",
+      "matched_by": "충전기"
+    },
+    {
+      "news_id": "156763466",
+      "title": "교통 불편 줄이고 관광·공공서비스 더 가까이 지역 맞춤형 UAM 시범사업 공모 추진",
+      "lead": "교통 불편 줄이고 관광·공공서비스 더 가까이 지역 맞춤형 UAM",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156763466",
+      "matched_by": "UAM"
+    },
+    {
+      "news_id": "156762118",
+      "title": "수소생산·충전기술까지, 한-홍콩, 수소 협력 확대",
+      "lead": "수소생산·충전기",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156762118",
+      "matched_by": "충전기"
+    },
+    {
+      "news_id": "156761494",
+      "title": "\"충전기일까? 시계 또는 조명일까?\" 관세청, 다기능 복합기기 분류 기준 명확화",
+      "lead": "\" 충전기",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156761494",
+      "matched_by": "충전기"
+    },
+    {
+      "news_id": "156760978",
+      "title": "글로벌 미래차 강국 도약, 민관이 함께 나선다",
+      "lead": "글로벌 미래차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156760978",
+      "matched_by": "미래차"
+    },
+    {
+      "news_id": "156760535",
+      "title": "국내 개발 육상·해상·공중 무인이동체, 해안 경비 임무에 투입된다.",
+      "lead": "국내 개발 육상·해상·공중 무인이동체",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156760535",
+      "matched_by": "무인이동체"
+    },
+    {
+      "news_id": "156753822",
+      "title": "대학생이 직접 UAM(도심항공교통) 비행기 만든다 … 설계부터 제작·운용까지 실전 경험 기회 열려",
+      "lead": "대학생이 직접 UAM",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753822",
+      "matched_by": "UAM"
+    },
+    {
+      "news_id": "156753185",
+      "title": "자율주행차 사고 보상 빨라진다 … 책임기준 마련 본격 착수",
+      "lead": "자율주행차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753185",
+      "matched_by": "자율주행차"
+    },
+    {
+      "news_id": "156751213",
+      "title": "미래차 전환 부품기업 '26년, 4,030억원 금융지원 지원",
+      "lead": "미래차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156751213",
+      "matched_by": "미래차"
+    },
+    {
+      "news_id": "156749459",
+      "title": "8개 부처 합동 연구단 중국 베이징 파견 … 로보택시·실증도시 등 국내 정책에 반영",
+      "lead": "8개 부처 합동 연구단 중국 베이징 파견 … 로보택시",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156749459",
+      "matched_by": "로보택시"
+    },
+    {
+      "news_id": "156749409",
+      "title": "중기부, 대구·경북에 소프트웨어 중심 미래차 생태계 조성에 나선다.",
+      "lead": "... 소프트웨어 중심 자동차(SDV : Software Defined Vehicle) 전환 방안을 논의하는 토론회를 개최했다. 이번 자리는 대구·경북이 미래차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156749409",
+      "matched_by": "미래차"
+    },
+    {
+      "news_id": "156747909",
+      "title": "자율주행차 안전·보험·운행 통합 지원 … 'K-자율주행 협력모델' 기업 선정",
+      "lead": "자율주행차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156747909",
+      "matched_by": "자율주행차"
+    },
+    {
+      "news_id": "156747373",
+      "title": "한강 거점 K-UAM 종합실증 본격화,도심항공교통 시대 여는 한국형 버티포트 구축",
+      "lead": "한강 거점 K-UAM",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156747373",
+      "matched_by": "UAM"
+    },
+    {
+      "news_id": "156745638",
+      "title": "교통취약지역에 자율주행차 달린다",
+      "lead": "교통취약지역에 자율주행차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156745638",
+      "matched_by": "자율주행차"
+    },
+    {
+      "news_id": "156744837",
+      "title": "복지현장 친환경 전환 가속… 민관 업무협약으로 전기차·충전기 지원 확대",
+      "lead": "▷ 김성환 기후부 장관, 서울 중랑구 '신내노인종합복지관'에서 전기차·충전기",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156744837",
+      "matched_by": "충전기"
+    },
+    {
+      "news_id": "156742320",
+      "title": "핵융합에너지 핵심기술 고도화 연구개발 한국형 도심항공교통 안전운용체계 예타 착수",
+      "lead": "- 핵융합에너지 가속화 실현을 위한 핵심기술 고도화사업 예비타당성 조사 착수 - 한국형 도심항공교통",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156742320",
+      "matched_by": "도심항공교통"
+    },
+    {
+      "news_id": "156740840",
+      "title": "전기차 충전기 '설치' 넘어 '품질'로… 운영·제조 모두 평가하고 성능기준 강화",
+      "lead": "... 올해(2026년) 충전 기반시설 예산은 총 5,457억 원으로, 급속·완속·중속 충전시설 구축을 지원한다. 기후에너지환경부는 올해 △급속충전기",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156740840",
+      "matched_by": "충전기"
+    },
+    {
+      "news_id": "156736052",
+      "title": "가상플랫폼 기반 도심항공교통 비행시연 …'28년 상용화 속도낸다",
+      "lead": "가상플랫폼 기반 도심항공교통",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156736052",
+      "matched_by": "도심항공교통"
+    },
+    {
+      "news_id": "156734970",
+      "title": "K-UAM, 민간 컨소시엄 통해 도심지 통합운용능력 성공적 검증",
+      "lead": "K-UAM",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156734970",
+      "matched_by": "UAM"
+    },
+    {
+      "news_id": "156731374",
+      "title": "「자율주행차 산업 경쟁력 제고방안」 발표",
+      "lead": "정부는 11.26일(수) 08:30 경제관계장관회의 겸 성장전략TF에서 관계부처 합동으로 「자율주행차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156731374",
+      "matched_by": "자율주행차"
+    },
+    {
+      "news_id": "156731372",
+      "title": "글로벌 3대 자율주행차 강국을 향해 실증도시 조성, R&D 규제개선 등 전방위 지원",
+      "lead": "글로벌 3대 자율주행차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156731372",
+      "matched_by": "자율주행차"
+    },
+    {
+      "news_id": "156730991",
+      "title": "서울대와 M.AX 얼라이언스가 손잡고 휴머노이드, 자율주행차, AI팩토리에 탑재될 AI 모델 공동 개발한다.",
+      "lead": "서울대와 M.AX 얼라이언스가 손잡고 휴머노이드 , 자율주행차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156730991",
+      "matched_by": "자율주행차"
+    },
+    {
+      "news_id": "156728840",
+      "title": "K-UAM 성공 위해 세계 전문가 한자리에 모인다",
+      "lead": "K-UAM",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156728840",
+      "matched_by": "UAM"
+    },
+    {
+      "news_id": "156726273",
+      "title": "(설명) 스마트제어충전기 구축사업은 화재안전·편의 위해 정부 인프라 계획대로 착실히 진행 중",
+      "lead": "... 다음과 같이 설명드림 □ 보도 내용 ○ 2024년 인천 청라 전기차화재 사고 이후 화재사고 예방을 위해 정부가 전기차 배터리 충전제어를 위한 \"스마트제어 충전기",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156726273",
+      "matched_by": "충전기"
+    },
+    {
+      "news_id": "156724455",
+      "title": "[차관동정] 강희업 제2차관, \"자율주행차 상용화 대비 안전준비 철저\"",
+      "lead": "[차관동정] 강희업 제2차관, \"자율주행차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156724455",
+      "matched_by": "자율주행차"
+    },
+    {
+      "news_id": "156720393",
+      "title": "K-UAM, 도심에서 민간기업 실증 돌입",
+      "lead": "K-UAM",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156720393",
+      "matched_by": "UAM"
+    },
+    {
+      "news_id": "156719289",
+      "title": "[장관동정] 김윤덕 장관, '국산 자율차가 세계 무대에서 달릴 수 있도록 적극 지원해나갈 것'",
+      "lead": "[장관동정] 김윤덕 장관, '국산 자율차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156719289",
+      "matched_by": "자율차"
+    },
+    {
+      "news_id": "156713355",
+      "title": "한국형 도심항공교통(K-UAM) 선제적 투자로 기술주도 성장 이끈다",
+      "lead": "한국형 도심항공교통 (K-UAM",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156713355",
+      "matched_by": "UAM"
+    },
+    {
+      "news_id": "156713294",
+      "title": "K-UAM 선제적 투자로 기술주도 성장 이끈다",
+      "lead": "K-UAM",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156713294",
+      "matched_by": "UAM"
+    }
+  ]
+}

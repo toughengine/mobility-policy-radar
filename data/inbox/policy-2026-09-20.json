@@ -1,0 +1,27 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-09-20",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 724,
+  "matched_total": 65,
+  "already_known": 63,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156782385",
+      "title": "유류세 인하 연장, 추석연휴 고속도로 유류가격 및 전기차 충전요금 할인 등 민생안정에 총력",
+      "lead": "유류세 인하 연장, 추석연휴 고속도로 유류가격 및 전기차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156782385",
+      "matched_by": "전기차"
+    },
+    {
+      "news_id": "156782122",
+      "title": "2026년 8월 자동차산업 동향",
+      "lead": "2026 년 8 월 자동차산업",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156782122",
+      "matched_by": "자동차산업"
+    }
+  ]
+}

@@ -24,7 +24,10 @@ concurrency:
 jobs:
   collect:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    # 25분이었으나 2026-09-18·19 두 번 연속 정확히 25분에서 잘렸다(conclusion: cancelled).
+    # 정책브리핑 44질의 + NTIS 28질의가 느린 날엔 25분을 넘긴다. 한도만 올린다 —
+    # 평소 소요는 7~9분이라 실제 사용 시간은 늘지 않는다.
+    timeout-minutes: 50
 
     steps:
       - uses: actions/checkout@v4

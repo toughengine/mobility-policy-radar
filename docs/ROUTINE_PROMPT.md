@@ -115,6 +115,38 @@ for c in d['candidates']: print(' -',c['matched_by'],'|',c['title'][:70])"
 
 둘 다 정상인데 `new`가 0인 것은 **정상**입니다. 실측상 흔한 날입니다.
 
+## 2b. NTIS 공고 받기 — R&D 신규사업 축
+
+정책브리핑은 '정책'을, NTIS는 '사업 공고'를 담당합니다. 이걸 빼면 「사업」 축이
+통째로 비어 대시보드가 반쪽이 됩니다(2026-09-23에 실제로 2건이 누락된 채 발견됨).
+
+**다시 긁지 마세요.** GitHub Actions가 매일 07:00 KST에 NTIS 국가R&D통합공고를
+훑어 **공개** 저장소에 커밋해 둡니다. 그 결과만 받으면 됩니다 — 질의 28회, 약 5분이
+절약됩니다.
+
+```bash
+python3 - <<'PY'
+import json,subprocess,pathlib,datetime as dt
+KST=dt.timezone(dt.timedelta(hours=9)); today=dt.datetime.now(KST).date()
+RAW="https://raw.githubusercontent.com/toughengine/mobility-policy-radar/main/data/inbox/ntis-{d}.json"
+known={i["url"] for i in json.loads(pathlib.Path("/tmp/items.json").read_text(encoding="utf-8"))}
+got={}; days=0
+for k in range(7):                       # Actions가 거른 날이 있어도 메우도록 7일치를 본다
+    d=(today-dt.timedelta(days=k)).isoformat()
+    r=subprocess.run(["curl","-sS","-m","25","-f",RAW.format(d=d)],capture_output=True,text=True)
+    if r.returncode: continue
+    days+=1
+    for c in json.loads(r.stdout).get("candidates",[]):
+        if c["url"] not in known: got[c["url"]]=dict(c, seen_on=d)
+pathlib.Path("/tmp/ntis.json").write_text(json.dumps(list(got.values()),ensure_ascii=False,indent=1),encoding="utf-8")
+print(f"최근 7일 중 {days}일치 확인 · DB에 없는 NTIS 공고 {len(got)}건")
+for c in got.values(): print(" -",c.get("agency",""),"|",c.get("period",""),"|",c["title"][:70])
+PY
+```
+
+7일치 중 **한 파일도 못 받으면** 저장소나 Actions 쪽이 고장난 것입니다. 알림에 적으세요.
+(0건인데 파일은 받아졌다면 그냥 신규 공고가 없던 것이니 정상입니다.)
+
 ## 3. 선별
 
 후보 중 아래는 **버립니다** — 정책 내용이 없어 분석할 거리가 없습니다:
@@ -125,13 +157,26 @@ for c in d['candidates']: print(' -',c['matched_by'],'|',c['title'][:70])"
 이미 걸러져 `dup_dropped`에 들어갑니다. 그래도 제목이 많이 달라진 재보도는 빠져나올 수
 있으니, 후보의 **발표일과 부처가 DB의 기존 항목과 겹치면** 원문을 열어 대조하세요.
 
+NTIS 후보는 기준이 다릅니다. 전부 '공고'이므로 위 배제 목록은 거의 걸리지 않습니다.
+
+- **접수기간이 이미 지난 것도 버리지 마세요.** 특히 `연구기획`·`기술수요조사` 유형은
+  마감돼도 1~2년 뒤 신규사업의 예고편이라 정보 가치가 큽니다. 수주가 아니라 예측이
+  목적입니다.
+- 버릴 것은 모빌리티와 무관한 물품구매·일반용역(도서관 장서, 청소, 급식 등)뿐입니다.
+- 접수가 **아직 열려 있는 건**은 `deadline`을 반드시 채우세요. 대시보드 상단 마감
+  알림에 뜨는 유일한 근거입니다.
+
 남은 것이 0건이면 정상입니다. **억지로 채우지 마세요.** 다만 종료하지 말고 6단계로
 가서 **타임스탬프만 갱신해 재발행**합니다(아래 참조).
 
 ## 4. 원문 확인 (제목·날짜)
 
-선별한 건마다 상세 페이지를 받아 **원문 제목과 발표일**을 확인합니다. 목록 제목은
+**정책브리핑 건만** 상세 페이지를 받아 원문 제목과 발표일을 확인합니다. 목록 제목은
 줄어 있을 수 있고, 날짜를 추측해 넣으면 안 됩니다.
+
+NTIS 건은 후보 JSON에 제목·부처·접수기간이 이미 정확히 들어 있어 상세 페이지를 열
+필요가 없습니다(상세 페이지는 JS 덩어리라 파싱 가치도 낮습니다). 공고일은 접수 시작일로
+추정하고 `date_estimated: true`로 표시하세요.
 
 ```bash
 for n in NEWSID1 NEWSID2; do
@@ -163,7 +208,8 @@ done
  "collected_at":"오늘YYYY-MM-DD","title":"원문 제목 그대로","type":"…","stage":"…",
  "category":"…","agency":"부처명","exec_agency":null,"doc_no":null,
  "budget_total":null,"budget_note":null,"period":null,"deadline":null,
- "url":"https://www.korea.kr/briefing/pressReleaseView.do?newsId=…","source":"정책브리핑",
+ "url":"원문 URL","source":"정책브리핑",   ← NTIS 건은 source를 "NTIS 국가R&D통합공고",
+                                     url을 후보의 url(ntis.go.kr/…roRndUid=…)로 쓴다
  "summary":"2~4문장","analysis":{"why_now":"…","lineage":"…","tech":"…","implication":"…"},
  "keywords":["…"]}
 ```

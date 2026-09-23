@@ -42,6 +42,19 @@ jobs:
       - name: NTIS 국가R&D통합공고 수집
         run: python scripts/collect_ntis.py | tee -a collect.log
 
+      - name: 나라장터 용역 공고 수집 (저장소 이력용)
+        # 대시보드는 Routine이 아티팩트를 DB로 써서 갱신하므로 이 단계는 필수가 아니다.
+        # 저장소에 git 이력을 남기려고 도는 것이라, 시크릿이 없으면 조용히 건너뛴다.
+        env:
+          DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
+        run: |
+          if [ -z "$DATA_GO_KR_KEY" ]; then
+            echo "DATA_GO_KR_KEY 시크릿이 없어 건너뜁니다 (Routine이 아티팩트를 직접 갱신하므로 대시보드에는 영향 없음)"
+          else
+            python scripts/collect_bids.py | tee -a collect.log
+            python scripts/generate_bid_dashboard.py | tee -a collect.log
+          fi
+
       - name: 신규 후보 수 확인
         id: count
         run: |
@@ -53,7 +66,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/inbox
+          git add data/inbox data/bids.json artifact/bid_dashboard.html
           if git diff --staged --quiet; then
             echo "변경 없음 — 커밋 생략 (신규 공고가 없는 날은 정상이다)"
           else

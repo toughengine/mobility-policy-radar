@@ -649,8 +649,12 @@ render(); renderRefs();
 """
 
 
-def build(db: dict, reports: list, now: datetime) -> str:
-    items = [shape(r) for r in db["items"]]
+def render(items: list, reports: list, now: datetime) -> str:
+    """이미 shape() 된 항목으로 페이지를 만든다.
+
+    자동화 세션은 아티팩트에서 꺼낸 shape 결과를 그대로 넘기므로 이 경로를 쓴다.
+    그래야 템플릿을 고치면 저장소를 바꾸는 것만으로 자동화에도 반영된다.
+    """
     j = lambda o: json.dumps(o, ensure_ascii=False, separators=(",", ":"))
     return (TEMPLATE
             .replace("__GENERATED_AT__", now.strftime("%Y-%m-%d %H:%M KST"))
@@ -660,6 +664,10 @@ def build(db: dict, reports: list, now: datetime) -> str:
             .replace("__REPORT_COUNT__", str(len(reports)))
             .replace("__GROUPS__", j(GROUPS))
             .replace("__GCOLOR__", j(GROUP_COLOR)))
+
+
+def build(db: dict, reports: list, now: datetime) -> str:
+    return render([shape(r) for r in db["items"]], reports, now)
 
 
 def main() -> None:

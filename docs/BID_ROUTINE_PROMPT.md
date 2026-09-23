@@ -44,7 +44,10 @@ h=pathlib.Path("HTML_PATH_HERE").read_text(encoding="utf-8")
 i=h.index("/*ITEMS_JSON_START*/")+len("/*ITEMS_JSON_START*/"); j=h.index("/*ITEMS_JSON_END*/")
 items=json.loads(h[i:j])
 pathlib.Path("/tmp/bids.json").write_text(json.dumps(items,ensure_ascii=False),encoding="utf-8")
-print("현재",len(items),"건")
+a=h.index("/*REPORTS_JSON_START*/")+len("/*REPORTS_JSON_START*/"); b=h.index("/*REPORTS_JSON_END*/")
+reps=json.loads(h[a:b])
+pathlib.Path("/tmp/reports.json").write_text(json.dumps(reps,ensure_ascii=False),encoding="utf-8")
+print("현재 공고",len(items),"건 · 참고자료",len(reps),"건")
 PY
 ```
 
@@ -175,6 +178,66 @@ python3 /tmp/cb.py
 **`pages_ok`가 0이면 고장난 것**이지 공고가 없는 것이 아닙니다. 발행하지 말고 알리고 종료하세요.
 `scanned`가 `total`에 한참 못 미치면 일부 페이지가 빠진 것이니 알림에 그 숫자를 적으세요.
 
+## 2c. 참고자료 수집 — NKIS 국책연구기관 보고서
+
+제안서에 쓸 선행연구 서가입니다. **PRISM은 이 환경에서 18회 재시도해도 열리지 않아**
+NKIS(경제·인문사회연구회 소관 26개 국책연구기관)로 대체했습니다. 산업연구원·교통연구원·
+과학기술정책연구원·에너지경제연구원 보고서가 여기 모입니다.
+
+`/newestExcelDown.do`가 인증 없이 JSON을 돌려줍니다. **검색어 파라미터는 무시되므로**
+최신 4페이지(2,000건)를 받아 제목·초록으로 거릅니다.
+
+```bash
+cat > /tmp/cr.py <<'PY'
+import json,re,subprocess,time,urllib.parse,pathlib
+LIST="https://www.nkis.re.kr/newestExcelDown.do?listPerPage=500&currentPage={p}"
+VIEW="https://www.nkis.re.kr/totalSearchResults.do?searchWord={q}"
+CLASSES={"경제","과학기술","수송·교통","에너지·자원"}
+TOPIC=["산업", "기업", "제조", "창업", "벤처", "중소기업", "소부장", "부품", "클러스터", "특구", "단지", "생태계", "밸류체인", "가치사슬", "공급망", "수출", "무역", "투자", "R&D", "연구개발", "기술혁신", "혁신", "기술정책", "기술경영", "사업화", "전환", "디지털", "AI", "인공지능", "반도체", "배터리", "이차전지", "자동차", "모빌리티", "전기차", "수소", "자율주행", "UAM", "항공", "물류", "교통", "에너지", "탄소중립", "생산성", "경쟁력", "일자리", "지역경제", "성장동력", "규제", "정책평가", "성과"]
+MOBILITY=["자동차", "모빌리티", "전기차", "이차전지", "배터리", "자율주행", "UAM", "도심항공", "수소차", "수소전기차", "완성차", "차량"]
+def hay(r): return (r.get("otpHanNm") or "")+" "+(r.get("hanAbs") or "")[:400]
+def is_mob(r): return any(m in (r.get("otpHanNm") or "") for m in MOBILITY)
+def keep(r):
+    if is_mob(r): return True
+    if (r.get("lclaScsNm") or "") not in CLASSES: return False
+    return any(t in hay(r) for t in TOPIC)
+def shape(r):
+    t=re.sub(r"\s+"," ",r.get("otpHanNm") or "").strip()
+    return {"id":r.get("otpId"),"t":t,"org":(r.get("agcNm") or "").strip(),
+      "kind":(r.get("otcNm") or "").strip(),"year":(r.get("pblYy") or "").strip(),
+      "author":(r.get("inchargeNm") or "").strip(),"cls":(r.get("lclaScsNm") or "").strip(),
+      "cls2":(r.get("mclaScsNm") or "").strip(),
+      "abs":re.sub(r"\s+"," ",(r.get("hanAbs") or "")).strip()[:320],
+      "posted":(r.get("frstCreateDtm") or "").strip(),
+      "views":int(r.get("sumViewCnt") or 0),"downs":int(r.get("sumDownCnt") or 0),
+      "mob":is_mob(r),"url":VIEW.format(q=urllib.parse.quote(t))}
+old=json.loads(pathlib.Path("/tmp/reports.json").read_text(encoding="utf-8"))
+known={i["id"] for i in old}; got={}; ok=fail=0
+for page in range(1,5):
+    d=None
+    for a in range(1,6):
+        r=subprocess.run(["curl","-sS","-m","90","-L","-A","Mozilla/5.0",LIST.format(p=page)],
+                         capture_output=True,text=True)
+        if r.returncode==0 and r.stdout.strip().startswith("{"):
+            try: d=json.loads(r.stdout).get("directoryList") or []; break
+            except Exception: pass
+        time.sleep(min(a*3,15))
+    if d is None: fail+=1; continue
+    ok+=1
+    for row in d:
+        if row.get("otpId") and row["otpId"] not in known and keep(row): got[row["otpId"]]=shape(row)
+merged=old+list(got.values())
+pathlib.Path("/tmp/reports_merged.json").write_text(json.dumps(merged,ensure_ascii=False),encoding="utf-8")
+print(f"NKIS 페이지 성공 {ok}/실패 {fail} · 신규 {len(got)}건 → 누적 {len(merged)}건")
+for i in list(got.values())[:8]: print("  ·",i["year"],i["org"][:14],"|",i["t"][:52])
+PY
+python3 /tmp/cr.py
+```
+
+NKIS 페이지가 **전부 실패하면** 참고자료는 기존 것을 그대로 두고 진행합니다
+(`/tmp/reports_merged.json`이 없으면 4단계가 기존 값을 씁니다). 공고 쪽과 달리 여기서
+멈출 이유는 없습니다 — 보고서는 마감이 없으니까요.
+
 ## 3. 병합 (판단 불필요 — 전부 기계적)
 
 ```bash
@@ -235,13 +298,17 @@ import json,pathlib,datetime as dt
 KST=dt.timezone(dt.timedelta(hours=9)); now=dt.datetime.now(KST)
 h=pathlib.Path("HTML_PATH_HERE").read_text(encoding="utf-8")
 m=json.loads(pathlib.Path("/tmp/merged.json").read_text(encoding="utf-8"))
+rp=pathlib.Path("/tmp/reports_merged.json")
+reps=json.loads((rp if rp.exists() else pathlib.Path("/tmp/reports.json")).read_text(encoding="utf-8"))
 def sp(s,a,b,v):
     i=s.index(a)+len(a); j=s.index(b); return s[:i]+v+s[j:]
-h=sp(h,"/*ITEMS_JSON_START*/","/*ITEMS_JSON_END*/",json.dumps(m,ensure_ascii=False,separators=(",",":")))
+J=lambda o: json.dumps(o,ensure_ascii=False,separators=(",",":"))
+h=sp(h,"/*ITEMS_JSON_START*/","/*ITEMS_JSON_END*/",J(m))
+h=sp(h,"/*REPORTS_JSON_START*/","/*REPORTS_JSON_END*/",J(reps))
 h=sp(h,"<!--TOTAL_COUNT_START-->","<!--TOTAL_COUNT_END-->",str(len(m)))
 h=sp(h,"<!--GENERATED_AT_START-->","<!--GENERATED_AT_END-->",now.strftime("%Y-%m-%d %H:%M KST"))
 out=pathlib.Path("/tmp/bid_dashboard.html"); out.write_text(h,encoding="utf-8")
-print(len(m),"건 →",out,"·",len(h),"bytes")
+print("공고",len(m),"· 참고자료",len(reps),"→",out,"·",len(h),"bytes")
 PY
 ```
 

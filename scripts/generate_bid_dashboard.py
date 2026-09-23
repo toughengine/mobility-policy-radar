@@ -24,11 +24,12 @@ from datetime import datetime, timedelta, timezone
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DB = ROOT / "data" / "bids.json"
+REPORTS = ROOT / "data" / "reports.json"
 OUT = ROOT / "artifact" / "bid_dashboard.html"
 KST = timezone(timedelta(hours=9))
 
-MOBILITY = ["자동차", "모빌리티", "전기차", "이차전지", "배터리", "수소", "자율주행",
-            "UAM", "부품", "소부장", "물류", "항공"]
+MOBILITY = ["자동차", "모빌리티", "전기차", "이차전지", "배터리", "자율주행",
+            "UAM", "도심항공", "수소차", "수소전기차", "완성차", "차량"]
 
 GROUPS = ["연구조사", "교육·전문직종", "ICT", "기타"]
 GROUP_COLOR = {
@@ -229,6 +230,32 @@ TEMPLATE = """<title>연구용역 레이더</title>
   .chip .c{font-family:"IBM Plex Mono",monospace; opacity:.6;}
   .count{font-size:11.5px; color:var(--muted); margin:16px 0 9px; font-family:"IBM Plex Mono",monospace;}
 
+  /* tabs */
+  .tabs{display:flex; gap:4px; margin:20px 0 0; border-bottom:1px solid var(--line);}
+  .tabs button{
+    font:inherit; font-size:13.5px; font-weight:600; padding:9px 16px 10px; border:0;
+    background:transparent; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent;
+    margin-bottom:-1px; display:inline-flex; align-items:baseline; gap:7px;
+  }
+  .tabs button:hover{color:var(--ink-2);}
+  .tabs button[aria-selected="true"]{color:var(--ink); border-bottom-color:var(--accent);}
+  .tabs .tc{font-size:11.5px; color:var(--muted); font-weight:400;}
+  .panel-lead{font-size:12.5px; color:var(--muted); margin:16px 0 0; max-width:66ch; line-height:1.7;}
+
+  /* 참고자료 행 — 마감이 없으므로 레일·D-day 대신 연도를 앞세운다 */
+  .rrow{border-top:1px solid var(--line);}
+  .rrow:first-child{border-top:0;}
+  .rrow.open{background:var(--surface-2);}
+  .rhd{width:100%; text-align:left; font:inherit; color:inherit; background:transparent; border:0;
+       cursor:pointer; padding:12px 16px; display:grid; grid-template-columns:44px 1fr; gap:2px 14px;}
+  .rhd:focus-visible{outline:2px solid var(--accent); outline-offset:-2px;}
+  .yr{font-family:"IBM Plex Mono",monospace; font-size:12.5px; color:var(--muted); padding-top:2px;}
+  .rtt{font-size:13.5px; font-weight:500; line-height:1.5; color:var(--ink);}
+  .rdetail{display:none; padding:0 16px 16px 74px;}
+  .rrow.open .rdetail{display:block;}
+  .rabs{font-size:12.5px; line-height:1.75; color:var(--ink-2); max-width:74ch;
+        padding:4px 0 10px; border-top:1px dashed var(--line); margin-top:2px;}
+
   /* list */
   .rows{list-style:none; margin:0; padding:0; border:1px solid var(--line);
         border-radius:var(--r); overflow:hidden; background:var(--surface);}
@@ -294,16 +321,25 @@ TEMPLATE = """<title>연구용역 레이더</title>
     <div>
       <div class="eyebrow">Public R&amp;D Service Tenders · 나라장터</div>
       <h1>연구용역 레이더</h1>
-      <p class="sub">산업정책·지역산업 육성·R&amp;D 성과분석처럼 <em>직접 수행할 수 있는</em> 공공 용역만 골라
-        마감 임박순으로 모읍니다. 기술동향·기술수준 분석 같은 기술 콘텐츠 용역은 제외했습니다.
-        추정가격은 부가세 별도이며, 입찰 전 반드시 나라장터 원문으로 교차 확인하세요.</p>
+      <p class="sub">산업정책·지역산업 육성·R&amp;D 성과분석처럼 <em>직접 수행할 수 있는</em> 공공 용역을 마감
+        임박순으로 모으고, 제안서에 쓸 국책연구기관 보고서를 함께 둡니다.
+        기술동향·기술수준 분석 같은 기술 콘텐츠 용역은 제외했습니다.</p>
     </div>
     <div class="top-meta">
       <div>마지막 갱신 · <span class="n"><!--GENERATED_AT_START-->__GENERATED_AT__<!--GENERATED_AT_END--></span></div>
-      <div>누적 <span class="n"><!--TOTAL_COUNT_START-->__TOTAL_COUNT__<!--TOTAL_COUNT_END--></span>건 수집</div>
+      <div>공고 <span class="n"><!--TOTAL_COUNT_START-->__TOTAL_COUNT__<!--TOTAL_COUNT_END--></span>건 ·
+        참고자료 <span class="n">__REPORT_COUNT__</span>건</div>
     </div>
   </header>
 
+  <nav class="tabs" role="tablist" aria-label="보기 전환">
+    <button type="button" role="tab" id="tab-bids" aria-selected="true" aria-controls="panel-bids">
+      입찰공고 <span class="n tc" id="tc-bids"></span></button>
+    <button type="button" role="tab" id="tab-refs" aria-selected="false" aria-controls="panel-refs">
+      참고자료 <span class="n tc" id="tc-refs"></span></button>
+  </nav>
+
+<section id="panel-bids" role="tabpanel" aria-labelledby="tab-bids">
   <div id="urgent-slot"></div>
   <div class="stats" id="stats"></div>
 
@@ -320,8 +356,28 @@ TEMPLATE = """<title>연구용역 레이더</title>
   <ul class="rows" id="list"></ul>
   <div class="empty" id="empty" hidden>조건에 맞는 공고가 없습니다.</div>
 
+</section>
+
+<section id="panel-refs" role="tabpanel" aria-labelledby="tab-refs" hidden>
+  <p class="panel-lead">경제·인문사회연구회 소관 26개 국책연구기관의 연구보고서입니다.
+    제안서의 선행연구·목차 참고용으로 모았습니다. 제목을 누르면 초록이 펼쳐지고,
+    링크는 NKIS 통합검색으로 연결됩니다.</p>
+  <div class="ctl">
+    <input class="search" id="rq" type="text" placeholder="보고서명·기관·연구책임자·초록 검색…" aria-label="참고자료 검색">
+    <div class="seg" id="rsort" role="group" aria-label="정렬">
+      <button type="button" data-s="posted" aria-pressed="true">최신순</button>
+      <button type="button" data-s="views" aria-pressed="false">조회순</button>
+    </div>
+  </div>
+  <div class="chips" id="rchips"></div>
+  <div class="count" id="rcount"></div>
+  <ul class="rows" id="rlist"></ul>
+  <div class="empty" id="rempty" hidden>조건에 맞는 보고서가 없습니다.</div>
+</section>
+
   <footer class="foot">
-    데이터 <code>data/bids.json</code> · 출처 나라장터 입찰공고정보(조달청) OpenAPI ·
+    데이터 <code>data/bids.json</code> · <code>data/reports.json</code> ·
+    출처 나라장터 입찰공고정보(조달청) OpenAPI, NKIS 국가정책연구포털 ·
     <b>업종제한</b>은 <code>indstrytyLmtYn</code> 필드 그대로이며, 제한이 있는 건은 해당 업종 등록업체만 입찰할 수 있습니다.
     남은 일수는 이 페이지를 여는 시점 기준으로 계산됩니다.
   </footer>
@@ -329,6 +385,7 @@ TEMPLATE = """<title>연구용역 레이더</title>
 
 <script>
 const ITEMS = /*ITEMS_JSON_START*/__ITEMS_JSON__/*ITEMS_JSON_END*/;
+const REPORTS = /*REPORTS_JSON_START*/__REPORTS_JSON__/*REPORTS_JSON_END*/;
 const GROUPS = __GROUPS__, GCOLOR = __GCOLOR__;
 
 // 마감은 한국 시각 기준이다. 보는 사람이 어디에 있든 공고의 시각으로 읽혀야 하므로
@@ -479,7 +536,106 @@ function renderList(){
   });
 }
 
-function render(){ renderStats(); renderUrgent(); renderChips(); renderList(); }
+function render(){ renderStats(); renderUrgent(); renderChips(); renderList();
+  document.getElementById("tc-bids").textContent = ITEMS.length;
+  document.getElementById("tc-refs").textContent = REPORTS.length; }
+
+/* ---------- 참고자료 ---------- */
+const rstate = {q:"", sort:"posted", mobOnly:false, years:new Set(), cls:new Set(), open:new Set()};
+const RYEARS = [...new Set(REPORTS.map(r=>r.year).filter(Boolean))].sort().reverse().slice(0,4);
+const RCLS = [...new Set(REPORTS.map(r=>r.cls).filter(Boolean))]
+  .map(c=>[c, REPORTS.filter(r=>r.cls===c).length]).sort((a,b)=>b[1]-a[1]).slice(0,5).map(x=>x[0]);
+
+function rpasses(r){
+  if (rstate.mobOnly && !r.mob) return false;
+  if (rstate.years.size && !rstate.years.has(r.year)) return false;
+  if (rstate.cls.size && !rstate.cls.has(r.cls)) return false;
+  if (rstate.q){
+    const hay = (r.t+" "+r.org+" "+r.author+" "+r.abs+" "+r.cls2).toLowerCase();
+    if (!hay.includes(rstate.q.toLowerCase())) return false;
+  }
+  return true;
+}
+
+function renderRefs(){
+  const el = document.getElementById("rchips");
+  const n = (over) => REPORTS.filter(r => {
+    const save = {m:rstate.mobOnly, y:rstate.years, c:rstate.cls};
+    Object.assign(rstate, over);
+    const ok = rpasses(r);
+    rstate.mobOnly=save.m; rstate.years=save.y; rstate.cls=save.c;
+    return ok;
+  }).length;
+  el.innerHTML =
+    `<button type="button" class="chip" id="rc-mob" aria-pressed="${rstate.mobOnly}">자동차·모빌리티 <span class="c">${n({mobOnly:true})}</span></button>` +
+    RYEARS.map(y=>`<button type="button" class="chip" data-y="${esc(y)}" aria-pressed="${rstate.years.has(y)}">${esc(y)}년 <span class="c">${n({years:new Set([y])})}</span></button>`).join("") +
+    RCLS.map(c=>`<button type="button" class="chip" data-c="${esc(c)}" aria-pressed="${rstate.cls.has(c)}">${esc(c)} <span class="c">${n({cls:new Set([c])})}</span></button>`).join("");
+  document.getElementById("rc-mob").onclick = () => { rstate.mobOnly=!rstate.mobOnly; renderRefs(); };
+  el.querySelectorAll("[data-y]").forEach(b=>b.onclick=()=>{
+    const y=b.dataset.y; rstate.years.has(y)?rstate.years.delete(y):rstate.years.add(y); renderRefs(); });
+  el.querySelectorAll("[data-c]").forEach(b=>b.onclick=()=>{
+    const c=b.dataset.c; rstate.cls.has(c)?rstate.cls.delete(c):rstate.cls.add(c); renderRefs(); });
+
+  let rows = REPORTS.filter(rpasses).sort((a,b)=> rstate.sort==="views"
+    ? (b.views||0)-(a.views||0)
+    : String(b.posted||"").localeCompare(String(a.posted||"")));
+  const capped = rows.length > 300;
+  const shown = capped ? rows.slice(0,300) : rows;
+  document.getElementById("rcount").textContent =
+    `${rows.length}건 표시${capped?" · 최신 300건만 그림 (검색으로 좁히세요)":""} · 전체 ${REPORTS.length}건`;
+  const list = document.getElementById("rlist");
+  document.getElementById("rempty").hidden = rows.length > 0;
+  list.hidden = rows.length === 0;
+  list.innerHTML = shown.map(r => `<li class="rrow${rstate.open.has(r.id)?" open":""}" data-id="${esc(r.id)}">
+    <button type="button" class="rhd" aria-expanded="${rstate.open.has(r.id)}">
+      <span class="yr">${esc(r.year||"—")}</span>
+      <span class="main">
+        <span class="rtt">${esc(r.t)}</span>
+        <span class="meta">
+          ${r.mob ? '<span class="badge b-mob">자동차·모빌리티</span>' : ""}
+          <span>${esc(r.org)}</span>
+          ${r.kind ? `<span>${esc(r.kind)}</span>` : ""}
+          ${r.cls ? `<span>${esc(r.cls)}${r.cls2?" · "+esc(r.cls2):""}</span>` : ""}
+        </span>
+      </span>
+    </button>
+    <div class="rdetail">
+      ${r.abs ? `<p class="rabs">${esc(r.abs)}…</p>` : ""}
+      <div class="meta">
+        ${r.author ? `<span>연구책임자 ${esc(r.author)}</span>` : ""}
+        ${r.posted ? `<span class="n">등록 ${esc(r.posted)}</span>` : ""}
+        <span class="n">조회 ${r.views||0} · 내려받기 ${r.downs||0}</span>
+      </div>
+      <a class="go" href="${esc(r.url)}" target="_blank" rel="noopener">NKIS에서 원문 찾기 →</a>
+    </div></li>`).join("");
+  list.querySelectorAll(".rrow").forEach(row => {
+    row.querySelector(".rhd").onclick = () => {
+      const id = row.dataset.id;
+      rstate.open.has(id) ? rstate.open.delete(id) : rstate.open.add(id);
+      row.classList.toggle("open");
+      row.querySelector(".rhd").setAttribute("aria-expanded", rstate.open.has(id));
+    };
+  });
+}
+
+document.getElementById("rq").addEventListener("input", e => { rstate.q = e.target.value.trim(); renderRefs(); });
+document.getElementById("rsort").querySelectorAll("button").forEach(b => b.onclick = () => {
+  rstate.sort = b.dataset.s;
+  document.getElementById("rsort").querySelectorAll("button")
+    .forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  renderRefs();
+});
+const TABS = [["tab-bids","panel-bids"],["tab-refs","panel-refs"]];
+function showTab(t){
+  TABS.forEach(([tt,pp]) => {
+    const on = tt === t;
+    document.getElementById(tt).setAttribute("aria-selected", String(on));
+    document.getElementById(pp).hidden = !on;
+  });
+}
+TABS.forEach(([t]) => { document.getElementById(t).onclick = () => showTab(t); });
+// 링크 끝에 #refs 를 붙이면 참고자료 탭이 바로 열린다.
+if ((location.hash || "").toLowerCase() === "#refs") showTab("tab-refs");
 
 document.getElementById("q").addEventListener("input", e => { state.q = e.target.value.trim(); render(); });
 document.getElementById("sort").querySelectorAll("button").forEach(b => b.onclick = () => {
@@ -488,28 +644,32 @@ document.getElementById("sort").querySelectorAll("button").forEach(b => b.onclic
     .forEach(x => x.setAttribute("aria-pressed", String(x === b)));
   render();
 });
-render();
+render(); renderRefs();
 </script>
 """
 
 
-def build(db: dict, now: datetime) -> str:
+def build(db: dict, reports: list, now: datetime) -> str:
     items = [shape(r) for r in db["items"]]
     j = lambda o: json.dumps(o, ensure_ascii=False, separators=(",", ":"))
     return (TEMPLATE
             .replace("__GENERATED_AT__", now.strftime("%Y-%m-%d %H:%M KST"))
             .replace("__TOTAL_COUNT__", str(len(items)))
             .replace("__ITEMS_JSON__", j(items))
+            .replace("__REPORTS_JSON__", j(reports))
+            .replace("__REPORT_COUNT__", str(len(reports)))
             .replace("__GROUPS__", j(GROUPS))
             .replace("__GCOLOR__", j(GROUP_COLOR)))
 
 
 def main() -> None:
     db = json.loads(DB.read_text(encoding="utf-8"))
-    html = build(db, datetime.now(KST))
+    reports = (json.loads(REPORTS.read_text(encoding="utf-8"))["items"]
+               if REPORTS.exists() else [])
+    html = build(db, reports, datetime.now(KST))
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(html, encoding="utf-8")
-    print(f"wrote {OUT} ({len(html):,} bytes, {len(db['items'])} items)")
+    print(f"wrote {OUT} ({len(html):,} bytes, 공고 {len(db['items'])}건 · 참고자료 {len(reports)}건)")
 
 
 if __name__ == "__main__":

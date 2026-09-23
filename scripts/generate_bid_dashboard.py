@@ -27,6 +27,9 @@ DB = ROOT / "data" / "bids.json"
 OUT = ROOT / "artifact" / "bid_dashboard.html"
 KST = timezone(timedelta(hours=9))
 
+MOBILITY = ["자동차", "모빌리티", "전기차", "이차전지", "배터리", "수소", "자율주행",
+            "UAM", "부품", "소부장", "물류", "항공"]
+
 GROUPS = ["연구조사", "교육·전문직종", "ICT", "기타"]
 GROUP_COLOR = {
     "연구조사": "#3c6e8f",
@@ -94,6 +97,7 @@ def shape(row: dict) -> dict:
         "cls": (row.get("pubPrcrmntClsfcNm") or "").strip(),
         "re": row.get("reNtceYn") == "Y",
         "kind": (row.get("ntceKindNm") or "").strip(),
+        "mob": any(m in clean_title(row.get("bidNtceNm")) for m in MOBILITY),
         "officer": (row.get("ntceInsttOfclNm") or "").strip(),
         "tel": (row.get("ntceInsttOfclTelNo") or "").strip(),
     }
@@ -249,6 +253,7 @@ TEMPLATE = """<title>연구용역 레이더</title>
   .b-open{background:var(--ok-soft); color:var(--ok);}
   .b-lim{background:var(--surface-2); color:var(--ink-2); border:1px solid var(--line-2);}
   .b-g{background:var(--gb); color:var(--gf); font-weight:500;}
+  .b-mob{background:var(--accent-soft); color:var(--accent); border:1px solid currentColor;}
   .amt{font-family:"IBM Plex Mono",monospace; font-size:13px; color:var(--ink-2); text-align:right;
        padding-top:1px; white-space:nowrap;}
   .amt small{display:block; font-size:10px; color:var(--muted); font-family:"Gothic A1",sans-serif;}
@@ -289,7 +294,8 @@ TEMPLATE = """<title>연구용역 레이더</title>
     <div>
       <div class="eyebrow">Public R&amp;D Service Tenders · 나라장터</div>
       <h1>연구용역 레이더</h1>
-      <p class="sub">정책연구·산업분석·기술경영 성격의 공공 용역 입찰공고를 마감 임박순으로 모읍니다.
+      <p class="sub">산업정책·지역산업 육성·R&amp;D 성과분석처럼 <em>직접 수행할 수 있는</em> 공공 용역만 골라
+        마감 임박순으로 모읍니다. 기술동향·기술수준 분석 같은 기술 콘텐츠 용역은 제외했습니다.
         추정가격은 부가세 별도이며, 입찰 전 반드시 나라장터 원문으로 교차 확인하세요.</p>
     </div>
     <div class="top-meta">
@@ -350,14 +356,14 @@ const fmtFull = (iso) => { if(!iso) return "—"; const p = seoulParts(new Date(
   return `${p.y}. ${p.m}. ${p.d}. ${p.hh}:${p.mm} KST`; };
 const esc = (s) => String(s??"").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
-const state = {q:"", sort:"due", openOnly:true, noLimit:false, groups:new Set(), open:new Set()};
+const state = {q:"", sort:"due", openOnly:true, noLimit:false, mobOnly:false, open:new Set()};
 
 function severity(d, past){ if(past || d===null) return 3; if(d<=1) return 0; if(d<=7) return 1; return 2; }
 
 function passes(it){
   if (state.openOnly && (!it.due || isPast(it.due))) return false;
   if (state.noLimit && it.lim) return false;
-  if (state.groups.size && !state.groups.has(it.g)) return false;
+  if (state.mobOnly && !it.mob) return false;
   if (state.q){
     const hay = (it.t+" "+it.inst+" "+it.dmd+" "+it.cls+" "+it.method).toLowerCase();
     if (!hay.includes(state.q.toLowerCase())) return false;
@@ -380,13 +386,12 @@ function renderStats(){
   const open = ITEMS.filter(i => i.due && !isPast(i.due));
   const wk = open.filter(i => dday(i.due) <= 7);
   const free = open.filter(i => !i.lim);
-  const sum = open.reduce((a,i)=>a+(i.price||0),0);
-  const s = won(sum);
+  const mob = open.filter(i => i.mob);
   document.getElementById("stats").innerHTML = [
     ["접수 중인 공고", open.length, "건", `전체 수집 ${ITEMS.length}건 중`, false],
     ["7일 내 마감", wk.length, "건", "제안서 준비가 급한 구간", wk.length>0],
     ["업종제한 없음", free.length, "건", `접수 중의 ${open.length?Math.round(free.length/open.length*100):0}%`, false],
-    ["접수 중 추정가 합", s.t, s.s, "부가세 별도", false],
+    ["자동차·모빌리티", mob.length, "건", "제목 기준 관련 공고", false],
   ].map(([k,v,u,d,hot]) =>
     `<div class="stat${hot?" hot":""}"><div class="k">${k}</div>
      <div class="v n">${v}<span class="u">${u}</span></div><div class="d">${d}</div></div>`).join("");
@@ -405,23 +410,21 @@ function renderUrgent(){
 }
 
 function renderChips(){
-  const counts = {};
-  GROUPS.forEach(g => counts[g] = ITEMS.filter(i => i.g===g && passesExceptGroup(i)).length);
+  const c = (pred) => ITEMS.filter(i => {
+    const save = {o:state.openOnly, l:state.noLimit, m:state.mobOnly};
+    Object.assign(state, pred);
+    const r = passes(i);
+    state.openOnly=save.o; state.noLimit=save.l; state.mobOnly=save.m;
+    return r;
+  }).length;
   const el = document.getElementById("chips");
   el.innerHTML =
     `<button type="button" class="chip" id="ch-open" aria-pressed="${state.openOnly}">접수 중만</button>` +
-    `<button type="button" class="chip" id="ch-lim" aria-pressed="${state.noLimit}">업종제한 없음만</button>` +
-    GROUPS.map(g => `<button type="button" class="chip" data-g="${esc(g)}" aria-pressed="${state.groups.has(g)}"
-       style="${state.groups.has(g)?`color:${GCOLOR[g]}`:""}">${esc(g)} <span class="c">${counts[g]}</span></button>`).join("");
+    `<button type="button" class="chip" id="ch-lim" aria-pressed="${state.noLimit}">업종제한 없음만 <span class="c">${c({noLimit:true})}</span></button>` +
+    `<button type="button" class="chip" id="ch-mob" aria-pressed="${state.mobOnly}">자동차·모빌리티 <span class="c">${c({mobOnly:true})}</span></button>`;
   document.getElementById("ch-open").onclick = () => { state.openOnly=!state.openOnly; render(); };
   document.getElementById("ch-lim").onclick  = () => { state.noLimit=!state.noLimit; render(); };
-  el.querySelectorAll("[data-g]").forEach(b => b.onclick = () => {
-    const g=b.dataset.g; state.groups.has(g) ? state.groups.delete(g) : state.groups.add(g); render();
-  });
-}
-function passesExceptGroup(it){
-  const saved = state.groups; state.groups = new Set();
-  const r = passes(it); state.groups = saved; return r;
+  document.getElementById("ch-mob").onclick  = () => { state.mobOnly=!state.mobOnly; render(); };
 }
 
 function renderList(){
@@ -443,7 +446,7 @@ function renderList(){
         <span class="main">
           <span class="tt">${esc(i.t)}</span>
           <span class="meta">
-            <span class="badge b-g" style="--gb:${GCOLOR[i.g]}1c;--gf:${GCOLOR[i.g]}">${esc(i.g)}</span>
+            ${i.mob ? '<span class="badge b-mob">자동차·모빌리티</span>' : `<span class="badge b-g" style="--gb:${GCOLOR[i.g]}1c;--gf:${GCOLOR[i.g]}">${esc(i.g)}</span>`}
             ${i.lim ? '<span class="badge b-lim">업종제한</span>' : '<span class="badge b-open">업종제한 없음</span>'}
             ${i.re ? '<span class="badge b-lim">재공고</span>' : ""}
             <span>${esc(i.inst)}</span>

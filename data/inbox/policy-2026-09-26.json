@@ -1,0 +1,12 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-09-26",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 726,
+  "matched_total": 65,
+  "already_known": 65,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": []
+}

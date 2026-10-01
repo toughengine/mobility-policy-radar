@@ -1,0 +1,41 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-10-01",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 729,
+  "matched_total": 64,
+  "already_known": 60,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156783767",
+      "title": "(참고자료)로봇(대구·경북), 방산(경남), 이차전지(전남) 첨단 특화단지를 지역 첨단산업의 신규 거점으로 육성",
+      "lead": "... 대구 · 경북 ) , 방산 ( 경남 ) , 이차전지",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156783767",
+      "matched_by": "이차전지"
+    },
+    {
+      "news_id": "156783736",
+      "title": "\"한국형 도심항공교통 기상기술, 세계를 선도할 길을 찾다\" 국내외 전문가와 발전 방향 논의",
+      "lead": "\" 한국형 도심항공교통",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156783736",
+      "matched_by": "도심항공교통"
+    },
+    {
+      "news_id": "156783683",
+      "title": "케이블만 꽂으면 충전·결제까지전기차 자동 충전·결제 기술 검증 시연회",
+      "lead": "▷ 전기차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156783683",
+      "matched_by": "전기차"
+    },
+    {
+      "news_id": "156783682",
+      "title": "보조배터리는 폐가전수거함·전지수거함에 분리배출해 주세요",
+      "lead": "▷ 보조배터리",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156783682",
+      "matched_by": "배터리"
+    }
+  ]
+}

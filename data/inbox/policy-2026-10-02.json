@@ -1,0 +1,20 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-10-02",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 729,
+  "matched_total": 65,
+  "already_known": 64,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156784006",
+      "title": "충청권, 바이오·모빌리티 일자리로 잇는다",
+      "lead": "... 일자리 사업이다. 올해는 충청권, 부울경, 대구·경북 등 3개 권역에서 광역이음프로젝트가 추진되고 있으며, 충청권에서는 바이오·모빌리티",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156784006",
+      "matched_by": "모빌리티"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "source": "NTIS 국가R&D통합공고",
+  "collected_at": "2026-10-03",
+  "queried_years": [
+    "2026"
+  ],
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "uid": "1257787",
+      "title": "2026년도 배터리 및 전기전자 분야 신규 지원대상 연구개발과제 공고",
+      "agency": "산업통상부",
+      "status": "마감",
+      "period": "2026.02.06 ~ 2026.03.05",
+      "year": "2026",
+      "url": "https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1257787",
+      "found_by": "2026 배터리"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-10-08",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 729,
+  "matched_total": 64,
+  "already_known": 63,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156784545",
+      "title": "국가정보자원관리원, 배터리 화재 대비 합동 소방훈련 실시",
+      "lead": "- 관계 기관과 합동훈련으로 배터리",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156784545",
+      "matched_by": "배터리"
+    }
+  ]
+}

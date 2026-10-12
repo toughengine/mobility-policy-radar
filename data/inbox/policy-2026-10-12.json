@@ -1,0 +1,20 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-10-12",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 728,
+  "matched_total": 65,
+  "already_known": 64,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156784818",
+      "title": "국립소방연구원·한국과학기술원(KAIST) '바인 로봇', 충남 배터리 화재 창고서 위험 대응에 한몫",
+      "lead": "﻿ 국립소방연구원 · 한국과학기술원 (KAIST) ' 바인 로봇 ', 충남 배터리",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156784818",
+      "matched_by": "배터리"
+    }
+  ]
+}

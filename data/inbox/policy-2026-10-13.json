@@ -1,0 +1,20 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-10-13",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 728,
+  "matched_total": 66,
+  "already_known": 65,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156784948",
+      "title": "인공지능(AI)·자율주행 시대, APEC 스마트 모빌리티 협력 서울서 넓힌다",
+      "lead": "인공지능(AI)·자율주행",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156784948",
+      "matched_by": "자율주행"
+    }
+  ]
+}

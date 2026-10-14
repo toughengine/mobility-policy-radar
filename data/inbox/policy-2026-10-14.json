@@ -1,0 +1,20 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-10-14",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 728,
+  "matched_total": 66,
+  "already_known": 65,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156784968",
+      "title": "부트캠프 학생들, 반도체와 미래차 산업 현장을 만나다",
+      "lead": "부트캠프 학생들, 반도체와 미래차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156784968",
+      "matched_by": "미래차"
+    }
+  ]
+}

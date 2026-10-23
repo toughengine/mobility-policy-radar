@@ -1,0 +1,20 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-10-23",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 726,
+  "matched_total": 61,
+  "already_known": 60,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156786121",
+      "title": "차세대 모빌리티 발굴을 위한 2026 대한민국 우주로버 챌린지 본선 개최",
+      "lead": "... 대회를 개최한다고 밝혔다. 「2026 대한민국 우주로버 챌린지」는 우주탐사 저변 확대와 우주탐사에 적용 가능한 다양한 기능·형태의 차세대 모빌리티",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156786121",
+      "matched_by": "모빌리티"
+    }
+  ]
+}

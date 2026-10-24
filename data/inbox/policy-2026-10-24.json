@@ -1,0 +1,20 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-10-24",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 731,
+  "matched_total": 61,
+  "already_known": 60,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156786278",
+      "title": "자율주행자동차, 이동로봇 상용화 지원, 창업기업 서류 53% 정비",
+      "lead": "자율주행",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156786278",
+      "matched_by": "자율주행"
+    }
+  ]
+}

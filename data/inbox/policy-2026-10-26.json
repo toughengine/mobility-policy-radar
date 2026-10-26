@@ -1,0 +1,20 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-10-26",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 731,
+  "matched_total": 62,
+  "already_known": 61,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156786344",
+      "title": "'하나의 바다, 하나의 안전' 해양모빌리티의 미래를 부산에서 만난다",
+      "lead": "'하나의 바다, 하나의 안전' 해양모빌리티",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156786344",
+      "matched_by": "모빌리티"
+    }
+  ]
+}

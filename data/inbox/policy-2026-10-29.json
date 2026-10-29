@@ -1,0 +1,20 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-10-29",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 730,
+  "matched_total": 63,
+  "already_known": 62,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156786771",
+      "title": "대학생이 만든 자율주행차, 실험실을 벗어나 도로 위를 달린다",
+      "lead": "대학생이 만든 자율주행",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156786771",
+      "matched_by": "자율주행"
+    }
+  ]
+}

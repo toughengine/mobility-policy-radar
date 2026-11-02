@@ -1,0 +1,20 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-11-02",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 732,
+  "matched_total": 64,
+  "already_known": 63,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156787415",
+      "title": "한세모빌리티㈜의 기술자료 관련 하도급법 위반행위 제재",
+      "lead": "수급사업자의 기술정보를 탈취하여 특허 출원한 한세모빌리티",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156787415",
+      "matched_by": "모빌리티"
+    }
+  ]
+}

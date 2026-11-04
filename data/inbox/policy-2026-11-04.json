@@ -1,0 +1,20 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-11-04",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 732,
+  "matched_total": 63,
+  "already_known": 62,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156787853",
+      "title": "한-폴란드, 방산·배터리·인프라 분야 실질협력 강화",
+      "lead": "... 경제공동위원회(이하 경제공동위)」를 개최하였다. 이번 경제공동위에서 양측은 올해 4월 개최된 한-폴란드 정상회담 합의사항 이행을 점검하고, 방산, 에너지·배터리",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156787853",
+      "matched_by": "배터리"
+    }
+  ]
+}

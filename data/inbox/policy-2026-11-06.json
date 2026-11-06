@@ -1,0 +1,20 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-11-06",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 730,
+  "matched_total": 62,
+  "already_known": 61,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156788084",
+      "title": "대구-경북, 미래모빌리티 산업과 일자리를 하나로 잇는다",
+      "lead": "... 사업이다. 올해는 대구·경북, 부울경, 충청권 등 3개 권역에서 광역이음 지역고용프로젝트가 추진되고 있으며, 대구·경북에서는 미래모빌리티",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156788084",
+      "matched_by": "모빌리티"
+    }
+  ]
+}

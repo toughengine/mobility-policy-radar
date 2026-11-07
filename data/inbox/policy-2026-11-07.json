@@ -1,0 +1,27 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-11-07",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 732,
+  "matched_total": 64,
+  "already_known": 62,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156788267",
+      "title": "전기차 넘어 인공지능(AI)·로봇까지, 지식재산처가 학계와 이차전지 산업의 해법 찾는다",
+      "lead": "전기차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156788267",
+      "matched_by": "전기차"
+    },
+    {
+      "news_id": "156788228",
+      "title": "[참고] 대학생의 참신한 아이디어, 미래 도심항공교통(UAM) 이끈다",
+      "lead": "[참고] 대학생의 참신한 아이디어, 미래 도심항공교통(UAM",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156788228",
+      "matched_by": "UAM"
+    }
+  ]
+}

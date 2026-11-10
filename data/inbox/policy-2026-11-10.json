@@ -1,0 +1,27 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-11-10",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 734,
+  "matched_total": 65,
+  "already_known": 63,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156788475",
+      "title": "헝가리 진출 배터리 기업, 친환경 파트너쉽 강화",
+      "lead": "헝가리 진출 배터리",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156788475",
+      "matched_by": "배터리"
+    },
+    {
+      "news_id": "156788425",
+      "title": "도심항공교통(UAM) 실증, 기술검증 넘어 지역 상용화로 확대",
+      "lead": "도심항공교통(UAM",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156788425",
+      "matched_by": "UAM"
+    }
+  ]
+}

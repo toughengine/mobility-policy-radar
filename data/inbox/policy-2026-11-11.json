@@ -1,0 +1,20 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-11-11",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 734,
+  "matched_total": 66,
+  "already_known": 65,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156788658",
+      "title": "\"사용이 끝난 배터리, 남아 있는 에너지에 주의해야\" 국립소방연구원, 폐리튬이온배터리 열폭주 실험으로 화재위험 확인",
+      "lead": "﻿ \" 사용이 끝난 배터리",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156788658",
+      "matched_by": "배터리"
+    }
+  ]
+}

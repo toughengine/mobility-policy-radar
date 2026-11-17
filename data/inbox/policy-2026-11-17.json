@@ -1,0 +1,27 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-11-17",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 732,
+  "matched_total": 65,
+  "already_known": 63,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156789383",
+      "title": "공정위, ㈜카카오모빌리티·티맵모빌리티㈜· ㈜씨엠엔피·㈜와이엘피 대상 동의의결 절차 개시",
+      "lead": "공정위, ㈜카카오모빌리티",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156789383",
+      "matched_by": "모빌리티"
+    },
+    {
+      "news_id": "156789381",
+      "title": "2026년 10월 자동차산업 동향",
+      "lead": "2026 년 10 월 자동차산업",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156789381",
+      "matched_by": "자동차산업"
+    }
+  ]
+}

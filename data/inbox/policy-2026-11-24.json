@@ -1,0 +1,20 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-11-24",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 729,
+  "matched_total": 66,
+  "already_known": 65,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156790471",
+      "title": "인공지능·인간형 로봇부터 전기차까지, 미래 일상을 움직일 '차세대 이차전지' 핵심 성과 한자리에",
+      "lead": "- 최신 기술 동향 및 연구개발 성과 공유를 위한 「 차세대 이차전지 성과공유회 」 개최 - - 산학연관이 함께하는 「 차세대 이차전지 민관협의체 」 개최 -",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156790471",
+      "matched_by": "전기차"
+    }
+  ]
+}

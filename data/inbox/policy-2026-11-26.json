@@ -1,0 +1,20 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-11-26",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 728,
+  "matched_total": 67,
+  "already_known": 66,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156790939",
+      "title": "(참고) 주행거리가 긴 렌터카부터 전기차로…제주 렌터카 업계와 전동화 방안 모색",
+      "lead": "▷ 기후에너지환경부 김성환 장관, 제주 렌터카 업계와 전기차",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156790939",
+      "matched_by": "전기차"
+    }
+  ]
+}

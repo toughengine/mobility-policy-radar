@@ -1,0 +1,20 @@
+{
+  "source": "대한민국 정책브리핑 (korea.kr)",
+  "collected_at": "2026-11-27",
+  "method": "키워드 검색 + 제목 필터",
+  "queries_ok": 44,
+  "queries_failed": 0,
+  "searched_total": 724,
+  "matched_total": 66,
+  "already_known": 65,
+  "note": "수집 후보. Claude 세션이 검토·분석해 data/policy_items.json으로 승격한다.",
+  "candidates": [
+    {
+      "news_id": "156791102",
+      "title": "\"배터리(1차·2차 전지)의 화재안전성 강화를 위한\" 중앙소방학교 주관, 산·학·관 학술대회 발표회(세미나) 개최",
+      "lead": "﻿ \" 배터리",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156791102",
+      "matched_by": "배터리"
+    }
+  ]
+}
